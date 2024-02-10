@@ -1,0 +1,182 @@
+---
+title: "Untitled"
+author: "Mubashira Qari"
+date: "December 24, 2022"
+output: html_document
+---
+
+
+```{r}
+#Assignment One of the most useful applications for linear algebra in data science is image manipulation. We often need to compress, expand, warp, skew, etc. images. To do so, we left multiply a transformation matrix by each of the point vectors.
+#For this assignment, build the first letters for both your first and last name using point plots in R. For example, the following code builds an H. x=c(rep(0,500),seq(0,1,length.out=1000), rep(1,500)) y=c(seq(-1,1,length.out=500),rep(0,1000), seq(-1,1,length.out=500)) z=rbind(x,y) plot(y~x, xlim=c(-3,3), ylim=c(-3,3)) Then, write R code that will left multiply (%>%) a square matrix (x) against each of the vectors of points (y). Initially, that square matrix will be the Identity matrix.
+#Use a loop that changes the transformation matrix incrementally to demonstrate 1) shear, 2) scaling, 3) rotation , and 4) projection in animated fashion.
+#Hint: Use x11() to open a new plotting window in R. Upload your document as a .RMD file. explain every step of solution
+```
+
+
+```{r}
+x=c(rep(-2,1000), seq(-2,-1,length.out=1000), seq(-1,0,length.out=1000), rep(0,1000))
+y=c(seq(-2,1,length.out=1000), seq(1,-1,length.out=1000),  seq(-1,1,length.out=1000), seq(-2,1,length.out=1000))
+z=rbind(x,y)
+plot(y~x, xlim=c(-3,3), ylim=c(-3,3))
+```
+```{r}
+#Plots out Initials CC. 
+x = c(seq(2,5.5,length.out = 1000), seq(2,5.5,length.out = 1000))
+y = c(sqrt(1-(seq(0,4.0,length.out = 1000)-1)^2), -sqrt(1-(seq(0,4.0,length.out = 1000)-1)^2))
+z = rbind(x,y)
+plot(y~x, xlim = c(-3,7), ylim = c(-2,2), pch = 16)
+```
+
+
+```{r}
+x=c(rep(-2,1000),seq(-2,-1,length.out=500), seq(-1,0,length.out=500), rep(0,1000), seq(1,2,length.out = 500), seq(1,2,length.out = 500), seq(1.5,2,length.out=1000))
+y=c(seq(-1,2,length.out=1000),seq(2, 1,length.out=500), seq(1, 2,length.out=500), seq(2,-1,length.out=1000), sqrt(1-(seq(0,2.0,length.out = 500)-1)^2), -sqrt(1-(seq(0,2.0,length.out = 500)-1)^2),seq(0,-2,length.out=1000))
+z=rbind(x,y)
+plot(y~x, xlim=c(-3,3), ylim=c(-3,3))
+```
+
+
+
+```{r}
+#Plots out Initials CC. 
+x = c(seq(2,4.5,length.out = 1000), seq(2,4.5,length.out = 1000))
+y = c(sqrt(1-(seq(0,3.0,length.out = 1000)-1)^2), -sqrt(1-(seq(0,3.0,length.out = 1000)-1)^2))
+z = rbind(x,y)
+plot(y~x, xlim = c(-3,7), ylim = c(-2,2), pch = 16)
+```
+```{r}
+theta <- seq(0,2*pi,0.001)
+x <- 0.5 + 0.5*sin(theta)
+y <- 0.5 + 0.5*cos(theta)
+plot(x, y)
+title(main= substitute(paste('x=(1+sin',theta,')/2, y=(1+cos', theta, ')/2')))
+```
+
+
+```{r}
+# Vertical line of J
+x1 = rep(0, 1000)
+y1 = seq(-1, 1, length.out=1000)
+plot(y1~x1, xlim=c(-3,3), ylim=c(-3,3))
+```
+
+
+```{r}
+x=c(rep(-2,1000),seq(-2,-1,length.out=500), seq(-1,0,length.out=500), rep(0,1000), seq(1,2,length.out = 1000), seq(1,2,length.out = 1000), seq(1.5,2,length.out=1000))
+y=c(seq(-1,2,length.out=1000),seq(2, 1,length.out=500), seq(1, 2,length.out=500), seq(2,-1,length.out=1000), sqrt(1-(seq(0,2.0,length.out = 1000)-1)^2), -sqrt(1-(seq(0,2.0,length.out = 1000)-1)^2),seq(0,-2,length.out=1000))
+z=rbind(x,y)
+plot(y~x, xlim=c(-3,3), ylim=c(-3,3))
+```
+
+
+
+
+```{r}
+# matrix from the x and y coordinates
+coord_matrix = matrix(c(x, y), ncol=2)
+coord_matrix
+
+```
+
+
+
+```{r}
+# Identity matrix plug in with k to convert to scaling matrix
+k <- 2
+identity_matrix <- matrix(c(k, 0, 0, k), ncol=2)
+scale_matrix <- identity_matrix
+scale_matrix
+```
+
+
+```{r}
+for (k in 1:5) {
+identity_matrix <- matrix(c(k, 0, 0, k), ncol=2)
+scale_matrix <- identity_matrix
+transformed_matrix_scale= coord_matrix %*% scale_matrix
+z<-transformed_matrix_scale
+plot(z)
+}
+```
+
+```{r}
+plot(transformed_matrix_shear)
+```
+
+```{r}
+# Horizontal Shear
+
+k<-2
+shear_matrix <- matrix(c(1, 0, k, 1), ncol=2)
+
+transformed_matrix_shear = coord_matrix %*% shear_matrix
+z<-transformed_matrix_shear
+plot(z)
+
+```
+
+
+```{r}
+# Vertical Shear
+
+k<-2
+shear_matrix <- matrix(c(1, k, 0, 1), ncol=2)
+
+transformed_matrix_shear = coord_matrix %*% shear_matrix
+z<-transformed_matrix_shear
+plot(z)
+
+```
+
+
+```{r}
+# x-axis Reflection Matrix
+
+reflection_matrix <- matrix(c(1, 0, 0, -1), ncol=2)
+
+transformed_matrix_reflection = coord_matrix %*% reflection_matrix
+z<-transformed_matrix_reflection
+plot(z)
+```
+
+
+```{r}
+# y-axis Reflection Matrix
+
+reflection_matrix <- matrix(c(-1, 0, 0, 1), ncol=2)
+
+transformed_matrix_reflection = coord_matrix %*% reflection_matrix
+z<-transformed_matrix_reflection
+plot(z)
+```
+```{r}
+# Reflection across the line y=x
+
+reflection_matrix <- matrix(c(0, 1, 1, 0), ncol=2)
+
+transformed_matrix_reflection = coord_matrix %*% reflection_matrix
+z<-transformed_matrix_reflection
+plot(z)
+```
+```{r}
+#Projection onto x=axis
+
+Projection_matrix <- matrix(c(1, 0, 0, 0), ncol=2)
+
+transformed_matrix_projection = coord_matrix %*% Projection_matrix
+z<-transformed_matrix_projection
+plot(z)
+
+```
+```{r}
+#Projection onto y=axis
+
+Projection_matrix <- matrix(c(0, 0, 0, 1), ncol=2)
+
+transformed_matrix_projection = coord_matrix %*% Projection_matrix
+z<-transformed_matrix_projection
+plot(z)
+```
+
+
