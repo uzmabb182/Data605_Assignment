@@ -1,0 +1,45 @@
+---
+title: "Discussion Week2"
+author: "Mubashira Qari"
+date: "2024-02-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Exercise EE.C10
+
+### Find the characteristic polynomial of a matrix A
+
+
+Let $A$ be a $2 \times 2$ matrix:
+\[ A = \begin{bmatrix}
+    1 & 2 \\
+    3 & 4
+\end{bmatrix} \]
+
+The characteristic polynomial $p(\lambda)$ is given by:
+\[ p(\lambda) = \det(A - \lambda I) \]
+
+Substitute the values into the determinant:
+\[ p(\lambda) = \det\left(\begin{bmatrix}
+    1 - \lambda & 2 \\
+    3 & 4 - \lambda
+\end{bmatrix}\right) \]
+
+Expand the determinant:
+\[ p(\lambda) = (1 - \lambda)(4 - \lambda) - 2*3 \]
+
+
+\[ p(\lambda) = \lambda^2 - \lambda - 4\lambda + 4 - 6 \]
+
+\[ p(\lambda) = \lambda^2 - 5\lambda - 2 \]
+
+
+
+
+
+

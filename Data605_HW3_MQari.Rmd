@@ -1,0 +1,480 @@
+---
+title: "Data605_HW3_MQari"
+author: "Mubashira Qari"
+date: "2024-02-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Problem Set 1 
+
+## Question 1:
+
+Let $A$ be a $4 \times 4$ matrix:
+\[ A = \begin{bmatrix}
+    1 & 2 & 3 & 4 \\
+    -1 & 0 & 1 & 3 \\
+    0 & 1 & -2 & 1 \\
+    5 & 4 & -2 & -3
+\end{bmatrix} \]
+
+Now convert to reduced row echelon form
+
+Add row 1 row 2 as \[R1 + R2 -> R2 \]
+
+\[ A = \begin{bmatrix}
+    1 & 2 & 3 & 4 \\
+    0 & 2 & 4 & 7 \\
+    0 & 1 & -2 & 1 \\
+    5 & 4 & -2 & -3
+\end{bmatrix} \]
+
+Multiply row 1 by -5 and add row 4 as \[-5R1 + R4 -> R4 \]
+
+\[ A = \begin{bmatrix}
+    1 & 2 & 3 & 4 \\
+    0 & 2 & 4 & 7 \\
+    0 & 1 & -2 & 1 \\
+    0 & -6 & -17 & -23
+\end{bmatrix} \]
+
+Divide row 2 by 2 and place in row 2 as  \[R2/2 -> R2\]
+
+\[ A = \begin{bmatrix}
+    1 & 2 & 3 & 4 \\
+    0 & 1 & 2 & 7/2 \\
+    0 & 1 & -2 & 1 \\
+    0 & -6 & -17 & -23
+\end{bmatrix} \]
+
+Multiply row 2 by -2 and add row 1 as \[-2R2 + R1 -> R1\]
+
+\[ A = \begin{bmatrix}
+    1 & 0 & -1 & -3 \\
+    0 & 1 & 2 & 7/2 \\
+    0 & 1 & -2 & 1 \\
+    0 & -6 & -17 & -23
+\end{bmatrix} \]
+
+Subtract row 2 from row 3 and place row 3 \[R3 - R2 -> R3\]
+
+\[ A = \begin{bmatrix}
+    1 & 0 & -1 & -3 \\
+    0 & 1 & 2 & 7/2 \\
+    0 & 0 & -4 & -5/2 \\
+    0 & -6 & -17 & -23
+\end{bmatrix} \]
+
+
+\[6R2 + R4 -> R4\]
+
+\[ A = \begin{bmatrix}
+    1 & 0 & -1 & -3 \\
+    0 & 1 & 2 & 7/2 \\
+    0 & 0 & -4 & -5/2 \\
+    0 & 0 & -5 & -2
+\end{bmatrix} \]
+
+
+\[R3/-4 -> R3\]
+
+\[ A = \begin{bmatrix}
+    1 & 0 & -1 & -3 \\
+    0 & 1 & 2 & 7/2 \\
+    0 & 0 & 1 & 5/8 \\
+    0 & 0 & -5 & -2
+\end{bmatrix} \]
+
+\[ R1 + R3 -> R1\]
+
+\[ A = \begin{bmatrix}
+    1 & 0 & 0 & -19/8 \\
+    0 & 1 & 2 & 7/2 \\
+    0 & 0 & 1 & 5/8 \\
+    0 & 0 & -5 & -2
+\end{bmatrix} \]
+
+Multiply row 3 by -2 and add row 2 \[-2R3 + R2 -> R2\]
+
+\[ A = \begin{bmatrix}
+    1 & 0 & 0 & -19/8 \\
+    0 & 1 & 0 & 9/4 \\
+    0 & 0 & 1 & 5/8 \\
+    0 & 0 & -5 & -2
+\end{bmatrix} \]
+
+Multiply row 3 by 5 and add row 4 \[5R3 + R4 -> R4\]
+
+\[ A = \begin{bmatrix}
+    1 & 0 & 0 & -19/8 \\
+    0 & 1 & 0 & 9/4 \\
+    0 & 0 & 1 & 5/8 \\
+    0 & 0 & 0 & 9/8
+\end{bmatrix} \]
+
+Multiply row 4 by 8/9 \[R4*8/9\]
+
+\[ A = \begin{bmatrix}
+    1 & 0 & 0 & -19/8 \\
+    0 & 1 & 0 & 9/4 \\
+    0 & 0 & 1 & 5/8 \\
+    0 & 0 & 0 & 1
+\end{bmatrix} \]
+
+Multiply row 4 by 19/8 and add row 1 \[R1*19/8 + R1 -> R1\]
+
+\[ A = \begin{bmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 9/4 \\
+    0 & 0 & 1 & 5/8 \\
+    0 & 0 & 0 & 1
+\end{bmatrix} \]
+
+Multiply row 4 by -9/4 and add row 2 \[R4*-9/4 + R2 -> R2\]
+
+\[ A = \begin{bmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 5/8 \\
+    0 & 0 & 0 & 1
+\end{bmatrix} \]
+
+Multiply row 4 by -5/8 and add row 3 \[R4*-5/8 + R3 -> R3\]
+
+\[ A = \begin{bmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+\end{bmatrix} \]
+
+There are four non zero row and it proves that the rank of matrix A = 4 
+
+rank(A) = dim(col(A)) = number of pivot columns = 4
+
+
+
+## Question 2:
+
+Given m X n matrix and m > n 
+
+since rank(A) = dim(col(A)) = number of pivot columns
+
+max of rank(A) = number of  n pivot columns
+
+
+## Question 3:
+
+
+Let $A$ be a $3 \times 3$ matrix:
+
+\[ B = \begin{bmatrix}
+    1 & 2 & 1 \\
+    3 & 6 & 3 \\
+    2 & 4 & 2 
+\end{bmatrix} \]
+
+Multiply row 2 by 1/3 \[ R2 * 1/3 -> R2 \]
+
+\[ B = \begin{bmatrix}
+    1 & 2 & 1 \\
+    1 & 1 & 1 \\
+    2 & 4 & 2 
+\end{bmatrix} \]
+
+\[ R2 - R1 -> R2\]
+
+\[ B = \begin{bmatrix}
+    1 & 2 & 1 \\
+    0 & 0 & 0 \\
+    2 & 4 & 2 
+\end{bmatrix} \]
+
+Switch R2 to R3
+
+\[ B = \begin{bmatrix}
+    1 & 2 & 1 \\
+    2 & 4 & 2 \\
+    0 & 0 & 0 
+\end{bmatrix} \]
+
+Multiply R1 by -2 and add to R2 \[-2R1 +R2 -> R2\]
+
+\[ B = \begin{bmatrix}
+    1 & 2 & 1 \\
+    0 & 0 & 0 \\
+    0 & 0 & 0 
+\end{bmatrix} \]
+
+There is one pivot non zero row and it proves that the rank of matrix B = 1 
+
+rank(B) = dim(col(B)) = number of pivot columns = 1
+
+
+### Problem Set 2
+
+To find eigenvalues and eigenvectors, we take the determinant of a special matrix and
+set it to zero: \[det(A−λI) = 0.\] 
+
+A polynomial equation in terms of λ is called the characteristic polynomial.
+
+Let $A$ be a $3 \times 3$ matrix:
+
+\[ A = \begin{bmatrix}
+    1 & 2 & 3 \\
+    0 & 4 & 5 \\
+    0 & 0 & 6 
+\end{bmatrix} \]
+
+
+The characteristic polynomial \[p(\lambda)\] is given by:
+\[ p(\lambda) = \det(A - \lambda I) \]
+
+Now calculate \[(λI)\] where I is the identity matrix
+
+
+\[ \lambda I = \begin{bmatrix}
+    1-\lambda & 0 & 0 \\
+    0 & 1-\lambda & 0 \\
+    0 & 0 & 1-\lambda 
+\end{bmatrix} \]
+
+
+Substitute the values into the determinant:
+
+\[ p(\lambda) = \det\left(\begin{bmatrix}
+    1 - \lambda & 2 & 3\\
+    0 & 4 - \lambda & 5\\
+    0 & 0 & 6 - \lambda 
+\end{bmatrix}\right) \]
+
+Expand the determinant:
+
+\[ p(\lambda) = (1 - \lambda)(4 - \lambda)(6 - \lambda)\]
+
+which gives the roots of this polynomial equation which are the eigenvalues 
+
+\[ \lambda = 1 \]
+\[ \lambda = 4 \]
+\[ \lambda = 6 \]
+
+Now we can solve for \[(A − λI)v = \] and find the eigenvectors v.
+
+\[ Av − λv = (A − λI)v = 0 \]
+
+\[  = \begin{bmatrix}
+    1-\lambda & 2 & 3 \\
+    0 & 4-\lambda & 5 \\
+    0 & 0 & 6-\lambda 
+\end{bmatrix} \]
+
+Now solve for \[ λ = 1 \]
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    1-\lambda & 2 & 3 & 0\\
+    0 & 4-\lambda & 5 & 0\\
+    0 & 0 & 6-\lambda & 0
+    \end{array}
+\right)\]
+
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    0 & 2 & 3 & 0\\
+    0 & 3 & 5 & 0\\
+    0 & 0 & 5 & 0
+    \end{array}
+\right)\]
+
+Apply \[1/2R1 -> R1\] 
+
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    0 & 1 & 3/2 & 0\\
+    0 & 3 & 5 & 0\\
+    0 & 0 & 5 & 0
+    \end{array}
+\right)\]
+
+Apply \[-3R1 + R2 -> R2\] 
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    0 & 1 & 3/2 & 0\\
+    0 & 0 & 1/2 & 0\\
+    0 & 0 & 5 & 0
+    \end{array}
+\right)\]
+
+Apply \[-3R2 + R1 -> R1\] 
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    0 & 1 & 0 & 0\\
+    0 & 0 & 1/2 & 0\\
+    0 & 0 & 5 & 0
+    \end{array}
+\right)\]
+
+Apply \[-1/2R3 -> R3\] 
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    0 & 1 & 0 & 0\\
+    0 & 0 & 1/2 & 0\\
+    0 & 0 & -5/2 & 0
+    \end{array}
+\right)\]
+
+Apply \[5R2 + R3 -> R3\] 
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    0 & 1 & 0 & 0\\
+    0 & 0 & 1/2 & 0\\
+    0 & 0 & 0 & 0
+    \end{array}
+\right)\]
+
+Apply \[2R2 -> R2\] 
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    0 & 1 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 0
+    \end{array}
+\right)\]
+
+
+\[ V2 = V3 = 0 \]
+
+and since V1 is free, we can assign \[ V1 = 1 \]
+
+\[ V1 = \begin{bmatrix}
+    1 & 0 & 0 \\
+\end{bmatrix} \]
+
+Next solve for \[ λ = 4 \]
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    1-\lambda & 2 & 3 & 0\\
+    0 & 4-\lambda & 5 & 0\\
+    0 & 0 & 6-\lambda & 0
+    \end{array}
+\right)\]
+
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    -3 & 2 & 3 & 0\\
+    0 & 0 & 5 & 0\\
+    0 & 0 & 2 & 0
+    \end{array}
+\right)\]
+
+Apply \[-1/3R1 -> R1\] 
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    1 & -2/3 & -1 & 0\\
+    0 & 0 & 5 & 0\\
+    0 & 0 & 2 & 0
+    \end{array}
+\right)\]
+
+Apply \[1/5R2 -> R2\] 
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    1 & -2/3 & -1 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 2 & 0
+    \end{array}
+\right)\]
+
+Apply \[R1 + R2 -> R1\] 
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    1 & -2/3 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 2 & 0
+    \end{array}
+\right)\]
+
+Apply \[-2R2 + R3 -> R3\] 
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    1 & -2/3 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 0
+    \end{array}
+\right)\]
+
+\[ V1 = V3 = 0 \]
+
+\[ V2 = -2/3 \]
+
+Next solve for  \[ λ = 6 \]
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    1-\lambda & 2 & 3 & 0\\
+    0 & 4-\lambda & 5 & 0\\
+    0 & 0 & 6-\lambda & 0
+    \end{array}
+\right)\]
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    -5 & 2 & 3 & 0\\
+    0 & -2 & 5 & 0\\
+    0 & 0 & 0 & 0
+    \end{array}
+\right)\]
+
+Apply \[-1/5R1 -> R1\] 
+
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    1 & -2/5 & -3/5 & 0\\
+    0 & -2 & 5 & 0\\
+    0 & 0 & 0 & 0
+    \end{array}
+\right)\]
+
+Apply \[-1/2R2 -> R2\] 
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    1 & -2/5 & -3/5 & 0\\
+    0 & 1 & -5/2 & 0\\
+    0 & 0 & 0 & 0
+    \end{array}
+\right)\]
+
+Apply \[2/5R2 + R1 -> R1\] 
+
+\[ = \left( 
+    \begin{array}{ccc|c}
+    1 & 0 & -8/5 & 0\\
+    0 & 1 & -5/2 & 0\\
+    0 & 0 & 0 & 0
+    \end{array}
+\right)\]
+
+
+\[ V1 = V2 = 0 \]
+
+\[ V3 = -8/5 \]
+
+\[ V3 = -5/2 \]

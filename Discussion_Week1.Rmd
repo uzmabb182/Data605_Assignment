@@ -1,0 +1,90 @@
+---
+title: "Data 605 Discussion Week1"
+author: "Mubashira Qari"
+date: "2024-01-28"
+output: html_document
+---
+
+### Unitary Matrices: Solving system of Equation with Inverse Matrix
+
+Compute the inverse of the coefficient matrix of the system of equations below and use the inverse to solve the system.
+
+4x + 10y = 12
+2x + 6y = 4
+
+The inverse of a matrix plays the same roles in matrix algebra as the reciprocal of a number and division does in ordinary arithmetic: 
+
+we can solve a matrix equation like Ax=b
+for the vector x by multiplying both sides by the inverse of the matrix A
+
+Ax=b ⇒ A−1Ax=A−1b ⇒ x=A−1b
+
+The following system of equation illustrate the basic properties of the inverse of a matrix.
+
+
+### Load the matlib package
+
+```{r}
+library(matlib)
+
+```
+### Creating a 2 x 2 matrix
+
+```{r}
+A <- matrix(c(4, 2, 10, 6), 2, 2)
+b <- c(12,4)
+showEqn(A, b)
+```
+# Finding Rank
+
+```{r}
+A
+
+c( R(A), R(cbind(A,b)) )    
+
+```
+```{r}
+# Finding the determinant of A
+det(A)
+```
+# Finding the inverse of A
+
+```{r}
+
+AInv <- inv(A)
+
+AInv
+
+```
+```{r}
+# Proving A inverse X A is Identity matrix
+
+ AInv %*% A
+
+
+```
+
+
+### Identity Matrix * X is X
+
+```{r}
+# I * X = AInv * b => X = AInv * b
+
+X = AInv %*% b
+
+X
+```
+# Checking the answer
+
+```{r}
+Solve(A, b, fractions = TRUE)
+```
+### Plot the equations
+
+```{r}
+
+plotEqn(A,b)
+
+```
+### This intersection of two lines proves that this consistant system of equation has at least one solution.
+

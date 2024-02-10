@@ -1,0 +1,177 @@
+---
+title: "Data 605 HW2"
+author: "Mubashira Qari"
+date: "2024-01-29"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+## PROBLEM SET 1:
+
+### (1) Show that ATA != AAT in general. (Proof and demonstration.)
+
+### Load the Packages
+
+```{r}
+library(matrixcalc)
+library(matlib)
+
+```
+### Creating a 3 X 3 Matrix
+
+```{r}
+A = matrix(c(1, 1, 2, 3, 2, 2, 1, 1, 1), nrow = 3)
+A
+```
+
+### Finding the determinant of A to check: if det(A) != 0 then inverse exists
+
+```{r}
+
+det(A)
+
+```
+### Finding the tranpose of A
+
+```{r}
+AT <- t(A)
+
+AT
+
+```
+### Mutiplying A AI
+
+```{r}
+A %*% AT
+```
+### Mutiplying AI A
+
+```{r}
+
+AT %*% A
+
+```
+### Checking for proof and it proves that (A X AI != AI X A)
+
+```{r}
+(A %*% AT == AT %*% A)
+
+```
+### (2) For a special type of square matrix A, we get AT A = AAT. Under what conditionscould this be true? (Hint: The Identity matrix I is an example of such a matrix).
+
+
+### Creating an identity matrix for checking the case of a special square matrix
+
+```{r}
+I <- diag(3)
+
+I
+```
+### Cretaing transpose of A
+
+```{r}
+A <- I
+AT <- t(A)
+AT
+```
+
+
+```{r}
+AT %*% A 
+
+```
+
+
+```{r}
+A %*% AT
+
+```
+For a special type of square matrix called Identity Matrix, we get AT A = A AT
+
+```{r}
+
+(A %*% AT == AT %*% A)
+
+```
+
+## PROBLEM SET 2:
+
+```{r}
+A = matrix(c(1, 4, 3, 1,3, 5, 1, -1, 3), nrow = 3)
+A
+
+```
+### In order to eliminate the 2 in the 2nd row, we can set up the following elimination matrix E21:
+
+```{r}
+E21 = matrix(c(1,-4,0,0,1,0,0,0,1),nrow=3)
+E21
+```
+
+
+```{r}
+
+E21 %*% A
+
+
+```
+### To eliminate 3 in row 3, we can choose E32 to be:
+
+
+```{r}
+E31 = matrix(c(1,0,-3,0,1,0,0,0,1),nrow=3)
+E31
+```
+
+
+```{r}
+
+E31 %*% E21 %*% A
+
+
+```
+### Notice that the pivot in row two, a22 = −1. This leads us to choose the following elimination matrix E32:
+
+```{r}
+E32 = matrix(c(1,0,0,0,1,2,0,0,1),nrow=3)
+E32
+```
+### This gives us the U matrix
+
+```{r}
+U <- E32 %*% E31 %*% E21 %*% A
+U
+```
+### We can compute L as the inverse of the product of the elimination matrices.
+
+### L = INV(E32 × E31 × E21)  
+
+```{r}
+
+inv(E32)
+inv(E31)
+inv(E21)
+```
+### We can also use the solve function in R to get the inverse of the matrices
+
+```{r}
+L <- solve(E21) %*% solve(E31) %*% solve(E32)
+
+L
+```
+### Finally, we will solve for proof that A = LU
+
+```{r}
+L %*% U
+```
+### This proves that A = LU
+
+```{r}
+(L %*% U == A)
+
+```
+
+
+
+

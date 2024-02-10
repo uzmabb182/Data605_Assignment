@@ -1,0 +1,51 @@
+---
+title: "Discussion_Week3_MQari"
+author: "Mubashira Qari"
+date: "2024-02-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### EE.C22
+
+### Without using a Calculator, find the eigenvalues of the matrix B
+
+Let $B$ be a $2 \times 2$ matrix:
+
+\[ B = \begin{bmatrix}
+    2 & -1 \\
+    1 &  1  
+\end{bmatrix} \]
+
+
+The characteristic polynomial \[p(\lambda)\] is given by:
+\[ p(\lambda) = \det(B - \lambda I) \]
+
+Now calculate \[(λI)\] where I is the identity matrix
+
+
+\[ \lambda I = \begin{bmatrix}
+    2-\lambda & -1 \\
+    1 & 1-\lambda  
+\end{bmatrix} \]
+
+
+Substitute the values into the determinant:
+
+\[ p(\lambda) = \det\left(\begin{bmatrix}
+    2-\lambda & -1 \\
+    1 & 1-\lambda  
+\end{bmatrix}\right) \]
+
+Expand the determinant:
+
+\[ p(\lambda) = (2 - \lambda)(1 - \lambda) + 1\]
+
+which gives the roots of this polynomial equation which are the eigenvalues 
+
+\[ \lambda = 1 \]
+\[ \lambda = -3 \]
+
