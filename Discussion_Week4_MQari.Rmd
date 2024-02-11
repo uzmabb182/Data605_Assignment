@@ -1,0 +1,140 @@
+---
+title: "Discussion_Week4_MQari"
+author: "Mubashira Qari"
+date: "2024-02-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Excercise LT.C25:
+
+Define the linear transformation
+
+\[T:C^3 -> C^2,\]
+ \[T \left( \begin{bmatrix}
+    x1 \\
+    x2 \\
+    x3
+\end{bmatrix}\right) 
+ =
+ \begin{bmatrix}
+    2x1-x2+5x3 \\
+    -4x1+2x2-10x3
+\end{bmatrix} \]
+
+For finding the linear transformation, following conditions must met:
+
+First property:
+
+\[T(X + Y)
+ = \left( \begin{bmatrix}
+    x1 \\
+    x2 \\
+    x3
+\end{bmatrix}
+ +
+ \begin{bmatrix}
+    y1 \\
+    y2 \\
+    y3
+\end{bmatrix} \right) \]
+
+
+\[ = T \left( \begin{bmatrix}
+    x1 + y1 \\
+    x2 + y2\\
+    x3 + y3
+\end{bmatrix}\right) \]
+
+Now apply the above rule
+
+\[ \begin{bmatrix}
+    2(x1 + y1) - (x2 + y2) + 5(x3 + y3) \\
+    -4(x1 + y1) + 2(x2 + y2) - 10(x3 + y3)
+\end{bmatrix}\]
+
+\[ \begin{bmatrix}
+    2x1 + 2y1 - x2 - y2 + 5x3 + 5y3 \\
+    -4x1 - 4y1 + 2x2 + 2y2 - 10x3 - 10y3)
+\end{bmatrix}\]
+
+
+\[
+ =  \begin{bmatrix}
+    2x1 -x2 +5x3\\
+    -4x1 +2x2 -10x3
+\end{bmatrix}
+ +
+ \begin{bmatrix}
+    2y1 -y2 +5y3\\
+    -4y1 +2y2 -10y3
+\end{bmatrix} \]
+
+
+
+\[T(X + Y)
+ = \left( \begin{bmatrix}
+    x1\\
+    x2
+\end{bmatrix}
+ +
+ \begin{bmatrix}
+    y1\\
+    y2
+\end{bmatrix} \right) \]
+
+And it proves that 
+
+\[T(X + Y)
+ = 
+ T(x)+T(y) \]
+
+Second property:
+
+\[T(CX)
+ = \left( C\begin{bmatrix}
+    x1 \\
+    x2 \\
+    x3
+\end{bmatrix} \right) \]
+
+
+\[
+ = \left( \begin{bmatrix}
+    Cx1 \\
+    Cx2 \\
+    Cx3
+\end{bmatrix} \right) \]
+
+Now apply the second property in the above rule
+
+\[
+ =  \begin{bmatrix}
+    2(Cx1) -(Cx2) + 5(Cx3)\\
+    -4(Cx1) +2(Cx2) - 10(Cx3)
+\end{bmatrix}  \]
+
+
+\[
+ = C \begin{bmatrix}
+    2x1 -x2 + 5x3\\
+    -4x1 +2x2 - 10x3
+\end{bmatrix}  \]
+
+
+
+\[
+ = CT\left( \begin{bmatrix}
+    x1 \\
+    x2 \\
+    x3
+\end{bmatrix} \right) \]
+
+Hence it is proved
+
+\[ = CT( x) \]
+
+

@@ -11,7 +11,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Problem Set 1 
 
-## Question 1:
+### Question 1:
+
+(1) What is the rank of the matrix A?
+
 
 Let $A$ be a $4 \times 4$ matrix:
 \[ A = \begin{bmatrix}
@@ -157,7 +160,10 @@ rank(A) = dim(col(A)) = number of pivot columns = 4
 
 
 
-## Question 2:
+### Question 2:
+
+(2) Given an mxn matrix where m > n, what can be the maximum rank? The minimum rank, assuming that the matrix is non-zero?
+
 
 Given m X n matrix and m > n 
 
@@ -165,9 +171,12 @@ since rank(A) = dim(col(A)) = number of pivot columns
 
 max of rank(A) = number of  n pivot columns
 
+Also, it’s not a 0 matrix, the rank is between 1 and n 
 
-## Question 3:
 
+### Question 3:
+
+(3) What is the rank of matrix B?
 
 Let $A$ be a $3 \times 3$ matrix:
 
@@ -214,7 +223,11 @@ There is one pivot non zero row and it proves that the rank of matrix B = 1
 rank(B) = dim(col(B)) = number of pivot columns = 1
 
 
-### Problem Set 2
+### Problem Set 2:
+
+Compute the eigenvalues and eigenvectors of the matrix A. You’ll need to show your
+work. You’ll need to write out the characteristic polynomial and show your solution.
+
 
 To find eigenvalues and eigenvectors, we take the determinant of a special matrix and
 set it to zero: \[det(A−λI) = 0.\] 
