@@ -11,9 +11,9 @@
 
 <meta name="author" content="Mubashira Qari" />
 
-<meta name="date" content="2024-02-11" />
+<meta name="date" content="2024-01-29" />
 
-<title>Discussion_Week4_MQari</title>
+<title>Data 605 HW2</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,111 +350,226 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Discussion_Week4_MQari</h1>
+<h1 class="title toc-ignore">Data 605 HW2</h1>
 <h4 class="author">Mubashira Qari</h4>
-<h4 class="date">2024-02-11</h4>
+<h4 class="date">2024-01-29</h4>
 
 </div>
 
 
-<div id="excercise-lt.c25" class="section level3">
-<h3>Excercise LT.C25:</h3>
-<p>Define the linear transformation</p>
-<p><span class="math display">\[T:C^3 -&gt; C^2,\]</span> <span class="math display">\[T \left( \begin{bmatrix}
-    x1 \\
-    x2 \\
-    x3
-\end{bmatrix}\right)
-=
-\begin{bmatrix}
-    2x1-x2+5x3 \\
-    -4x1+2x2-10x3
-\end{bmatrix} \]</span></p>
-<p>For finding the linear transformation, following conditions must
-met:</p>
-<p>First property:</p>
-<p><span class="math display">\[T(X + Y)
-= \left( \begin{bmatrix}
-    x1 \\
-    x2 \\
-    x3
-\end{bmatrix}
-+
-\begin{bmatrix}
-    y1 \\
-    y2 \\
-    y3
-\end{bmatrix} \right) \]</span></p>
-<p><span class="math display">\[ = T \left( \begin{bmatrix}
-    x1 + y1 \\
-    x2 + y2\\
-    x3 + y3
-\end{bmatrix}\right) \]</span></p>
-<p>Now apply the above rule</p>
-<p><span class="math display">\[ \begin{bmatrix}
-    2(x1 + y1) - (x2 + y2) + 5(x3 + y3) \\
-    -4(x1 + y1) + 2(x2 + y2) - 10(x3 + y3)
-\end{bmatrix}\]</span></p>
-<p><span class="math display">\[ \begin{bmatrix}
-    2x1 + 2y1 - x2 - y2 + 5x3 + 5y3 \\
-    -4x1 - 4y1 + 2x2 + 2y2 - 10x3 - 10y3)
-\end{bmatrix}\]</span></p>
-<p><span class="math display">\[
-=  \begin{bmatrix}
-    2x1 -x2 +5x3\\
-    -4x1 +2x2 -10x3
-\end{bmatrix}
-+
-\begin{bmatrix}
-    2y1 -y2 +5y3\\
-    -4y1 +2y2 -10y3
-\end{bmatrix} \]</span></p>
-<p><span class="math display">\[T(X + Y)
-= \left( \begin{bmatrix}
-    x1\\
-    x2
-\end{bmatrix}
-+
-\begin{bmatrix}
-    y1\\
-    y2
-\end{bmatrix} \right) \]</span></p>
-<p>And it proves that</p>
-<p><span class="math display">\[T(X + Y)
-=
-T(x)+T(y) \]</span></p>
-<p>Second property:</p>
-<p><span class="math display">\[T(CX)
-= \left( C\begin{bmatrix}
-    x1 \\
-    x2 \\
-    x3
-\end{bmatrix} \right) \]</span></p>
-<p><span class="math display">\[
-= \left( \begin{bmatrix}
-    Cx1 \\
-    Cx2 \\
-    Cx3
-\end{bmatrix} \right) \]</span></p>
-<p>Now apply the second property in the above rule</p>
-<p><span class="math display">\[
-=  \begin{bmatrix}
-    2(Cx1) -(Cx2) + 5(Cx3)\\
-    -4(Cx1) +2(Cx2) - 10(Cx3)
-\end{bmatrix}  \]</span></p>
-<p><span class="math display">\[
-= C \begin{bmatrix}
-    2x1 -x2 + 5x3\\
-    -4x1 +2x2 - 10x3
-\end{bmatrix}  \]</span></p>
-<p><span class="math display">\[
-= CT\left( \begin{bmatrix}
-    x1 \\
-    x2 \\
-    x3
-\end{bmatrix} \right) \]</span></p>
-<p>Hence it is proved</p>
-<p><span class="math display">\[ = CT( x) \]</span></p>
+<div id="problem-set-1" class="section level2">
+<h2>PROBLEM SET 1:</h2>
+<div id="show-that-ata-aat-in-general.-proof-and-demonstration." class="section level3">
+<h3>(1) Show that ATA != AAT in general. (Proof and demonstration.)</h3>
+</div>
+<div id="load-the-packages" class="section level3">
+<h3>Load the Packages</h3>
+<pre class="r"><code>library(matrixcalc)
+library(matlib)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;matlib&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:matrixcalc&#39;:
+## 
+##     vec</code></pre>
+</div>
+<div id="creating-a-3-x-3-matrix" class="section level3">
+<h3>Creating a 3 X 3 Matrix</h3>
+<pre class="r"><code>A = matrix(c(1, 1, 2, 3, 2, 2, 1, 1, 1), nrow = 3)
+A</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    3    1
+## [2,]    1    2    1
+## [3,]    2    2    1</code></pre>
+</div>
+<div id="finding-the-determinant-of-a-to-check-if-deta-0-then-inverse-exists" class="section level3">
+<h3>Finding the determinant of A to check: if det(A) != 0 then inverse
+exists</h3>
+<pre class="r"><code>det(A)</code></pre>
+<pre><code>## [1] 1</code></pre>
+</div>
+<div id="finding-the-tranpose-of-a" class="section level3">
+<h3>Finding the tranpose of A</h3>
+<pre class="r"><code>AT &lt;- t(A)
+
+AT</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    1    2
+## [2,]    3    2    2
+## [3,]    1    1    1</code></pre>
+</div>
+<div id="mutiplying-a-ai" class="section level3">
+<h3>Mutiplying A AI</h3>
+<pre class="r"><code>A %*% AT</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   11    8    9
+## [2,]    8    6    7
+## [3,]    9    7    9</code></pre>
+</div>
+<div id="mutiplying-ai-a" class="section level3">
+<h3>Mutiplying AI A</h3>
+<pre class="r"><code>AT %*% A</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    6    9    4
+## [2,]    9   17    7
+## [3,]    4    7    3</code></pre>
+</div>
+<div id="checking-for-proof-and-it-proves-that-a-x-ai-ai-x-a" class="section level3">
+<h3>Checking for proof and it proves that (A X AI != AI X A)</h3>
+<pre class="r"><code>(A %*% AT == AT %*% A)</code></pre>
+<pre><code>##       [,1]  [,2]  [,3]
+## [1,] FALSE FALSE FALSE
+## [2,] FALSE FALSE  TRUE
+## [3,] FALSE  TRUE FALSE</code></pre>
+</div>
+<div id="for-a-special-type-of-square-matrix-a-we-get-at-a-aat.-under-what-conditionscould-this-be-true-hint-the-identity-matrix-i-is-an-example-of-such-a-matrix." class="section level3">
+<h3>(2) For a special type of square matrix A, we get AT A = AAT. Under
+what conditionscould this be true? (Hint: The Identity matrix I is an
+example of such a matrix).</h3>
+</div>
+<div id="creating-an-identity-matrix-for-checking-the-case-of-a-special-square-matrix" class="section level3">
+<h3>Creating an identity matrix for checking the case of a special
+square matrix</h3>
+<pre class="r"><code>I &lt;- diag(3)
+
+I</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    0    1</code></pre>
+</div>
+<div id="cretaing-transpose-of-a" class="section level3">
+<h3>Cretaing transpose of A</h3>
+<pre class="r"><code>A &lt;- I
+AT &lt;- t(A)
+AT</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    0    1</code></pre>
+<pre class="r"><code>AT %*% A </code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    0    1</code></pre>
+<pre class="r"><code>A %*% AT</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    0    1</code></pre>
+<p>For a special type of square matrix called Identity Matrix, we get AT
+A = A AT</p>
+<pre class="r"><code>(A %*% AT == AT %*% A)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,] TRUE TRUE TRUE
+## [2,] TRUE TRUE TRUE
+## [3,] TRUE TRUE TRUE</code></pre>
+</div>
+</div>
+<div id="problem-set-2" class="section level2">
+<h2>PROBLEM SET 2:</h2>
+<pre class="r"><code>A = matrix(c(1, 4, 3, 1,3, 5, 1, -1, 3), nrow = 3)
+A</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    1    1
+## [2,]    4    3   -1
+## [3,]    3    5    3</code></pre>
+<div id="in-order-to-eliminate-the-2-in-the-2nd-row-we-can-set-up-the-following-elimination-matrix-e21" class="section level3">
+<h3>In order to eliminate the 2 in the 2nd row, we can set up the
+following elimination matrix E21:</h3>
+<pre class="r"><code>E21 = matrix(c(1,-4,0,0,1,0,0,0,1),nrow=3)
+E21</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]   -4    1    0
+## [3,]    0    0    1</code></pre>
+<pre class="r"><code>E21 %*% A</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    1    1
+## [2,]    0   -1   -5
+## [3,]    3    5    3</code></pre>
+</div>
+<div id="to-eliminate-3-in-row-3-we-can-choose-e32-to-be" class="section level3">
+<h3>To eliminate 3 in row 3, we can choose E32 to be:</h3>
+<pre class="r"><code>E31 = matrix(c(1,0,-3,0,1,0,0,0,1),nrow=3)
+E31</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]   -3    0    1</code></pre>
+<pre class="r"><code>E31 %*% E21 %*% A</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    1    1
+## [2,]    0   -1   -5
+## [3,]    0    2    0</code></pre>
+</div>
+<div id="notice-that-the-pivot-in-row-two-a22-1.-this-leads-us-to-choose-the-following-elimination-matrix-e32" class="section level3">
+<h3>Notice that the pivot in row two, a22 = −1. This leads us to choose
+the following elimination matrix E32:</h3>
+<pre class="r"><code>E32 = matrix(c(1,0,0,0,1,2,0,0,1),nrow=3)
+E32</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    2    1</code></pre>
+</div>
+<div id="this-gives-us-the-u-matrix" class="section level3">
+<h3>This gives us the U matrix</h3>
+<pre class="r"><code>U &lt;- E32 %*% E31 %*% E21 %*% A
+U</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    1    1
+## [2,]    0   -1   -5
+## [3,]    0    0  -10</code></pre>
+</div>
+<div id="we-can-compute-l-as-the-inverse-of-the-product-of-the-elimination-matrices." class="section level3">
+<h3>We can compute L as the inverse of the product of the elimination
+matrices.</h3>
+</div>
+<div id="l-inve32-e31-e21" class="section level3">
+<h3>L = INV(E32 × E31 × E21)</h3>
+<pre class="r"><code>inv(E32)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0   -2    1</code></pre>
+<pre class="r"><code>inv(E31)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    3    0    1</code></pre>
+<pre class="r"><code>inv(E21)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    4    1    0
+## [3,]    0    0    1</code></pre>
+</div>
+<div id="we-can-also-use-the-solve-function-in-r-to-get-the-inverse-of-the-matrices" class="section level3">
+<h3>We can also use the solve function in R to get the inverse of the
+matrices</h3>
+<pre class="r"><code>L &lt;- solve(E21) %*% solve(E31) %*% solve(E32)
+
+L</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    4    1    0
+## [3,]    3   -2    1</code></pre>
+</div>
+<div id="finally-we-will-solve-for-proof-that-a-lu" class="section level3">
+<h3>Finally, we will solve for proof that A = LU</h3>
+<pre class="r"><code>L %*% U</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    1    1
+## [2,]    4    3   -1
+## [3,]    3    5    3</code></pre>
+</div>
+<div id="this-proves-that-a-lu" class="section level3">
+<h3>This proves that A = LU</h3>
+<pre class="r"><code>(L %*% U == A)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,] TRUE TRUE TRUE
+## [2,] TRUE TRUE TRUE
+## [3,] TRUE TRUE TRUE</code></pre>
+</div>
 </div>
 
 

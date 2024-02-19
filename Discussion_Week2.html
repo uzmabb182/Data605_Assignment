@@ -11,9 +11,9 @@
 
 <meta name="author" content="Mubashira Qari" />
 
-<meta name="date" content="2024-02-11" />
+<meta name="date" content="2024-02-04" />
 
-<title>Discussion_Week4_MQari</title>
+<title>Discussion Week2</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,111 +350,33 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Discussion_Week4_MQari</h1>
+<h1 class="title toc-ignore">Discussion Week2</h1>
 <h4 class="author">Mubashira Qari</h4>
-<h4 class="date">2024-02-11</h4>
+<h4 class="date">2024-02-04</h4>
 
 </div>
 
 
-<div id="excercise-lt.c25" class="section level3">
-<h3>Excercise LT.C25:</h3>
-<p>Define the linear transformation</p>
-<p><span class="math display">\[T:C^3 -&gt; C^2,\]</span> <span class="math display">\[T \left( \begin{bmatrix}
-    x1 \\
-    x2 \\
-    x3
-\end{bmatrix}\right)
-=
-\begin{bmatrix}
-    2x1-x2+5x3 \\
-    -4x1+2x2-10x3
+<div id="exercise-ee.c10" class="section level3">
+<h3>Exercise EE.C10</h3>
+</div>
+<div id="find-the-characteristic-polynomial-of-a-matrix-a" class="section level3">
+<h3>Find the characteristic polynomial of a matrix A</h3>
+<p>Let <span class="math inline">\(A\)</span> be a <span class="math inline">\(2 \times 2\)</span> matrix: <span class="math display">\[ A = \begin{bmatrix}
+    1 &amp; 2 \\
+    3 &amp; 4
 \end{bmatrix} \]</span></p>
-<p>For finding the linear transformation, following conditions must
-met:</p>
-<p>First property:</p>
-<p><span class="math display">\[T(X + Y)
-= \left( \begin{bmatrix}
-    x1 \\
-    x2 \\
-    x3
-\end{bmatrix}
-+
-\begin{bmatrix}
-    y1 \\
-    y2 \\
-    y3
-\end{bmatrix} \right) \]</span></p>
-<p><span class="math display">\[ = T \left( \begin{bmatrix}
-    x1 + y1 \\
-    x2 + y2\\
-    x3 + y3
+<p>The characteristic polynomial <span class="math inline">\(p(\lambda)\)</span> is given by: <span class="math display">\[ p(\lambda) = \det(A - \lambda I) \]</span></p>
+<p>Substitute the values into the determinant: <span class="math display">\[ p(\lambda) = \det\left(\begin{bmatrix}
+    1 - \lambda &amp; 2 \\
+    3 &amp; 4 - \lambda
 \end{bmatrix}\right) \]</span></p>
-<p>Now apply the above rule</p>
-<p><span class="math display">\[ \begin{bmatrix}
-    2(x1 + y1) - (x2 + y2) + 5(x3 + y3) \\
-    -4(x1 + y1) + 2(x2 + y2) - 10(x3 + y3)
-\end{bmatrix}\]</span></p>
-<p><span class="math display">\[ \begin{bmatrix}
-    2x1 + 2y1 - x2 - y2 + 5x3 + 5y3 \\
-    -4x1 - 4y1 + 2x2 + 2y2 - 10x3 - 10y3)
-\end{bmatrix}\]</span></p>
-<p><span class="math display">\[
-=  \begin{bmatrix}
-    2x1 -x2 +5x3\\
-    -4x1 +2x2 -10x3
-\end{bmatrix}
-+
-\begin{bmatrix}
-    2y1 -y2 +5y3\\
-    -4y1 +2y2 -10y3
-\end{bmatrix} \]</span></p>
-<p><span class="math display">\[T(X + Y)
-= \left( \begin{bmatrix}
-    x1\\
-    x2
-\end{bmatrix}
-+
-\begin{bmatrix}
-    y1\\
-    y2
-\end{bmatrix} \right) \]</span></p>
-<p>And it proves that</p>
-<p><span class="math display">\[T(X + Y)
-=
-T(x)+T(y) \]</span></p>
-<p>Second property:</p>
-<p><span class="math display">\[T(CX)
-= \left( C\begin{bmatrix}
-    x1 \\
-    x2 \\
-    x3
-\end{bmatrix} \right) \]</span></p>
-<p><span class="math display">\[
-= \left( \begin{bmatrix}
-    Cx1 \\
-    Cx2 \\
-    Cx3
-\end{bmatrix} \right) \]</span></p>
-<p>Now apply the second property in the above rule</p>
-<p><span class="math display">\[
-=  \begin{bmatrix}
-    2(Cx1) -(Cx2) + 5(Cx3)\\
-    -4(Cx1) +2(Cx2) - 10(Cx3)
-\end{bmatrix}  \]</span></p>
-<p><span class="math display">\[
-= C \begin{bmatrix}
-    2x1 -x2 + 5x3\\
-    -4x1 +2x2 - 10x3
-\end{bmatrix}  \]</span></p>
-<p><span class="math display">\[
-= CT\left( \begin{bmatrix}
-    x1 \\
-    x2 \\
-    x3
-\end{bmatrix} \right) \]</span></p>
-<p>Hence it is proved</p>
-<p><span class="math display">\[ = CT( x) \]</span></p>
+<p>Expand the determinant: <span class="math display">\[ p(\lambda) = (1
+- \lambda)(4 - \lambda) - 2*3 \]</span></p>
+<p><span class="math display">\[ p(\lambda) = \lambda^2 - \lambda -
+4\lambda + 4 - 6 \]</span></p>
+<p><span class="math display">\[ p(\lambda) = \lambda^2 - 5\lambda - 2
+\]</span></p>
 </div>
 
 

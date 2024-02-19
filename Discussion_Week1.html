@@ -11,9 +11,9 @@
 
 <meta name="author" content="Mubashira Qari" />
 
-<meta name="date" content="2024-02-11" />
+<meta name="date" content="2024-01-28" />
 
-<title>Discussion_Week4_MQari</title>
+<title>Data 605 Discussion Week1</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,111 +350,91 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Discussion_Week4_MQari</h1>
+<h1 class="title toc-ignore">Data 605 Discussion Week1</h1>
 <h4 class="author">Mubashira Qari</h4>
-<h4 class="date">2024-02-11</h4>
+<h4 class="date">2024-01-28</h4>
 
 </div>
 
 
-<div id="excercise-lt.c25" class="section level3">
-<h3>Excercise LT.C25:</h3>
-<p>Define the linear transformation</p>
-<p><span class="math display">\[T:C^3 -&gt; C^2,\]</span> <span class="math display">\[T \left( \begin{bmatrix}
-    x1 \\
-    x2 \\
-    x3
-\end{bmatrix}\right)
-=
-\begin{bmatrix}
-    2x1-x2+5x3 \\
-    -4x1+2x2-10x3
-\end{bmatrix} \]</span></p>
-<p>For finding the linear transformation, following conditions must
-met:</p>
-<p>First property:</p>
-<p><span class="math display">\[T(X + Y)
-= \left( \begin{bmatrix}
-    x1 \\
-    x2 \\
-    x3
-\end{bmatrix}
-+
-\begin{bmatrix}
-    y1 \\
-    y2 \\
-    y3
-\end{bmatrix} \right) \]</span></p>
-<p><span class="math display">\[ = T \left( \begin{bmatrix}
-    x1 + y1 \\
-    x2 + y2\\
-    x3 + y3
-\end{bmatrix}\right) \]</span></p>
-<p>Now apply the above rule</p>
-<p><span class="math display">\[ \begin{bmatrix}
-    2(x1 + y1) - (x2 + y2) + 5(x3 + y3) \\
-    -4(x1 + y1) + 2(x2 + y2) - 10(x3 + y3)
-\end{bmatrix}\]</span></p>
-<p><span class="math display">\[ \begin{bmatrix}
-    2x1 + 2y1 - x2 - y2 + 5x3 + 5y3 \\
-    -4x1 - 4y1 + 2x2 + 2y2 - 10x3 - 10y3)
-\end{bmatrix}\]</span></p>
-<p><span class="math display">\[
-=  \begin{bmatrix}
-    2x1 -x2 +5x3\\
-    -4x1 +2x2 -10x3
-\end{bmatrix}
-+
-\begin{bmatrix}
-    2y1 -y2 +5y3\\
-    -4y1 +2y2 -10y3
-\end{bmatrix} \]</span></p>
-<p><span class="math display">\[T(X + Y)
-= \left( \begin{bmatrix}
-    x1\\
-    x2
-\end{bmatrix}
-+
-\begin{bmatrix}
-    y1\\
-    y2
-\end{bmatrix} \right) \]</span></p>
-<p>And it proves that</p>
-<p><span class="math display">\[T(X + Y)
-=
-T(x)+T(y) \]</span></p>
-<p>Second property:</p>
-<p><span class="math display">\[T(CX)
-= \left( C\begin{bmatrix}
-    x1 \\
-    x2 \\
-    x3
-\end{bmatrix} \right) \]</span></p>
-<p><span class="math display">\[
-= \left( \begin{bmatrix}
-    Cx1 \\
-    Cx2 \\
-    Cx3
-\end{bmatrix} \right) \]</span></p>
-<p>Now apply the second property in the above rule</p>
-<p><span class="math display">\[
-=  \begin{bmatrix}
-    2(Cx1) -(Cx2) + 5(Cx3)\\
-    -4(Cx1) +2(Cx2) - 10(Cx3)
-\end{bmatrix}  \]</span></p>
-<p><span class="math display">\[
-= C \begin{bmatrix}
-    2x1 -x2 + 5x3\\
-    -4x1 +2x2 - 10x3
-\end{bmatrix}  \]</span></p>
-<p><span class="math display">\[
-= CT\left( \begin{bmatrix}
-    x1 \\
-    x2 \\
-    x3
-\end{bmatrix} \right) \]</span></p>
-<p>Hence it is proved</p>
-<p><span class="math display">\[ = CT( x) \]</span></p>
+<div id="unitary-matrices-solving-system-of-equation-with-inverse-matrix" class="section level3">
+<h3>Unitary Matrices: Solving system of Equation with Inverse
+Matrix</h3>
+<p>Compute the inverse of the coefficient matrix of the system of
+equations below and use the inverse to solve the system.</p>
+<p>4x + 10y = 12 2x + 6y = 4</p>
+<p>The inverse of a matrix plays the same roles in matrix algebra as the
+reciprocal of a number and division does in ordinary arithmetic:</p>
+<p>we can solve a matrix equation like Ax=b for the vector x by
+multiplying both sides by the inverse of the matrix A</p>
+<p>Ax=b ⇒ A−1Ax=A−1b ⇒ x=A−1b</p>
+<p>The following system of equation illustrate the basic properties of
+the inverse of a matrix.</p>
+</div>
+<div id="load-the-matlib-package" class="section level3">
+<h3>Load the matlib package</h3>
+<pre class="r"><code>library(matlib)</code></pre>
+</div>
+<div id="creating-a-2-x-2-matrix" class="section level3">
+<h3>Creating a 2 x 2 matrix</h3>
+<pre class="r"><code>A &lt;- matrix(c(4, 2, 10, 6), 2, 2)
+b &lt;- c(12,4)
+showEqn(A, b)</code></pre>
+<pre><code>## 4*x1 + 10*x2  =  12 
+## 2*x1  + 6*x2  =   4</code></pre>
+</div>
+<div id="finding-rank" class="section level1">
+<h1>Finding Rank</h1>
+<pre class="r"><code>A</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    4   10
+## [2,]    2    6</code></pre>
+<pre class="r"><code>c( R(A), R(cbind(A,b)) )    </code></pre>
+<pre><code>## [1] 2 2</code></pre>
+<pre class="r"><code># Finding the determinant of A
+det(A)</code></pre>
+<pre><code>## [1] 4</code></pre>
+</div>
+<div id="finding-the-inverse-of-a" class="section level1">
+<h1>Finding the inverse of A</h1>
+<pre class="r"><code>AInv &lt;- inv(A)
+
+AInv</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]  1.5 -2.5
+## [2,] -0.5  1.0</code></pre>
+<pre class="r"><code># Proving A inverse X A is Identity matrix
+
+ AInv %*% A</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1</code></pre>
+<div id="identity-matrix-x-is-x" class="section level3">
+<h3>Identity Matrix * X is X</h3>
+<pre class="r"><code># I * X = AInv * b =&gt; X = AInv * b
+
+X = AInv %*% b
+
+X</code></pre>
+<pre><code>##      [,1]
+## [1,]    8
+## [2,]   -2</code></pre>
+</div>
+</div>
+<div id="checking-the-answer" class="section level1">
+<h1>Checking the answer</h1>
+<pre class="r"><code>Solve(A, b, fractions = TRUE)</code></pre>
+<pre><code>## x1    =   8 
+##   x2  =  -2</code></pre>
+<div id="plot-the-equations" class="section level3">
+<h3>Plot the equations</h3>
+<pre class="r"><code>plotEqn(A,b)</code></pre>
+<pre><code>## 4*x[1] + 10*x[2]  =  12 
+## 2*x[1]  + 6*x[2]  =   4</code></pre>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABUAAAAPACAMAAADDuCPrAAABrVBMVEUAAAAAABgAACsAADoAAGYAExgAEysAEzwAIUwAOjoAOmYAOpAAZrYyAAAyEysyIUwyLkwyLlw6AAA6OgA6Ojo6OmY6ZmY6ZpA6ZrY6kJA6kLY6kNtZAABZEwBZExhZLmlZO1xZO2tmAABmADpmOgBmOjpmZjpmZmZmZpBmkLZmkNtmtttmtv9+EwB+R2uQOgCQZjqQZmaQkDqQkLaQtraQttuQ2/+fIQCfR2ufU2u2ZgC2Zjq2kDq2kGa2tpC2tra2ttu2yZ+227a229u22/+2//++vr7ALhjAOyvAOzzAR0zAR2rAR2vAU2vMdtDRyefYU2vbkDrbkGbbkJDbtmbbtpDbtrbbttvb27bb29vb2//b///fOyvfRzzfR0zfU0zfU1zfU2vfU4bfU5/fXWPfc4bfc5/fc7nfkdDkU2vkc4bkkbnkkdDkrufqU2vqc2vqkYbqyefqyf/vc2vvkYbvrobvyefv5P/0kWv0kYb0rob0rp/05Of05P/0///6rob6yZ/6////tmb/yZ//25D/27b/29v/5Ln/5ND/5Of//7b//9D//9v//+f///9pn0LfAAAACXBIWXMAAB2HAAAdhwGP5fFlAAAgAElEQVR4nO3djZ9c133Q4duueLFs87KVI4OhpUKu49hFpo0NWcVxqW1KgQLr2sGyGsi2NGCglCZQFELrdC3Zrbqev5l777zdmZ2dnfubMy/nzPN8Psm+aHV0j/fqu+e+jaoBACHVrjcAIFcCChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQfsd0AogmfSJSj5iQrv+rw2UJXmjUg+Y0gZ+YAAHS0ABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCAos4BevP3yra/96sPJx0/vVDfe7/H7BRRIJ6+AfnBcNY5eHSdUQIHdySqgp9XYs6OCCiiwOzkF9HG9/rz55oMH95u3w2wKKLA7OQX0dLzyfHJ3XFABBXYno4Be3Kuq16fvti0VUGB3MgpoN5ZNQZ8bXBfQaoFNbR1weDINaPNB9ZKAAruUa0CbK0pHbzmEB3Yoo4B2zoE2zqvqxnsCCuxORgFtrsI/N/vhjV8XUGBncgpocx/o7U+mH5+0JzUFFNiRnALaPonU7eV9AQV2KKuADj48nu1l/bGAAruSV0AHFx99/eHMx/ePBRTYkcwCui4BBdIRUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAEFCBJQgCABBQgSUIAgAQUIElCAIAGNeHxcvZ5koKd3brw//ejJG8dVdXT7vSRDXxr+4u1bVVU9k3B4OHQCGvD0TpUmoBf3qk7hPqzz2Tj6Roqx54cfj15VLyYaHg6egAacVGkCelEPNC3ceTWRZnk7M3xn9Oq5JMMDAtrfeaLG1QvETuGaZe3N+vD647vdqqYavh393cFw+KO3EgwPCGh/TYtSBPSj9ph60srTqnr2YfNOE76X1h59bvjzybqzGd4SFJIQ0L6aE4u/sn5An9Qrwer23Unh6mHHC8PHx6OUJhz+ZLrFKYYHGgLaV71SfP10lKPz8RKv/7KuHuLotc5VnnpdO87asKVrjL1g+I7OnwSsRUB7qtdvLw3GAZ207Xz5ecuTy8U6PXrxYfcy+Xmnku1ycdWxF5sfvkNAIZUMA3rx4LvvvPPOrz2IRGDt6dZNquszDmiT0+bA+7r7mhYE9IuHg8FcQCcnPofDrzj2YvPDd5w7BwqJ5BbQj9/o3I5z+92+v33t6Z60UZsEtFks1nE8qZYv6hYEtNUp3Gknk6OYrjb2EgsDWgfZVXhII6+AtpdGum72TMG60x2lbVq7dn14ft2dQbGArjb2EosC2twcagEKaWQV0PP2zpxbrwz9XPvUTr+j2zWnOz592KldHbhnjq+77ygW0OvGPp/7aXIptAsCOnvvPrCWnALarMiO3ux8ornVsV8N1pzuyeiP69SuvV39uoPsYECvGTsQ0GZEB/CQSk4BPb2Uyyapve45X2+6k8h1a/f4eLZJpwuSHgzozNjtK43cfPPSGEtcCugTjyFBShkFtFk9zR+wn/e8wrLWdOucjc4edmvXbFYnU4+POx9ct0ZcehV+duzHo9cC6fPzYj6gzeuJ3HT8DslkFNB6uXlpcbfoc51NWeCfAySTunP7HdBd/9cGipK6c5s8hL90/m5jh/Dz4W0+dzr3ufZo+qR+ezq+M+ikuvnuvdg50EXPws+MPXTe+ajfRaRTpz8htYwO4RfcUt77MfHVp7tg9dp8+quf/Nezs7P/9Jt/f3QOtC345GGht9+sN2nVgH7102aof/Vv/2z44eVXY5ode/xVS06Cfvnp2Q+7H3cD2jwQ6rXoIa2cAtpcR3m2G4EnvW/K6TndSw39m791NvJv2i8YXdjqPK6+ckDr2g394E/bj8ev2Dl5PdDLYzefWzLfv/wfZ1cG1PNHsAE5BXR4DH30yjffaXxneCd9v1fODEy328+/fjb1X0Zb1LSx8xKeqwZ00s+zs/88XIPOvyL95bGbRfiSBfejs6sDOnv6QUshiawC2vl3fcYleK3fANHpDv+0n/3W2dl/+Pn6nb/xT8/Ofvf/TF7vo43fKEorBrRZLf7uH13c+5lf+HdnZ38w/NwHM/8m0oKxB/eX3YX0+dnVAR3eki+gkFZeAR1cvN1N6NGrfV9lY53ptgvQ3xn+yT/zj9p3p8+VT95bMaCfnZ393p+2hftnkyXo7L/KeXnsi5Nl/WySfGVAh6+iL6CQVmYBrV18/M7br7zyyqvvvBt4jaL1plsfI/+TUYL+2m+dfe/56bWlzuYtCuglX/2oXcHOvbvc07vL7jioh/m9/z0XUGCz8gvoWpJMd3Q0Xwe0XpL+x7/Xrkh/NDopumJAv/x09OVjn7cr0kEbwrlfGnlyp3pxyY+Mekn7w88EFLZKQGP+sg3o6Ei+Gpa0/YWFAX00Pkgf+3xy4nNk0s1JSefUB+HLrpfVRf6DgYDCdglozOdN79oj+e//8vDq0ujgfrWAtqn78//16dnZ7//R8DN1AZsj+Uu3Io2dLO1n3d/6jxBQ2C4BDak7Nzxx+eisWYn+4tnkjOjls6KDBQF9VP/2z2bvA33UXkx6NL2kNOPx5OLZwvOgj9rNEVDYLgGN+OrR+ERlu2Ksl6PNOnRW9+sXBfR/Tu4DHR6yj0dafEVpepPoooCOzggIKGyXgAY0/RyfqKzb9fuftv2aL2gnovMBbc54np39tz8ZDP7ix+N78jsjLfT52axOaOv2tn+AgMJ2CWh/Tf4m+Rq2cBLIxRVdGNBRKSeLzrmR5i0J6KNRzgUUtktAe/vzP5ypV/NM5uxh9+WG/uL3Lh3CT0v5aJy9yyOtZtJNAYXtEtC+fvrp5LpPq1k4dm88+mz4QTW6u2nxqvFR51B9cktTd6T2Cv0P/niVDZreUyqgsF0C2lNz7fy//9ncJzonLr/8dFrTSwH9/i9Xk990OaCdkcYvNXLVCdH5Lepa5fcAKQjoYuMazX/+x/OFam5o+nS6tKzXp3P3wQ8P4Z+fPSv6eedxo3FMOyPVa9E60l/93+4R/ZXnQAUUdkVAF5tJ0vTTn106S9kcjH82zuFXP64buOBBokezAW1vwJ982fgcaGekLz8dniH9rFNDAYW9I6CLnV02GD5n+SczX/d5czVo8vjQo7Mf/L8fLQpo08PZy0pnZ7/zfLsxPx2d+JwdaTz6wsfir+IcKGyXgF5hQUFbs+vP5rrPD6cPsP/kj+vPXBXQ0QZMlqDtS4v+lX8wWjPOjTT0Wb/lpIDCdgnoUldldHwM/dnwdqSmfqPUXRPQ4UbU/vZ0oO81S9HLIzUf9LurSUBhuwT0elcvRr8cXz6aPoK5QkCHW/K3xv+80m8+P1yRfn9upOaMQK8jeAGFLRPQVV2V0eGvTh6OXzWgg8Ff/ORfn519/1/+/OSc6PAK/WSkwY9n7jddgYDCdgloP8szOrgioMs3afEj9F896ttPYMsENGBZRXsHdLhZl/zsH179WDywHwQ07KqMBgI62raOv/qts3/x/F7/pwQEdF3XHtP3M15/fuvsN2YO6IE9JKBJJK1oe03pN2YWpGm3FkhDQNNJtxgdv5bINf9SCLBbAprYVykyOn3uff4h+k1tNhAgoJuR7pj+qtucgJ0T0A1KdkwvorCXBHTjUmVURWHfCOiWpMmoiMI+EdBtUlEoioBuX4qMiijsAQHdFRWF7Anobq2dURGF3RHQPaCikCcB3RtrZlREYesEdL+oKGREQPfRWhUVUdgWAd1bay1GVRS2QED33BoVFVHYMAHNgYrCXhLQbMQP6UUUNkNAM6OisD8ENEfRxeiCiJbxHwR2Q0CzlbCiW9haKJGAZi5WUUtRSEFASxBbjIoorElAy6GisGUCWphIRUUUYgS0RJFDehWF3gS0XP0rKqLQi4AWrv9iVEVhVQJ6CHpX1G1OsAoBPRwJKrq9jYUcCOiB6bkYtRSFJQT0IK1d0W1uLOwtAT1c/RajKgqXCOiB61VREYUZAsqgX0ZVFMYElLEeFXVtCRoCyqy1KrrtjYXdElAWWHkxainKQRNQrrRGRbe/sbADAspyqy5GVZQDJKCsYMWKiigHRkBZ2WoZVVEOh4DSz0oVFVEOg4ASoaIwEFDWsMJi1G1OFE1AWVOoorvaWEhKQEnh2sWopSglElCSiVR0d1sL6xNQErsuoypKOQSUTbimoiJKGQSUzVFRCiegbNjSxaiIkjUBZStUlBIJKNuzZDHqNidyJKBsWb+K7nprYRkBZSeuzKilKBkRUHanT0V3va2wgICyaypKtgSUvXDFYlRE2WsCyh5RUfIioOyblReju95QEFD20qoV3fV2ctgElD22YkZ3vZkcLAFl361W0V1vJQdJQMmDirKHBJSMrLIY3fU2ckgElOyoKPtCQMnT9YvRXW8hB0BAyZiKslsCSvauzeiuN5BibSugH71864U3h+8+vXPj/ejgF2+/fOtrv/pw8vHTO1WvwfxdKtZ1Fd319lGkLQX0pN2Hb77XvL9GQD84bsc5enWcUAFlRoqKWrmysu0E9LQ6eu3Bx29UR28N1gno6WTPfnZUUAHlsuWL0et+t4v5rG4rAb24V73evD1taxcO6ON6/XnzzQcP7jdvh0MIKFeJVbT7ixLKdbYS0Eky24KGA3o6Xnk+uTsuqICy1LLF6KKvn/28gnKN7QZ0cFI9Fw5ovY4dLmSH77YtFVCu16Oi85+ww7DUlg7h25Of7XvVi9GAdmPZFPS5gYCyuqszOv2ay/uHPYZltnMR6aStXePp3ervJAho80H1koDS0zUVFVD62U5AO52rC9qveYsGGbRXlOplrYAScPUh/eWvtcuwxIYD+sno7ZO7w8799vuDi/vBgHbOgTbO6xC/J6BELUxo/b+5L7PLsMRmA/r0H77W/aUn99raXfz7h4OI02pyJmD04Y1fF1DWcimgw3emX2CXYYkNB/ROdXsayw+Pg2vPkeY+0NufTD8ePt60ZMhqgTX+fEp1KaBD7a/ZZVhi4wGtjkaPwF+8sbx2KzidG+G+gJLM5YCOorrrDWOPbfgc6EfNw+svPpx5bw3za9j6Y4fwJFPvHgvPi44WozBv01fh23XnzbcumsXizTfXHvzio6/PNPji/rGAksp491h4XlRFuWzztzF9eDw6eF53+ZmCgLLEzO5RLTwvqqJ0beE+0Cf3qjTLzwQElGUWPNq54LSojDK2hYC2R/HV0WuLvjjs6cu3XghckBJQlln4JNJVEVVRsj2E73sH/YiAstSVLyZyZUVl9KBt8yLSUcKjeAFlE5a/nJ2KMmfDAf1wcvPS4xS3MU0JKBtx7Qsqt0dTMsrQFm+kbxahz651I/3syALKJqzy2IWKMpTTo5xdAsqmrPjY2uhrVPSg7eLFRFIQUPbB0orKaPm29HJ2Y78toJRmsmBV0cOzpX8XPjkBZa9cU1EZLVSuAQ0SUDanUtGDI6CQUiWjh0RAITkVPRQCChsx8zreKlooAYXNWaGiMpozAYXNqiqL0WIJKGzBShWV0ewIKGxJpaLFEVDYpvmKymjWBBS27VJEVTRXAgo7cbmiri/lR0Bhd1auqIzuJwGF3VoQ0dl/ml5F95eAwh7oUVEZ3SMCCntiQURVdM8JKOyThRGV0X0loLBvFi9FVXQPCSjspSsiKqN7RUBhf6nonhNQ2G9XRlRGd09AIQP9Kyqj2yCgkIklEbUY3REBhZxEKiqjGyOgkJurbnMakdHtEVDI0vKIOqbfDgGFbF2zFLUY3TgBhbxdF1GL0Q0SUCjA9RWV0U0QUCjEChF1TJ+YgEJJVqmoxWgyAgqlWSmiFqMpCCgUabWKyuh6BBSKtWJEHdOHCSiUbd2KyugSAgrlWzmiMtqPgMKB6FFRx/QrElA4IH0iajF6PQGFQ9OrohajywgoHKJ+EZXRKwgoHCwVXZeAwkHrG1EZ7RJQQEWDBBRo9I+ojAooMKWi/QgoMCMS0asyuvGN3TEBBS5LWdGCMyqgwGKxiB7UYlRAgSXSVrS0jAoocI0FEVXRloACq4hGtOiMCiiwqvBStNSKCijQSzyi5V1fElCgv/QVzTKjAgrErBPRQhajAgqsYRMVzSejAgqsab2I5lxRAQVSWLOieWZUQIFU1rjNaSi3igookNS6Ec3p+pKAAsmtvRTNZDEqoMBmrB/RvV+MCiiwQZur6D5kVECBDUsR0f2sqIAC25CkovuWUQEFtiXBtaXG/lRUQIGtShPR/bi+JKDA1iVaiu58MSqgwG6kiugOF6MCCuzQpiu62YwKKLBj6SK67YoKKLAPElZ0exkVUGBfpIzoVioqoMBeSVrRDV9fElBg7yS7zWloY4tRAQX2U9qIbmQxKqDA/kq8FE29GBVQYM+ljmi6igookIPkFU2RUQEFcpE+omtWVECBrGygogsyuuq2rP1Hz4+YesCUBBRKsImIDgT0OgIKxdhIRQcCejUBhaIkv82p7x+ffMTUA6YkoFCe3UVUQIEC7GYpKqBAKbYe0XwDevHdd37tYd/fJKBQum1WNN+APr1T3Xi/728SUDgE24qogAJl2kJFcwroFw+6Pq4D+m799pM+QwgoHJQNX1vKKKD1knORXstQAYXDs7mICihwADazFM0ooIMPj6vq6JWxXzqujr5Wv/16n0vxAgoHLHlEcwro4Mm9qrr53ugDF5GAgJQVzSqgg8EH9bLzG8N3BRQIShXRzAI6eHK3qp5tF6ECCqwjQUVzC+jg4ttVdfTaQECB9a0Z0ewCOhg8rhehtx8KKJBGvKIZBnRwcb9ehL65QkA3c+MCUJ5YKXIM6PCGpq8dCyiQ0oEEtL2hqec99C0BBZY6hIC2NzQJKLBT2QZ08OQf93sIqSWgQDr5BjREQIF0cg3o05dvvdD7AF5AgZSyDWjkLlABBVISUIAgAQUIElCAIAEFCBJQgCABBQgSUICgXAMaJKBAOgIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQdkG9IvvvvPuw96/S0CBdDIL6Mcv33i/fnPx9nHVuPlmz98voEA6WQX04o2qagJ6ca8ae7HfKlRAgXRyCmjbzTqg7dujV155pVmGPtdrCAEF0skpoOd1L//uw+Hbl5pPXHy7DulbfYYQUCCdnAJ6MurmyXTdedJzCSqgQDoZBfTpneFyc/y28fi4erbPWVABBdLJK6DtJfjx28Hc+6sQUCCdDAN6cU9AgX2QUUCbi++vN++cTA/hzyuH8MCuZBTQwenwLtDmxOfoylHT1Jf6DCGgQDo5BbQ+Xq9uvjdoSzq8jem+25iA3ckpoIPz5s75F7754MG365K++p03jqvlC9Bqgc1tHXBosgpoc/A+Z+kBvIACm5RXQCevIjLixUSAHcosoLUvvvPKy7dqL3z9m17ODtil/AK6FgEF0hFQgKBcA/r05Vsv9HkEaURAgXSyDWjPZzhHBBRIR0ABggQUIEhAAYIEFCBIQAGCBBQgSEABgnINaJCAAukIKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShA0MEFFCCd5I1KPWBKu/6PDZQleaNSD1iwos4omMy+KmkyJc1lseInmFBRe4PJ7KuSJlPSXBYrfoIJFbU3mMy+KmkyJc1lseInmFBRe4PJ7KuSJlPSXBYrfoIJFbU3mMy+KmkyJc1lseInmFBRe4PJ7KuSJlPSXBYrfoIJFbU3mMy+KmkyJc1lseInmFBRe4PJ7KuSJlPSXBYrfoIJFbU3mMy+KmkyJc1lseInmFBRe4PJ7KuSJlPSXBYrfoIJFbU3mMy+KmkyJc1lseInmFBRe4PJ7KuSJlPSXBYrfoIJFbU3mMy+KmkyJc1lseInmFBRe4PJ7KuSJlPSXBYrfoIJFbU3mMy+KmkyJc1lseInmFBRe4PJ7KuSJlPSXBYrfoIJFbU3mMy+KmkyJc1lseInmFBRe4PJ7KuSJlPSXBYrfoIJFbU3mMy+KmkyJc1lseInCLApAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQIKECSgAEECChAkoABBAgoQJKAAQQLax+Pj6vVdb0MKFx/eqqrq1msPd70hKXz8xnFVHd1+b9fbsa6nd268P/3oSdazmpnLxdvN3vZMrnNZTkB7eHqnKiKg9c+BoZvvX//Fe+7i/mgu1Uu73pT1XNyrOtH5cPQtOvrGDjcpbGYu46lU1Yu73KYNEdAeTqoiAjrpZ1U9m/0a9GQyl7wLelFPZBqd8+msMtzhZubSmUr13E43ayMEdHXnme7Pc5p19NFrzZHVcebRGQx/GDTHhk/u1ZN6a9dbE1ev2TrRab5FN+tZfXy3W9VczMylncq7g+Fccv4OXUFAV9bsCiUE9HSyd5/nvwQ9nSxrTnL+afBRe1AwaeXp+BvTtCi3Wc3O5XzyDWrmUt4SVEBX1ZzX+ZUCAlrPY7wQ6Lybq5PJDM7z/ev5pF6cVbfvTqLT+b7UK+y8fsbNz+Vk+lcmu7msQkBXVa8KXj8tIKD1bpxraBYoIqCnzTmVzoWX+lhnXJrsfsbNz6WjM61yCOiK6u68NCghoOf5HRQuMXMIn+v35vToxYfdK9fdnwW5TWt+Lh0CesDqXaL+5pcQ0HYO7V2Gz7y2621ZX3Niur2I9EbG53O/aDZ8NqCTn3G57XLzc+nI+BjhagK6muGhYm578yLNTE7LuQ+0PedWwmQ60enuZlkeMCwMaP2zLq+zESsR0JWMduNCAvpLkxvz8rtH5pLmBqbG7VzXnyOlB7S5ObS8BaiArmR89qaAgLY36bVHvV/cL+HW5tPJD4OjvM9IFB7Q2QcFyiGgqzgZfe9LCejor+R5/rc2N/188ZPRT4OsvzdlB/Qi8wcdriSgK5js0AUEtLmsO7naktsl3ks6r07wYeYrnKID+qTMx5AGArqK6Z2ThQR08jcyy7+dXTnf8DOnkKvwrfmANq8nkvk1vqsI6PWmp9kKeNGKZjblBLSbl9O8J1PIfaCtuYC251kyv8Z3FQG9XlkB7f7tzLw5BRzsThXyJFJrNqD3s/87s4SAXq+sgD4+nu7cWS5vulcIjmEAAANlSURBVLJfq011opPzs/CtmYCelnr6syWgfWR5Qmpecz/e8O9k7tddhq9mN/qO5H5LQTc6Wb8a02B2LvX35UaRr0U/JKB9FBHQJjrNKzR+UcKh1Un3Nqasb2rtRmf8Ipp5vh7o/OmIrH+uXUdA+ygioN1TEhkeHs4avkhrCc9yzhz25v2K9HO3ZHWU11IB7aOMgA4+GP+bHrk//jgYP1lVwA+D2QsvHxTybyJNvz0CSikBHXzx9s/VO/ML7+56O5L4+OX236/MfTJzt/5k/a9yTufSPUIQUACmBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIEFCBIQAGCBBQgSEABggQUIEhAAYIElDydV9WN95t3Lu5V1XO73hoOlICSp0k3JyWFrRNQMvX4uDp6azB4eqeqXt/1tnCoBJRcnVTVsw9H/w87IaDkql171gfwzToUdkJAyVYdz2eOq+qlXW8Hh0tAyVZzHckBPLskoOTr8bEDeHZKQMlXswTt3sJ06n4mtktAyddpcwg/PQX6+FhA2S4BJVtP71RHx9Nj+A+P3VHPlgko2Tqpl5+n4+c4L+7XNRVQtktAydV5cwV+8iDSSXXz3XsCynYJKJlqriC9Pn0U/u03688IKNsloGTqdHgLaNPR0XUkAWXbBJQ8PR5fPpo+zCmgbJuAkqeTyauATt4TULZNQCmGgLJtAkoxBJRtE1CKIaBsm4BSDAFl2wSUYggo2yagFENA2TYBpRgCyrYJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKEDQ/wcM841RLHNqHQAAAABJRU5ErkJggg==" width="672" />
+### This intersection of two lines proves that this consistant system of
+equation has at least one solution.</p>
+</div>
 </div>
 
 

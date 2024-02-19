@@ -1,0 +1,67 @@
+---
+title: "Discussion_Week5_MQari"
+author: "Mubashira Qari"
+date: "2024-02-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Discrete Probability Distribution:
+### Page # 36
+### Question # 8
+
+A student must choose one of the subjects, art, geology, or psychology, as an
+elective. She is equally likely to choose art or psychology and twice as likely
+to choose geology. What are the respective probabilities that she chooses art,
+geology, and psychology?
+
+### Solution:
+
+To choose one of the subjects, art, geology, or psychology, as an
+elective. She is equally likely to choose art or psychology and twice as likely
+to choose geology.
+
+Let set the probability as
+
+P(A) be the probability of choosing art.
+
+P(G) be the probability of choosing geology.
+
+P(P) be the probability of choosing psychology.
+
+Since the student is equally likely to choose art or psychology, then
+
+P(A)=P(P)=x
+
+Also the student is twice as likely to choose geology, then
+
+P(G)=2x
+
+The probabilities of all possible outcomes must sum up to 1,
+
+P(A)+P(G)+P(P)=1
+
+substituting the values below
+
+x + 2x + x = 1
+4x = 1
+x = 1/4
+
+Now find the probabilities of each subject
+
+P(Art)=P(Psychology) 
+
+P(A) = P(P) = 1/4
+
+
+
+P(G) = 2 * 1/4 = 1/2
+
+P(Geology) = 1/2
+
+
+
+
