@@ -11,9 +11,9 @@
 
 <meta name="author" content="Mubashira Qari" />
 
-<meta name="date" content="2024-02-17" />
+<meta name="date" content="2024-03-01" />
 
-<title>HomeWork_5_MQari</title>
+<title>HW7_MQari</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,441 +350,159 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">HomeWork_5_MQari</h1>
+<h1 class="title toc-ignore">HW7_MQari</h1>
 <h4 class="author">Mubashira Qari</h4>
-<h4 class="date">2024-02-17</h4>
+<h4 class="date">2024-03-01</h4>
 
 </div>
 
 
-<pre class="r"><code>library(MASS)</code></pre>
-<ol style="list-style-type: decimal">
-<li>(Bayesian). A new test for multinucleoside-resistant (MNR) human
-immunodeficiency virus type 1 (HIV-1) variants was recently developed.
-The test maintains 96% sensitivity, meaning that, for those with the
-disease, it will correctly report “positive” for 96% of them. The test
-is also 98% specific, meaning that, for those without the disease, 98%
-will be correctly reported as “negative.” MNR HIV-1 is considered to be
-rare (albeit emerging), with about a .1% or .001 prevalence rate. Given
-the prevalence rate, sensitivity, and specificity estimates, what is the
-probability that an individual who is reported as positive by the new
-test actually has the disease? If the median cost (consider this the
-best point estimate) is about $100,000 per positive case total and the
-test itself costs $1000 per administration, what is the total first-year
-cost for treating 100,000 individuals?</li>
-</ol>
+<div id="let-x1-x2-.-.-.-xn-be-n-mutually-independent-random-variables-each-ofwhich-is-uniformly-distributed-on-the-integers-from-1-to-k.-let-y-denote-the-minimum-of-the-xis.-find-the-distribution-of-y-." class="section level3">
+<h3>1. Let X1, X2, . . . , Xn be n mutually independent random
+variables, each ofwhich is uniformly distributed on the integers from 1
+to k. Let Y denote the minimum of the Xi’s. Find the distribution of Y
+.</h3>
+</div>
 <div id="solution" class="section level3">
 <h3>Solution:</h3>
-<p>Sensitivity = True Positive for disease = 96% Specificity = True
-Negative for disease = 98% Prevalence rate = rare instance rate = 0.1% =
-.001 What is the probability that an individual who is reported as
-positive by the new test actually has the disease?</p>
-<p>Median cost per positive case total = $100,000 Test administration
-cost = $1000 What is the total first-year cost for treating 100,000
-individuals?</p>
-<p>Bayesian Formula:</p>
-<p>The Bayes Theorem finds the chance that an event will happen based on
-our prior knowledge of similar events.</p>
-<p><span class="math display">\[P(A|B)=((P(B|A)⋅P(A))/P(B)\]</span></p>
-<p>where</p>
-<p>P(A|B) - conditional probability that event A will happen if event B
-has already happened.</p>
-<p>P(B|A) - conditional probability of event B given that event A has
-already occurred.</p>
-<p>P(A) - the earlier probability that event A will take place.</p>
-<p>P(B) - the probability that event B will occur.</p>
+<p>Given: X1, X2, . . . , Xn be n mutually independent random
+variables.</p>
+<p>Each of which are uniformly distributed on the integers from 1 to
+k.</p>
+<p>Y denote the minimum of the Xi’s.</p>
+<p>To find the distribution of Y, we will find the probability that Y
+takes on each possible value from 1 to k,</p>
+<p>where y is the range of all possible value from 1 to k.</p>
+<p>For that we will’ calculate the cumulative distribution functions
+(CDFs) and probability mass functions (PMFs).</p>
+<p>Let PMF of Y is P(Y=y) where y is the range of all possible value
+from 1 to k.</p>
+<p>The probability that P(Y&gt;y) is the probability that all Xi’s are
+greater than y.</p>
+<p>Also, since Xi’s are are independent and uniformly distributed from 1
+to k, the probability that any single Xi is greater than y is:</p>
+<p><span class="math display">\[
+= \frac{k-y}{y}\; \]</span>.</p>
+<p>The probability of all Xi’s greater than y is:</p>
+<p><span class="math display">\[
+\left( \frac{k-y}{y}\; \right)^n\]</span>.</p>
+<p>The CDF of Y:</p>
+<p>where CDF is a function that describes the probability that a random
+variable (continuous or discrete) will take on a value less than or
+equal to a certain value.</p>
+<p><span class="math display">\[F_{Y}(y) =  P(Y \leq y) = 1 - P(Y &gt;
+y) = 1 - \left( \frac{k-y}{k}\; \right)^n \]</span></p>
+<p>Now to find the PMF of Y:</p>
+<p>where PMF is a function that describes the probability of a discrete
+random variable taking on a certain value.</p>
+<p><span class="math display">\[P(Y = y) = F_{Y}(y) - F_{Y}(y-1)
+\]</span></p>
+<p><span class="math display">\[P(Y = y) = \left(1 - \left(
+\frac{k-y}{k}\; \right)^n \right) -  \left(1 - \left(
+\frac{k-(y-1)}{k}\; \right)^n \right)\]</span></p>
+<p><span class="math display">\[P(Y = y) = \left(\frac{k-(y-1)}{k}\;
+\right)^n  -  \left(\frac{k-y}{k}\; \right)^n \]</span></p>
+<p>The PMF of Y where Xi’s is the minimum value and uniformly
+distributed from 1 to K.</p>
+<p><span class="math display">\[P(Y = y) = \frac{(k-y+1)^n
+-(k-y)^n}{k^n}\; \]</span></p>
 </div>
-<div id="question-1" class="section level3">
-<h3>Question 1:</h3>
-<pre class="r"><code># Sensitivity = True Positive for disease = 96%
-
-sensitivity &lt;- 0.96</code></pre>
-<pre class="r"><code># Specificity = True Negative for disease = 98%
-
-specificity &lt;- 0.98</code></pre>
-<pre class="r"><code># Prevalence rate = rare instance rate
-
-prevalence_rate &lt;- 0.001</code></pre>
-<pre class="r"><code># False positive rate
-
-false_positive_rate &lt;- (1 - specificity)
-false_positive_rate &lt;- (1 - 0.98)
-false_positive_rate</code></pre>
-<pre><code>## [1] 0.02</code></pre>
-<p>Total Probability of getting the true positive result</p>
-<pre class="r"><code>total_prob_positive &lt;- sensitivity * prevalence_rate + false_positive_rate * (1 - prevalence_rate)
-total_prob_positive &lt;- .96 * .001 + .02 * (1 - .001)
-total_prob_positive</code></pre>
-<pre><code>## [1] 0.02094</code></pre>
-<p>Probability of Positive given the positive test result</p>
-<pre class="r"><code>prob_disease_given_positiveTest &lt;- sensitivity * prevalence_rate / total_prob_positive
-prob_disease_given_positiveTest &lt;- .96 * .001 / .02094
-prob_disease_given_positiveTest </code></pre>
-<pre><code>## [1] 0.04584527</code></pre>
-<p>Rounding the result and calculating percentage of</p>
-<pre class="r"><code>cat(round(prob_disease_given_positiveTest * 100, 2), &quot;%\n&quot;)</code></pre>
-<pre><code>## 4.58 %</code></pre>
-<p>The probability of actually having the positive for disease by the
-new test is 4.58 %</p>
-</div>
-<div id="question-2" class="section level3">
-<h3>Question 2:</h3>
-<p>Test administration cost = $1000</p>
-<pre class="r"><code>cost_per_head &lt;- 4.58 * 1000
-cost_per_head</code></pre>
-<pre><code>## [1] 4580</code></pre>
-<pre class="r"><code>total_cost &lt;- 100000 * 4580
-total_cost</code></pre>
-<pre><code>## [1] 4.58e+08</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>(Binomial). The probability of your organization receiving a Joint
-Commission inspection in any given month is .05. What is the probability
-that, after 24 months, you received exactly 2 inspections? What is the
-probability that, after 24 months, you received 2 or more inspections?
-What is the probability that your received fewer than 2 inspections?
-What is the expected number of inspections you should have received?
-What is the standard deviation?</li>
-</ol>
+<div id="your-organization-owns-a-copier-future-lawyers-etc.-or-mri-future-doctors.this-machine-has-a-manufacturers-expected-lifetime-of-10-years.-this-means-that-we-expect-one-failure-every-ten-years.-include-the-probability-statements-and-r-code-for-each-part.." class="section level3">
+<h3>2. Your organization owns a copier (future lawyers, etc.) or MRI
+(future doctors).This machine has a manufacturer’s expected lifetime of
+10 years. This means that we expect one failure every ten years.
+(Include the probability statements and R Code for each part.).</h3>
 </div>
 <div id="solution-1" class="section level3">
 <h3>Solution:</h3>
-<p><span class="math display">\[ P(x)= \left( \begin{bmatrix}
-    n \\
-    x
-\end{bmatrix}\right) p^x(1-p)^{n-x}\]</span></p>
-<p>The binomial distribution model is used for finding the probability
-of success of an event which has only two possible outcomes in a series
-of experiments.</p>
-<p>R has four in-built functions to generate binomial distribution.</p>
-<p>dbinom(x, size, prob) - the probability density distribution at each
-point. pbinom(x, size, prob) - the cumulative probability of an event.
-It is a single value representing the probability. qbinom(p, size, prob)
-- takes the probability value and gives a number whose cumulative value
-matches the probability value. rbinom(n, size, prob) - generates
-required number of random values of given probability from a given
-sample.</p>
-<p>x is a vector of numbers.</p>
-<p>p is a vector of probabilities.</p>
-<p>n is number of observations.</p>
-<p>size is the number of trials.</p>
-<p>prob is the probability of success of each trial.</p>
-<p>Mean = n * p Variance = n * p * (1 - p)</p>
-</div>
-<div id="probability-that-after-24-months-you-received-exactly-2-inspection" class="section level3">
-<h3>Probability that, after 24 months, you received exactly 2
-inspection</h3>
-<pre class="r"><code>prob_inspection = 0.05
-months = 24
-prob_2months &lt;-  dbinom(2, 24, 0.05)
-
-prob_2months</code></pre>
-<pre><code>## [1] 0.2232381</code></pre>
-</div>
-<div id="probability-that-after-24-months-you-received-2-or-more-inspections" class="section level3">
-<h3>Probability that, after 24 months, you received 2 or more
-inspections</h3>
-<pre class="r"><code>prob_2month_or_more &lt;- 1 - pbinom(1, 24, 0.05)
-
-prob_2month_or_more</code></pre>
-<pre><code>## [1] 0.3391827</code></pre>
-</div>
-<div id="probability-that-you-received-fewer-than-2-inspections" class="section level3">
-<h3>Probability that you received fewer than 2 inspections</h3>
-<pre class="r"><code>prob_2month_or_less &lt;- pbinom(1, 24, 0.05)
-
-prob_2month_or_less</code></pre>
-<pre><code>## [1] 0.6608173</code></pre>
-</div>
-<div id="expected-number-of-inspections-you-should-have-received" class="section level3">
-<h3>Expected number of inspections you should have received</h3>
-<pre class="r"><code>expected_inspections &lt;- 24 * 0.05
-expected_inspections</code></pre>
-<pre><code>## [1] 1.2</code></pre>
-</div>
-<div id="standard-deviation" class="section level3">
-<h3>Standard deviation</h3>
-<pre class="r"><code>standard_deviation &lt;- sqrt(months * prob_inspection * (1-prob_inspection))
-
-standard_deviation &lt;- sqrt(24 * 0.05 * 0.95)
-
-standard_deviation </code></pre>
-<pre><code>## [1] 1.067708</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>(Poisson). You are modeling the family practice clinic and notice
-that patients arrive at a rate of 10 per hour. What is the probability
-that exactly 3 arrive in one hour? What is the probability that more
-than 10 arrive in one hour? How many would you expect to arrive in 8
-hours? What is the standard deviation of the appropriate probability
-distribution? If there are three family practice providers that can see
-24 templated patients each day, what is the percent utilization and what
-are your recommendations?</li>
-</ol>
-</div>
-<div id="solution-2" class="section level3">
-<h3>Solution:</h3>
-<p><span class="math display">\[
-P(x)=  \lambda^{x}e^{-\lambda}/x^{!}\]</span></p>
-<p>where</p>
-<p>x=0,1,2,3…..</p>
-<p>𝑒 is the euler’s number</p>
-<p>𝜆 is an average rate of expected value and λ=variance,λ&gt;0</p>
-</div>
-<div id="probability-that-exactly-3-arrive-in-one-hour" class="section level3">
-<h3>Probability that exactly 3 arrive in one hour</h3>
-<p>dpois() function calculates the probability mass function (PMF) for a
-given Poisson distribution. It takes two arguments: the value at which
-to evaluate the PMF and the mean of the Poisson distribution.</p>
-<pre class="r"><code>lambda&lt;- 10
-x&lt;- 3
-prob_3 &lt;- dpois(x, lambda)
-prob_3 &lt;- dpois(3, 10)
-prob_3</code></pre>
-<pre><code>## [1] 0.007566655</code></pre>
-</div>
-<div id="probability-that-more-than-10-arrive-in-one-hour" class="section level3">
-<h3>Probability that more than 10 arrive in one hour</h3>
-<p>ppois() function calculates the cumulative distribution function
-(CDF) for a Poisson distribution.</p>
-<p>It takes two arguments: the value at which to evaluate the CDF and
-the mean of the Poisson distribution.</p>
-<pre class="r"><code>prob &lt;- ppois(10, lambda=10)   # lower tail
-
-prob</code></pre>
-<pre><code>## [1] 0.5830398</code></pre>
-<pre class="r"><code>ppois(9, lambda=10, lower=FALSE)   # upper tail</code></pre>
-<pre><code>## [1] 0.5420703</code></pre>
-</div>
-<div id="expected-to-arrive-in-8-hours" class="section level3">
-<h3>Expected to arrive in 8 hours</h3>
-<pre class="r"><code>lambda&lt;- 10
-time &lt;- 8
-expected_arrive &lt;- lambda * time
-expected_arrive</code></pre>
-<pre><code>## [1] 80</code></pre>
-</div>
-<div id="standard-deviation-of-the-appropriate-probability-distribution" class="section level3">
-<h3>Standard Deviation of the appropriate probability distribution</h3>
-<p><span class="math display">\[SD=sqrt(λ)\]</span></p>
-<pre class="r"><code>lambda&lt;- 10
-
-std_dev_poisson &lt;- sqrt(lambda)
-
-std_dev_poisson </code></pre>
-<pre><code>## [1] 3.162278</code></pre>
-</div>
-<div id="for-three-family-practice-providers-that-can-see-24-templated-patients-each-day-what-is-the-percent-utilization-and-what-are-your-recommendations" class="section level3">
-<h3>For three family practice providers that can see 24 templated
-patients each day, what is the percent utilization and what are your
-recommendations?</h3>
-<pre class="r"><code>utilization &lt;- 30 * 24 / (3 * 24)
-
-utilization</code></pre>
-<pre><code>## [1] 10</code></pre>
-</div>
-<div id="percent-utilization-of-3-providers-each-seeing-24-patients-per-day" class="section level3">
-<h3>Percent utilization of 3 providers each seeing 24 patients per
-day</h3>
-<pre class="r"><code>cat(utilization * 100, &quot;%\n&quot;)</code></pre>
-<pre><code>## 1000 %</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>(Hypergeometric). Your subordinate with 30 supervisors was recently
-accused of favoring nurses. 15 of the subordinate’s workers are nurses
-and 15 are other than nurses. As evidence of malfeasance, the accuser
-stated that there were 6 company-paid trips to Disney World for which
-everyone was eligible. The supervisor sent 5 nurses and 1 non-nurse. If
-your subordinate acted innocently, what was the probability he/she would
-have selected five nurses for the trips? How many nurses would we have
-expected your subordinate to send? How many non-nurses would we have
-expected your subordinate to send?</li>
-</ol>
-</div>
-<div id="solution-3" class="section level3">
-<h3>Solution:</h3>
-<p>The probability mass function (PMF) for the hypergeometric
+<p>To model the time until the occurrence of a certain event, such as
+machine failure, we will use the exponential distribution.</p>
+<p>The probability density function (PDF) of the exponential
 distribution is:</p>
-<p>P(X = k) = [K choose k] * [(N - K) choose (n - k)] / [N choose n]</p>
-<p>where: X is the random variable representing the number of objects of
-interest in the sample k is a specific value of X [a choose b]
-represents the binomial coefficient, which is the number of ways to
-choose b objects from a set of a objects</p>
-<p>dhyper(x, m, n, k, log = FALSE) phyper(q, m, n, k, lower.tail = TRUE,
-log.p = FALSE) qhyper(p, m, n, k, lower.tail = TRUE, log.p = FALSE)
-rhyper(nn, m, n, k)</p>
-<p>p - probability, it must be between 0 and 1.</p>
-<p>x: represents the data set of values m: size of the population n:
-number of samples drawn k: number of items in the population</p>
-</div>
-<div id="probability-5-nurses-were-innocently-selected." class="section level3">
-<h3>Probability 5 nurses were innocently selected.</h3>
-<pre class="r"><code>prob_5_nurses &lt;- dhyper(5,15,15,6)
-prob_5_nurses</code></pre>
-<pre><code>## [1] 0.07586207</code></pre>
-</div>
-<div id="number-of-expected-nurses" class="section level3">
-<h3>Number of expected nurses</h3>
-<pre class="r"><code>expected_nurses = 6 * (15/30)
-expected_nurses</code></pre>
-<pre><code>## [1] 3</code></pre>
-</div>
-<div id="number-of-expected-non-nurses" class="section level3">
-<h3>Number of expected non nurses</h3>
-<pre class="r"><code>expected_non_nurses = 6 * (15/30)
-expected_non_nurses</code></pre>
-<pre><code>## [1] 3</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>(Geometric). The probability of being seriously injured in a car
-crash in an unspecified location is about .1% per hour. A driver is
-required to traverse this area for 1200 hours in the course of a year.
-What is the probability that the driver will be seriously injured during
-the course of the year? In the course of 15 months? What is the expected
-number of hours that a driver will drive before being seriously injured?
-Given that a driver has driven 1200 hours, what is the probability that
-he or she will be injured in the next 100 hours?</li>
+<p><span class="math display">\[f(x) = \lambda * e^{-\lambda*x}\;
+\]</span></p>
+<p>where λ is the rate parameter (1/mean)</p>
+<p>x is the time until failure.</p>
+<pre class="r"><code>lambda &lt;- 1/10</code></pre>
+<p><span class="math display">\[X \sim Geom(\frac{1}{10})\]</span></p>
+<p><span class="math display">\[P(Y &gt; n) = 1 - P(X \leq 8) = 1 -
+\sum_{i=1}^{8}(0.9)^{i-1}(0.1) \]</span></p>
+<p><span class="math display">\[1 -
+0.1(1+0.9+0.9^2+...+0.9^7)\]</span></p>
+<p><span class="math display">\[E[X]= \frac{1}{\frac{1}{10}}= 10
+\]</span></p>
+<p><span class="math display">\[\sqrt{a}=b \]</span></p>
+<p><span class="math display">\[\sigma = \sqrt{Var(X)}= \sqrt{90} = 3
+\sqrt{10}\]</span></p>
+<ol style="list-style-type: lower-alpha">
+<li>What is the probability that the machine will fail after 8 years?.
+Provide also the expected value and standard deviation. Model as a
+geometric. (Hint: the probability is equivalent to not failing during
+the first 8 years..)</li>
 </ol>
-</div>
-<div id="solution-4" class="section level3">
-<h3>Solution:</h3>
-</div>
-<div id="probability-of-seriously-injured-in-the-course-of-a-year." class="section level3">
-<h3>Probability of seriously injured in the course of a year.</h3>
-<pre class="r"><code>prob_injury = .001
+<p>Probability that the machine will fail after 8 is 43%,</p>
+<pre class="r"><code>prob &lt;- 1/10
 
-hours = 1200
+year=8
 
-crash_1200hrs = pgeom(hours,prob_injury)
-
-crash_1200hrs</code></pre>
-<pre><code>## [1] 0.6992876</code></pre>
-</div>
-<div id="probability-of-seriously-injured-in-the-course-of-15-months." class="section level3">
-<h3>Probability of seriously injured in the course of 15 months.</h3>
-<pre class="r"><code>crash_15_months = pgeom(hours * (15/12),prob_injury)
-crash_15_months</code></pre>
-<pre><code>## [1] 0.7772602</code></pre>
-</div>
-<div id="expected-number-of-hours-that-a-driver-will-drive-before-being-seriously-injured." class="section level3">
-<h3>Expected number of hours that a driver will drive before being
-seriously injured.</h3>
-<pre class="r"><code>Expected_hours &lt;-1/prob_injury
-
-Expected_hours</code></pre>
-<pre><code>## [1] 1000</code></pre>
-</div>
-<div id="probability-that-he-or-she-will-be-injured-in-the-next-100-hours" class="section level3">
-<h3>Probability that he or she will be injured in the next 100
-hours</h3>
-<pre class="r"><code>prob_100hours &lt;- pgeom(100,prob_injury)
-
-prob_100hours</code></pre>
-<pre><code>## [1] 0.09611265</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>You are working in a hospital that is running off of a primary
-generator which fails about once in 1000 hours. What is the probability
-that the generator will fail more than twice in 1000 hours? What is the
-expected value?</li>
+round((1 - pgeom(year-1, prob)),4)</code></pre>
+<pre><code>## [1] 0.4305</code></pre>
+<p>The Standard Deviation is 9.49.</p>
+<pre class="r"><code>std_dev &lt;- round((sqrt((1-prob)/prob^2)),2)
+std_dev</code></pre>
+<pre><code>## [1] 9.49</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>What is the probability that the machine will fail after 8 years?.
+Provide also the expected value and standard deviation. Model as an
+exponential.</li>
 </ol>
-</div>
-<div id="solution-5" class="section level3">
-<h3>Solution:</h3>
-</div>
-<div id="probability-that-the-generator-will-fail-more-than-twice-in-1000-hours." class="section level3">
-<h3>Probability that the generator will fail more than twice in 1000
-hours.</h3>
-<pre class="r"><code>fail_more_than_twice = 1 - ppois(2,1)
-
-fail_more_than_twice</code></pre>
-<pre><code>## [1] 0.0803014</code></pre>
-</div>
-<div id="expected-value" class="section level3">
-<h3>Expected value</h3>
-<pre class="r"><code>expected_value &lt;- 1/1000 * 1000
-
-cat(expected_value, &quot;\n&quot;)</code></pre>
-<pre><code>## 1</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>A surgical patient arrives for surgery precisely at a given time.
-Based on previous analysis (or a lack of knowledge assumption), you know
-that the waiting time is uniformly distributed from 0 to 30 minutes.
-What is the probability that this patient will wait more than 10
-minutes? If the patient has already waited 10 minutes, what is the
-probability that he/she will wait at least another 5 minutes prior to
-being seen? What is the expected waiting time?</li>
+<p>Probability that the machine will fail after 8 is 45%,</p>
+<pre class="r"><code>x &lt;- 8
+prob &lt;- 1/10
+round((1 - pexp(x, prob)), 4)</code></pre>
+<pre><code>## [1] 0.4493</code></pre>
+<p>Standard deviation is 10.</p>
+<pre class="r"><code>sqrt(1/prob^2)</code></pre>
+<pre><code>## [1] 10</code></pre>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>What is the probability that the machine will fail after 8 years?.
+Provide also the expected value and standard deviation. Model as a
+binomial. (Hint: 0 success in 8 years)</li>
 </ol>
-</div>
-<div id="solution-6" class="section level3">
-<h3>Solution:</h3>
-</div>
-<div id="setting-values-of-minimum-and-maximum-waiting-times" class="section level3">
-<h3>Setting values of minimum and maximum waiting times</h3>
-</div>
-<div id="probability-that-this-patient-will-wait-more-than-10-minutes" class="section level3">
-<h3>Probability that this patient will wait more than 10 minutes</h3>
-<pre class="r"><code>wait = 10
-min = 0
-max = 30
-wait_more_than_10 = 1- punif(wait,min,max)
-wait_more_than_10 = 1- punif(10,0,30)
-
-wait_more_than_10</code></pre>
-<pre><code>## [1] 0.6666667</code></pre>
-</div>
-<div id="probability-that-heshe-will-wait-at-least-another-5-minutes-prior-to-being-seen." class="section level3">
-<h3>Probability that he/she will wait at least another 5 minutes prior
-to being seen.</h3>
-<pre class="r"><code>wait_2 = 15
-new_min = 10
-wait_more_than_15 = 1 - punif(wait_2,new_min,max)
-wait_more_than_15</code></pre>
-<pre><code>## [1] 0.75</code></pre>
-</div>
-<div id="expected-waiting-time-ex12ab" class="section level3">
-<h3>Expected waiting time E[X]=1/2(a+b)</h3>
-<pre class="r"><code>expected_wait &lt;- .5*(0+30)
-
-expected_wait</code></pre>
-<pre><code>## [1] 15</code></pre>
-<ol start="8" style="list-style-type: decimal">
-<li>Your hospital owns an old MRI, which has a manufacturer’s lifetime
-of about 10 years (expected value). Based on previous studies, we know
-that the failure of most MRIs obeys an exponential distribution. What is
-the expected failure time? What is the standard deviation? What is the
-probability that your MRI will fail after 8 years? Now assume that you
-have owned the machine for 8 years. Given that you already owned the
-machine 8 years, what is the probability that it will fail in the next
-two years?</li>
+<p>Probability that the machine will fail after 8 is 43%,</p>
+<pre class="r"><code>x &lt;- 0
+year &lt;- 8
+prob &lt;- 1/10
+round((dbinom(x, year, prob )), 2)</code></pre>
+<pre><code>## [1] 0.43</code></pre>
+<p>The expected value is 0.80</p>
+<pre class="r"><code>expected_value &lt;- year*prob
+expected_value</code></pre>
+<pre><code>## [1] 0.8</code></pre>
+<p>Standard deviation is 0.849.</p>
+<pre class="r"><code>std_dev &lt;- sqrt(year*prob*(1-prob))
+round(std_dev,3)</code></pre>
+<pre><code>## [1] 0.849</code></pre>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>What is the probability that the machine will fail after 8 years?.
+Provide also the expected value and standard deviation. Model as a
+Poisson.</li>
 </ol>
-</div>
-<div id="solution-7" class="section level3">
-<h3>Solution:</h3>
-</div>
-<div id="expected-failure-time-is-after-10-years.-as-this-is-an-exponential-distribution" class="section level3">
-<h3>Expected failure time is after 10 years. As this is an exponential
-distribution,</h3>
-</div>
-<div id="the-standard-deviation-is-the-mean---10-years." class="section level3">
-<h3>the standard deviation is the mean - 10 years.</h3>
-</div>
-<div id="probability-that-your-mri-will-fail-after-8-years" class="section level3">
-<h3>Probability that your MRI will fail after 8 years</h3>
-<pre class="r"><code>years = 8
+<p>There is a 44.9% failure rate</p>
+<pre class="r"><code>x &lt;- 0
+year &lt;- 8
+prob &lt;- 1/10
+t &lt;- 1 
+round((dpois(x, year*prob/t)), 3)</code></pre>
+<pre><code>## [1] 0.449</code></pre>
+<p>Expected Value is 0.8</p>
+<pre class="r"><code>exp_val &lt;- year*prob/t
 
-fail_rate = 1/10
-
-fail_after_8yrs = 1- pexp(years,fail_rate)
-
-fail_after_8yrs = 1- pexp(8,1/10)
-
-fail_after_8yrs</code></pre>
-<pre><code>## [1] 0.449329</code></pre>
-</div>
-<div id="given-that-you-already-owned-the-machine-8-years-what-is-the-probability-that-it-will-fail-in-the-next-two-years." class="section level3">
-<h3>Given that you already owned the machine 8 years, what is the
-probability that it will fail in the next two years.</h3>
-<pre class="r"><code>next_years = 2
-fail_after_8_wi_2 = pexp(next_years,fail_rate)
-fail_after_8_wi_2 = pexp(2,1/10)
-fail_after_8_wi_2</code></pre>
-<pre><code>## [1] 0.1812692</code></pre>
+exp_val</code></pre>
+<pre><code>## [1] 0.8</code></pre>
+<p>Standard Deviation is:</p>
+<pre class="r"><code>(year*prob/t)^.5</code></pre>
+<pre><code>## [1] 0.8944272</code></pre>
 </div>
 
 

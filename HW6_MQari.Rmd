@@ -1,0 +1,366 @@
+---
+title: "HW6_MQari"
+author: "Mubashira Qari"
+date: "2024-02-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 1. A bag contains 5 green and 7 red jellybeans. How many ways can 5 jellybeans be withdrawn from the bag so that the number of green ones withdrawn will be less than 2?
+
+
+### Solution: 
+
+Apply choose() function in R is used to calculate the number of sets with n elements that can be chosen from a set with k elements.
+
+
+\[Choose(k, n)
+ = \frac{n!}{k!(n-k)!}\; \]
+ 
+n: represents the number of elements of a given set.
+k: represents the number of elements of another set.
+
+where n must always grater than k.
+
+
+To withdraw 5 jelly beans so that count of green ones less than 2, we can have either all 5 red jellybeans or 4 red and 1 green.
+
+### Case 1:
+
+Choose 1 red out of 5 reds and 4 green out of 7 greens.
+ 
+
+\[Choose(k , n)
+ = \frac{n!}{k!(n-k)!}\; \] 
+ 
+ 
+\[Choose(1 , 5)
+ = \frac{5!}{1!(5-1)!}\; = 5 \] 
+ 
+ 
+\[Choose(4 , 7)
+ = \frac{7!}{4!(7-4)!}\; = 35 \] 
+ 
+ 
+The number of way is: 5 * 35 = 175
+
+### Case 2:
+
+Choose all red jellybeans, 5 out of 7 reds.
+
+\[Choose(5 , 7)
+ = \frac{7!}{5!(7-5)!}\; = 21 \] 
+ 
+The result is: 175 + 21 = 196
+
+### Using R:
+
+There are 196 ways.
+
+```{r}
+choose(5,1) * choose(7,4) + choose(7,5)
+```
+### 2. A certain congressional committee consists of 14 senators and 13 representatives. How many ways can a subcommittee of 5 be formed if at least 4 of the members must be representatives?
+
+
+### Solution:
+
+For a congressional committee consists of 14 senators and 13 representatives, we can have either all 5 representatives or 4 representatives and 1 senator. 
+
+### Case 1:
+
+Choose 4 representatives out of 13 and 1 senator out of 14.
+
+\[Choose(4 , 13)
+ = \frac{13!}{4!(13-4)!}\; = 715 \] 
+ 
+
+\[Choose(1 , 14)
+ = \frac{14!}{1!(14-1)!}\; = 14 \] 
+ 
+number of ways: 715 * 14 = 10,010
+
+### Case 2:
+
+We have all representatives, 5 out of 13 reds.
+
+\[Choose(5 , 13)
+ = \frac{13!}{5!(13-5)!}\; = 1,287 \]
+ 
+Total number of ways:
+
+10,010 + 1,287 = 11,297
+
+### Usin R Function:
+
+There are 11,297 ways
+
+```{r}
+choose(13,4)*choose(14,1) + choose(13,5)
+
+```
+### 3. If a coin is tossed 5 times, and then a standard six-sided die is rolled 2 times, and finally a group of three cards are drawn from a standard deck of 52 cards without replacement, how many different outcomes are possible?
+
+### Solution:
+
+1. When a two sided coin is tossed 5 times,
+
+\[2^5
+ = 32 \] 
+ 
+2. When a six sided coin is tossed 2 times, 
+
+\[6^2
+ = 36 \]
+ 
+3. A group of three cards are drawn from a standard deck of 52 cards without replacement.
+
+\[52 * 51 * 50
+ = 132,600 \]
+ 
+The total result is:
+
+\[32 * 36 * 132,600 = 152,755,200\]
+
+Using R:
+
+There are 152,755,200 different outcomes
+
+```{r}
+coins <- 2^5
+deck <- 6^2
+cards <- 52 * 51 * 50
+coins * deck * cards
+
+```
+
+### 4. 3 cards are drawn from a standard deck without replacement. What is the probability that at least one of the cards drawn is a 3? Express your answer as a fraction or a decimal number rounded to four decimal places.
+
+### Solution:
+
+### Case 1:
+
+Take all 3 cards with 3 on it
+
+\[Choose(3 , 4)
+ = \frac{4!}{3!(4-3)!}\; = 4 \]
+ 
+### Case 2: 
+
+1 card is 3 and 2 cards with something else
+
+\[Choose(1 , 4) * Choose(48 , 2)
+ = \frac{4!}{1!(4-1)!}\; * \frac{48!}{2!(48-2)!} = 4,512\; \]
+ 
+### Case 3: 
+
+2 cards are 3 and 1 card with something else
+ 
+\[Choose(2 , 4) * Choose(48 , 1)
+ = \frac{4!}{2!(4-2)!}\; * \frac{48!}{1!(48-1)!} = 288\; \]
+ 
+When pick any 3 cards from the deck:
+
+\[Choose(3 , 52) 
+ = \frac{52!}{3!(52-3)!} = 22,100\; \]
+ 
+The final amount is the sum of above:
+
+
+\[ 
+ = \frac{4 + 4,512 + 288}{22,100}= =0.2174 \; \]
+ 
+Applying R function:
+
+```{r}
+round(((choose(4,1)*choose(48,2)+choose(4,3)+choose(4,2)*choose(48,1))/choose(52,3)),4)
+```
+### 5. Lorenzo is picking out some movies to rent, and he is primarily interested in documentaries and mysteries. He has narrowed down his selections to 17documentaries and 14 mysteries.
+
+### Solution:
+
+### Step 1. How many different combinations of 5 movies can he rent?
+
+\[Choose(5 , 31)
+ = \frac{31!}{5!(31-5)!}\; = 169,911 \]
+ 
+ Applying R function:
+ 
+ There are 169,911 different combinations.
+
+```{r}
+choose(31,5)
+```
+### Step 2. How many different combinations of 5 movies can he rent if he wants at least one mystery?
+
+There can be several combinations that can be applied.
+
+1) He can choose 1 mystery out of 14 and 4 documentaries out of 17:
+
+\[Choose(1 , 14) * Choose(4 , 17)
+ = \frac{14!}{1!(14-1)!}\; * \frac{17!}{4!(17-4)!} = 33,320\; \]
+ 
+ 2) He can choose 2 mysteries out of 14 and 3 documentaries out of 17:
+ 
+ \[Choose(2 , 14) * Choose(3 , 17)
+ = \frac{14!}{2!(14-2)!}\; * \frac{17!}{3!(17-3)!} = 61,880\; \]
+ 
+3)He can choose 3 mysteries out of 14 and 2 documentaries out of 17:
+
+ \[Choose(3 , 14) * Choose(2 , 17)
+ = \frac{14!}{3!(14-3)!}\; * \frac{17!}{2!(17-2)!} = 49,504\; \]
+ 
+ 4) He can choose 4 mysteries out of 14 and 1 documentaries out of 17:
+ 
+  \[Choose(4 , 14) * Choose(1 , 17)
+ = \frac{14!}{4!(14-4)!}\; * \frac{17!}{1!(17-1)!} = 17,017\; \]
+
+5) He can choose 5 mysteries out of 14 and no documentaries:
+
+  \[Choose(5 , 14)
+ = \frac{14!}{5!(14-5)!}\; = 2,002\; \]
+ 
+ The total sum is: 
+ 
+ = 33,320+61,880+49,504+17,017+2,002=163,723
+ 
+ Applying the R function:
+ 
+ There are 163,723 different combinations
+ 
+```{r}
+choose(14,1)*choose(17,4) + choose(14,2)*choose(17,3) + choose(14,3)*choose(17,2) + choose(14,4)*choose(17,1) + choose(14,5)
+```
+### 6. In choosing what music to play at a charity fund raising event, Cory needs to have an equal number of symphonies from Brahms, Haydn, and Mendelssohn. If he is setting up a schedule of the 9 symphonies to be played, and he has 4 Brahms, 104 Haydn, and 17Mendelssohn symphonies from which to choose, how many different schedules are possible? Express your answer in scientific notation rounding to the hundredths place. 
+
+### Solution:
+
+Since he has 9 symphonies to be played, there will be 3 symphonies of each composer.
+
+1) 3 symphonies of Brahms out of 4 total:
+
+\[Choose(3 , 4) 
+ = \frac{4!}{3!(4-3)!} = 4\; \]
+ 
+ 2) 3 symphonies of Haydn out of 104 total:
+ 
+ \[Choose(3 , 104) 
+ = \frac{104!}{3!104(4-3)!} = 182,104\; \]
+ 
+ 3) 3 symphonies of Mendelssohn out of 17 total:
+ 
+  \[Choose(3 , 17) 
+ = \frac{17!}{3!(17-3)!} = 680\; \]
+ 
+ The total sum is:
+ 
+ 4∗182,104∗680=4.9e+08
+ 
+Applying the R function:
+ 
+There are 4.95∙10^8 different schedules possible
+
+```{r}
+format((choose(4,3)*choose(104,3)*choose(17,3)), scientific = TRUE, digits=3)
+```
+ 
+### 7. An English teacher needs to pick 13 books to put on his reading list for the next school year, and he needs to plan the order in which they should be read. He has narrowed down his choices to 6 novels, 6 plays, 7 poetry books, and 5 nonfiction books.
+
+### Solution:
+
+Step 1. If he wants to include no more than 4 nonfiction books, how many different reading schedules are possible? Express your answer in scientific notation rounding to the hundredths place.
+
+1) He can have 4 nonfiction books out of 5 and 9 other books out of 19 (6 novels, 6 plays, 7 poetry books):
+
+ \[Choose(4 , 5) * Choose(9 , 19)
+ = \frac{5!}{4!(5-4)!}\; * \frac{19!}{9!(19-9)!} = 461,890\; \]
+ 
+2) He can include 3 nonfiction books out of 5 and 10 other books out of 19: 
+
+ \[Choose(3 , 5) * Choose(10 , 19)
+ = \frac{5!}{3!(5-3)!}\; * \frac{19!}{10!(19-10)!} = 923,780\; \]
+ 
+ 3) He can include 2 nonfiction books out of 5 and 11 other books out of 19:
+ 
+ \[Choose(2 , 5) * Choose(11 , 19)
+ = \frac{5!}{2!(5-2)!}\; * \frac{19!}{11!(19-11)!} = 755,820\; \] 
+ 
+ 4) He can include 1 nonfiction books out of 5 and 12 other books out of 19:
+ 
+  \[Choose(1 , 5) * Choose(12 , 19)
+ = \frac{5!}{1!(5-1)!}\; * \frac{19!}{12!(19-12)!} = 251,940\;\] 
+ 
+ 5) He can include 0 nonfiction books and 13 other books out of 19:
+ 
+   \[Choose(13 , 19)
+ =  \frac{19!}{13!(19-13)!} = 27,132\;\] 
+ 
+ The total sum is: 461,890+923,780+755,820+251,940+27,132=2.42e+06
+ 
+ Now apply the R function:
+ 
+ There are 2.42∙10^6 different reading schedules
+ 
+```{r}
+format((choose(5,4)*choose(19,9)+choose(5,3)*choose(19,10)+choose(5,2)*choose(19,11)+choose(5,1)*choose(19,12)+choose(19,13)),scientific = TRUE, digits=3)
+```
+Step 2. If he wants to include all 6 plays, how many different reading schedules are possible? Express your answer in scientific notation rounding to the hundredths place.
+
+There will be 6 plays out of 6 and 7 other books out of 18 other books (6 novels, 7 poetry books, 5 nonfiction books)
+
+ 
+  \[Choose(6 , 6) * Choose(7 , 18)
+ = \frac{6!}{6!(6-6)!}\; * \frac{18!}{7!(18-7)!} = 31824\;\] 
+ 
+ Now applying the R function:
+ 
+```{r}
+
+format((choose(6,6)*choose(18,7)),scientific = TRUE, digits=3)
+```
+ 
+### 8. Zane is planting trees along his driveway, and he has 5 sycamores and 5 cypress trees to plant in one row. What is the probability that he randomly plants the trees so that all 5sycamores are next to each other and all 5 cypress trees are next to each other? Express your answer as a fraction or a decimal number rounded to four decimal places. 
+ 
+### Solution:
+
+There can be two possible ways:
+
+  \[Choose(5 , 10) 
+ = \frac{5!}{5!(10-5)!} = 252\; \]
+ 
+ Since there are two possible ways.
+ 
+ 2/252 = 0.0079
+ 
+ Now applying R function:
+ 
+ The probability is 0.0079. 
+ 
+```{r}
+round((2/choose(10,5)),2)
+```
+### 9. If you draw a queen or lower from a standard deck of cards, I will pay you $4. If not, you pay me $16. (Aces are considered the highest card in the deck.)
+
+Step 1. Find the expected value of the proposition. Round your answer to two decimal places. Losses must be expressed as negative values.
+
+There are 52 cards, 44 of them are a queen or lower, 8 of them are above queen.
+
+```{r}
+expected_value <- round((4*(44/52)) - (16*(8/52)),2)
+
+expected_value
+```
+
+Step 2. If you played this game 833 times how much would you expect to win or lose? 
+Round your answer to two decimal places. Losses must be expressed as negative 
+values.
+
+```{r}
+win <- round((833 * expected_value),2)
+
+win
+```
+

@@ -1,0 +1,69 @@
+---
+title: "Discussion_Week7_MQari"
+author: "Mubashira Qari"
+date: "2024-03-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Chapter 5
+
+Question 31: Let U be a uniformly distributed random variable on [0, 1]. What is the
+probability that the equation
+
+x2 + 4Ux + 1 = 0
+
+\[x^2 + 4Ux + 1 \]
+
+has two distinct real roots x1 and x2?
+
+### Solution:
+
+To find the probability that the equation has two distinct real roots, we can analyze the discriminant of the quadratic equation.
+
+namely if D>0 then we know that the quadratic has two distinct real roots
+
+Given that \[D = b^2 -4ac\]
+
+\[D = (4U)^2 -4(1)(1) > 0\]
+
+\[D = 16U^2 -4 > 0\]
+
+\[D = 4U^2 -1 > 0\]
+
+\[D = (2U + 1)(2U - 1) > 0\]
+
+we can say that the quadratic will have two real roots if U is in the range (12,1]. Since this is exactly half the total range of U, the probability of the quadratic having two distinct real roots is 0.5.
+
+We can confirm this using the following R code:
+
+```{r}
+set.seed(seed = 1234)
+
+simulation <- 10000
+Us <- runif(simulation)
+num_real_distinct <- 0
+
+for (U in Us){
+  poly_coef <- c(1, 4 * U, 1)
+  roots <- polyroot(poly_coef)
+  check_z <- round(Im(roots[1]), 10) == 0 & round(Im(roots[1]), 10) == 0
+  check_distinct <- roots[1] != roots[2]
+  if (check_z  & check_distinct){
+    num_real_distinct <- num_real_distinct + 1
+  }
+}
+
+table(Us > 0.5)
+```
+We get that the quadratic had two distinct, real solutions 50.1% of the time.
+
+```{r}
+
+print(num_real_distinct/10000)
+
+```
+

@@ -1,0 +1,73 @@
+---
+title: "Discussion_Week_6_MQari"
+author: "Mubashira Qari"
+date: "2024-02-28"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Chapter3, Page 97
+
+### Question 12: A symphony orchestra has in its repertoire 30 Haydn symphonies, 15 modernworks, and 9 Beethoven symphonies. Its program always consists of a Haydnsymphony followed by a modern work, and then a Beethoven symphony.
+
+(a) How many different programs can it play?
+
+(b) How many different programs are there if the three pieces can be played
+in any order?
+
+(c) How many different three-piece programs are there if more than one
+piece from the same category can be played and they can be played in
+any order?
+
+
+### (a) How many different programs can it play?
+
+```{r}
+# Following are the three symphonies
+Haydn <- 30
+modernworks <- 15
+Beethoven <- 9
+```
+
+
+```{r}
+total_prog <- Haydn*modernworks*Beethoven
+
+total_prog
+```
+### (b) How many different programs are there if the three pieces can be played in any order?
+
+Following combinations can be possible:
+
+Set1:Haydn,Modern,Beethoven
+Set2:Haydn,Beethoven,Modern
+Set3:Beethoven,Modern,Haydn
+Set4:Beethoven,Haydn,Modern
+Set5:Modern,Beethoven,Haydn
+Set6:Modern,Haydn,Beethoven
+
+Since there are 6 possible way
+
+```{r}
+possible_prog <- 6 * total_prog
+
+possible_prog <- 6 * 4050
+
+possible_prog
+
+```
+### (c) How many different three-piece programs are there if more than one piece from the same category can be played and they can be played in any order?
+
+
+
+```{r}
+sum <- Haydn + modernworks + Beethoven
+
+total_ways<- factorial(sum)/factorial(sum-3)
+
+total_ways
+```
+

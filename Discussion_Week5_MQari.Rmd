@@ -9,6 +9,73 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+### Chapter 5:
+
+Page 198:
+
+### Question 7: A die is rolled until the first time T that a six turns up.
+(a) What is the probability distribution for T? 
+(b) Find P(T > 3).
+(c) Find P(T > 6|T > 3).
+
+
+### Solution:
+
+(a) What is the probability distribution for T? 
+
+Let P(6) be the probability of rolling a six on any single roll.
+
+p = 1/6
+
+Let P(Not6) be the probability of not rolling a six on any single roll.
+
+P(Not6) = 5/6
+
+Probability that a six appears for the first time on the T-th roll is:
+
+\[P(T=t) 
+ = (P!=6)^{t-1} * P(6)\]
+ 
+The probability distribution for T is:
+
+
+
+\[P(T=t) 
+ = (5/6)^{t-1} * ((1/6)\]
+ 
+ This is a is a geometric distribution where t is the number of rolls until the first six appears.
+ 
+(b) Find P(T > 3). 
+ 
+```{r}
+
+P_roll <- 1/6
+
+n <- (3 - 1)
+
+P_3 <- pgeom(n, P_roll, lower.tail = F)
+
+P_3
+```
+(c) Find P(T > 6|T > 3).
+
+```{r}
+P_roll <- 1/6
+
+n <- (6 - 1)
+
+P_6 <- pgeom(n, P_roll, lower.tail = F)
+
+P_final <- P_3 * P_6/P_3
+
+P_final
+
+```
+ 
+
+
+
+===============================================================
 ### Discrete Probability Distribution:
 ### Page # 36
 ### Question # 8
