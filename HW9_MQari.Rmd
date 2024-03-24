@@ -1,0 +1,152 @@
+---
+title: "HW9_MQari"
+author: "Mubashira Qari"
+date: "2024-03-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Question 1:
+
+The price of one share of stock in the Pilsdorff Beer Company (see Exercise 8.2.12) is given by Yn on the nth day of the year. Finn observes that the differences Xn = Yn+1 − Yn appear to be independent random variables with a common distribution having mean µ = 0 and variance σ2 = 1/4. If Y1 = 100, estimate the probability that Y365 is
+
+
+```{r}
+
+n = 365
+y1 = 100
+mu = 0
+variance = 1/4
+
+st_dev = sqrt(n * variance)
+
+st_dev
+
+```
+
+(a) ≥100
+
+```{r}
+
+x1 <- 100
+
+pnorm(x1-y1,mu,st_dev,lower.tail=F)
+
+```
+(b) ≥110
+
+```{r}
+
+x1 <- 110
+
+pnorm(x1-y1,mu,st_dev,lower.tail=F)
+
+```
+(c) ≥120
+
+```{r}
+x1 <- 120
+
+pnorm(x1-y1,mu,st_dev,lower.tail=F)
+```
+### Question 2:
+
+Calculate the expected value and variance of the binomial distribution using the moment generating function.
+
+### Solution:
+
+The moment generating function is defined as:
+
+\[ MFGx(t) = E(e^{tx})\]
+
+A moment is the expected value at every point of \[x^n\] as:
+
+\[E(x), E(x^2), E(x^3), E(x^4), ...,E(x^n) \]
+
+To calculate the \[E(x^n)\] we take the derivative of MFG with t=0.
+
+\[ Mean = \mu = E(x)] \]
+
+\[Variance = \sigma^2 = E(x^2) - \mu^2 \]
+
+Now calculating the expected value and variance of the binomial distribution using the moment generating function.
+
+The binomial probability mass function is:
+
+\[ f(x) = p^x (1-p)^{n-x} \]
+
+Applying the binomial probability mass function for calculating the MFG:
+
+\[ M(t) = [(1-p) + pe^t]^n \]
+
+Using the first derivative of MFG to calculate mean:
+
+\[ M^`(t) = n(pe^t)[(1-p) + pe^t]^{n-1} \]
+
+substituting t=0
+
+\[ M^`(t) = n(pe^0)[(1-p) + pe^0]^{n-1} \]
+
+\[= np\]
+
+Using the second derivative of MFG for calculating variance:
+
+
+\[ M^{``}(t) = n(n-1)(pe^t)^2[(1-p) + pe^t]^{n-2} + n(pe^t)[(1-p)+ pe^t]^{n-1} \]
+
+substituting t=0
+
+\[ M^{``}(0) = n(n-1)(pe^0)^2[(1-p) + pe^0]^{n-2} + n(pe^0)[(1-p)+ pe^0]^{n-1} \]
+
+\[ n(n-1)p^2 + np\]
+
+\[ variance = n(n-1)p^2 + np\]
+
+\[= (np)^2\]
+
+\[= np(1-p)\]
+
+
+### Question 3:
+
+Calculate the expected value and variance of the exponential distribution using the moment generating function.
+
+
+### Solution:
+
+the exponential distribution probability density function is:
+
+\[f(x) = \lambda e^{-\lambda x}\]
+
+The moment generating function  using PMF is:
+
+\[M(t) = \frac{\lambda}{\lambda - t}\]
+
+Now calculating the mean using the first derivative of MGF
+
+\[ M^`(t) = \frac{\lambda}{(\lambda - t)^2}\]
+
+substituting t=0
+
+\[ M^`(0) = \frac{\lambda}{(\lambda - 0)^2}\]
+
+\[= \frac{1}{\lambda}\]
+
+Now calculating variance using the second derivative of MGF
+
+\[ M^{``}(t) = 2 \frac{\lambda}{(\lambda - t)^3}\]
+
+substituting t=0
+
+\[ M^{``}(0) = 2 \frac{\lambda}{(\lambda - 0)^3}\]
+
+\[= \frac{2}{\lambda}\lambda^3\]
+
+\[variance = \frac{2}{\lambda^2}- (\frac{1}{\lambda})^2\]
+
+\[variance = \frac{2}{\lambda^2}- \frac{1}{\lambda^2}\]
+
+\[variance = \frac{1}{\lambda^2}\]

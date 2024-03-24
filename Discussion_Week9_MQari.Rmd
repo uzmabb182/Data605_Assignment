@@ -1,0 +1,122 @@
+---
+title: "Discussion_Week9_MQari"
+author: "Mubashira Qari"
+date: "2024-03-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Chapter 9
+
+### Question 2:
+
+Let S200 be the number of heads that turn up in 200 tosses of a fair coin.
+
+Estimate
+
+(a) P(S200 = 100).
+(b) P(S200 = 90).
+(c) P(S200 = 80).
+
+### Solution:
+
+Using the Binomial Probability function
+
+
+\[ P(x=k)= \left( \begin{bmatrix}
+    n \\
+    k
+\end{bmatrix}\right)p^k(1-p)^{n-k}\]
+
+The binomial distribution model is used for finding the probability of success of an event which has only two possible outcomes in a series of experiments.
+
+R has four in-built functions to generate binomial distribution. 
+
+### Solution (a):
+
+```{r}
+# number of trial = 200
+
+# probability of head = 0.5 
+
+# number of head = 100 
+
+n <- 200
+p <- 0.5
+k <- 100 
+
+dbinom<-dbinom(k,n,p)
+dbinom
+```
+### Solution (b):
+
+```{r}
+# number of trial = 200
+
+# probability of head = 0.5 
+
+# number of head = 100 
+
+n <- 200
+p <- 0.5
+k <- 90 
+
+dbinom<-dbinom(k,n,p)
+dbinom
+```
+### Solution (c):
+
+```{r}
+# number of trial = 200
+
+# probability of head = 0.5 
+
+# number of head = 100 
+
+n <- 200
+p <- 0.5
+k <- 80 
+
+dbinom<-dbinom(k,n,p)
+dbinom
+```
+
+### Page 338 
+
+### Question 3:
+
+A true-false examination has 48 questions. June has probability 3/4 of answering a question correctly. April just guesses on each question. A passing score is 30 or more correct answers. Compare the probability that June passes the exam with the probability that April passes it.
+
+### Solution:
+
+pbinom(x, size, prob) - the cumulative probability of an event. It is a single value representing the probability.
+
+x is a vector of numbers.
+
+p is a vector of probabilities.
+
+n is number of observations.
+
+size is the number of trials.
+
+prob is the probability of success of each trial.
+
+Mean = n * p
+Variance = n * p * (1 - p)
+
+
+Calculating the probability that June passes the exam
+
+```{r}
+1 - pnorm(30.5, mean=48*3/4, sd=sqrt(48*3/4*1/4))
+```
+
+Calculating the probability that April passes the exam
+
+```{r}
+1 - pnorm(30.5, mean=48*1/2, sd=sqrt(48*1/2*1/2))
+```
+

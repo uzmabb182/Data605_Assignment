@@ -1,0 +1,82 @@
+---
+title: "Discussion_Week8_MQari"
+author: "Mubashira Qari"
+date: "2024-03-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 3 Let X1 and X2 be independent random variables with common distribution
+pX =
+
+0 1 2
+1/8 3/8 1/2
+
+
+\[P_x
+ = \left(
+    0 \;1 \;2 \\
+    3/8 \;1/2 \;1/8  
+ \right) \]
+
+
+### Solution:
+
+Using the convolution of the above distribution to find the probability distribution:
+
+When Z=0, both \[X_{1} = 0\] and \[X_{2}=0\]
+
+\[ P(Z=0)= P_x(0)*P_x(0) = \frac{1}{8} * \frac{1}{8}= \frac{1}{64}\]
+
+```{r}
+p0 <- 1/8 * 1/8
+
+p0 == 1/64
+```
+When Z=1, \[X_{1} = 0\] and \[X_{2}=1\]
+
+\[ P(Z=1)= m(0)*m(1) + m(1)*m(0) = \frac{1}{8} * \frac{3}{8} + \frac{3}{8} * \frac{1}{8}= \frac{6}{64}\]
+
+```{r}
+p1 <- (1/8 * 3/8) + (3/8 * 1/8)
+
+6/64 == p1
+```
+When Z=2,
+
+\[ P(Z=2)= m(0)*m(2) + m(1)*m(1) + m(2)*m(0)= \frac{1}{8} * \frac{1}{2} + \frac{3}{8} * \frac{3}{8} +\frac{1}{2} * \frac{1}{8}= \frac{17}{64}\]
+
+```{r}
+p2 <- (1/8 * 1/2) + (3/8 * 3/8) + (1/2 * 1/8)
+
+17/64 == p2
+```
+When Z=3, 
+
+\[ P(Z=3)= m(1)*m(2) + m(2)*m(1) = \frac{3}{8} * \frac{1}{2} + \frac{1}{2} * \frac{3}{8}= \frac{24}{64}\]
+
+```{r}
+p3 <- (3/8 * 1/2) + (1/2 * 3/8)
+
+24/64 == p3
+```
+When Z=4, both  \[X_{1} = 2\] and \[X_{2}=2\]
+
+\[ P(Z=4)= \frac{1}{2} * \frac{1}{2}= \frac{1}{4}= \frac{16}{64}\]
+
+```{r}
+p4 <- (1/2 * 1/2)
+
+16/64 == p4
+```
+Probability distribution (sum of each discrete distribution value above) sums to 1:
+
+```{r}
+prob_sum <- p0 + p1 + p2 + p3 + p4
+
+1.0 == prob_sum
+```
+

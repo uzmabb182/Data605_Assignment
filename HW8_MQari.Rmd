@@ -1,0 +1,167 @@
+---
+title: "HW8_MQari"
+author: "Mubashira Qari"
+date: "2024-03-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Question 11:
+
+A company buys 100 lightbulbs, each of which has an exponential lifetime of 1000 hours. What is the expected time for the first of these bulbs to burn out? (See Exercise 10.)
+
+### Solution:
+
+Let \[ X_{i}...,X_{n} \] be exponentially distributed independent variable with rate parameter \[ \lambda_{i}...\lambda_{n}  \]
+
+\[ \lambda = \lambda_{i}+ ... +\lambda_{n}  \]
+
+
+\[ Pr(k|X_{k} = min)X_{i}...,X_{n}) = \frac{\lambda_k}{\lambda_{i}...\lambda_{n}}  \]
+
+
+\[\lambda_{i}= \frac{1}{1000}, \Sigma  \lambda_{i} = \frac{1}{10}\]
+
+
+```{r}
+bulb <- 100
+hr <- 1000 
+
+```
+
+
+Expected time for the first of these bulbs to burn out
+
+```{r}
+expected_burn_Time <- hr/bulb
+
+expected_burn_Time
+```
+### Question 14:
+
+Assume that X1 and X2 are independent random variables, each having anexponential density with parameter λ. Show that Z = X1 − X2 has density
+
+\[f_{z}(z) = (\frac{1}{2}) \lambda e - \lambda |z|\]
+
+### Solution:
+
+We will begin with PDFs as:
+
+
+\[f(x_{1}) = \lambda e^{-\lambda x_{1}}\]
+
+\[f(x_{2}) = \lambda e^{-\lambda x_{2}}\]
+
+
+\[f(x_{1}) * (x_{2}) = \lambda 2e^{-\lambda (x_{1}+ x_{2})}\]
+
+
+As we know that:
+
+\[Z = x_{1} - x_{2}\]
+
+\[x_{1} = Z - x_{2}\]
+
+Replace the values:
+
+\[f(x_{1}) * (x_{2}) = \lambda 2e^{-\lambda ((Z + x_{2})+ x_{2})}\]
+
+\[f(x_{1}) * (x_{2}) = \lambda 2e^{-\lambda ((Z + 2x_{2}))}\]
+
+When Z is negative:
+
+\[ \int\lambda 2e^{\lambda ((Z + 2x_{2}))}dx= \frac{\lambda}{2}e^{\lambda z }\]
+
+When Z is positive:
+
+\[ \int\lambda 2e^{-\lambda ((Z + 2x_{2}))}dx= \frac{\lambda}{2}e^{\lambda |z| }\]
+
+
+### Page 320-321
+
+1. Let X be a continuous random variable with mean μ= 10 and variance σ2 = 100/3. Using Chebyshev’s Inequality, find an upper bound for the following probabilities.
+
+a. P(|X - 10| ≥2)
+b. P(|X - 10| ≥5)
+c. P(|X - 10| ≥9)
+d. P(|X - 10| ≥20)
+
+### Solution:
+
+According to Chebyshev’s Inequality:
+
+\[ \mu = E(X)\] and \[ \mu^{2} = V(X)\], then for any positive number >0 
+
+\[ P(|X-\mu|) > = k \sigma <= \frac{\sigma^2}{k^2\sigma^2} = \frac{1}{k^2}\]
+
+
+### a. P(|X - 10| ≥2)
+
+\[ P(|X-10|) >= 2 <= \frac{1}{2^2}\]
+
+```{r}
+
+mu = 10
+variance = 100/3
+
+sd = sqrt(variance)
+
+ksd = 2
+
+k = ksd/sqrt(variance)
+
+upper_bound = 1/(k^2)
+pmin(upper_bound, 1)
+
+```
+
+
+### b. P(|X - 10| ≥5)
+
+\[ P(|X-10|) >= 5 <= \frac{1}{5^2}\]
+
+
+```{r}
+
+k_st_dev = 5
+
+k = k_st_dev/sqrt(variance)
+
+upper_bnd = 1/(k^2)
+pmin(upper_bound, 1)
+
+```
+
+### c. P(|X - 10| ≥9)
+
+\[ P(|X-10|) >= 9 <= \frac{1}{9^2}\]
+
+
+```{r}
+k_st_dev = 9
+
+k = k_st_dev/sqrt(variance)
+
+upper_bound = 1/(k^2)
+pmin(upper_bound, 1)
+
+```
+
+
+### d. P(|X - 10| ≥20)
+
+\[ P(|X-10|) >= 20 <= \frac{1}{20^2}\]
+
+
+```{r}
+k_st_dev = 20
+
+k = k_st_dev/sqrt(variance)
+
+upper_bound = 1/(k^2)
+pmin(upper_bound, 1)
+```
+
