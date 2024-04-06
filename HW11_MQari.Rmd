@@ -1,0 +1,147 @@
+---
+title: "HW11_MQari"
+author: "Mubashira Qari"
+date: "2024-04-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Question: Using the “cars” dataset in R, build a linear model for stopping distance as a function of speed and replicate the  analysis of your textbook chapter 3 (visualization, quality evaluation of the model, and residual analysis.)
+
+
+### Loading Cars Built in Dataset using Library:
+
+```{r}
+library(datasets)
+data(cars)
+```
+
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+```
+
+### View Top & Last 10 Rows:
+
+```{r}
+head(cars, n=10)
+
+tail(cars, n=10)
+```
+### Number of Observations:
+
+```{r}
+nrow(cars)
+ncol(cars)
+
+str(cars)
+
+```
+```{r}
+min(cars$speed)
+
+max(cars$speed)
+```
+### Visualize the Data
+
+```{r}
+plot(cars[,"speed"],cars[,"dist"], main="Relationship Trend",
+xlab="speed", ylab="Distance")
+```
+
+
+
+
+### Summary Statistics:
+
+```{r cars}
+summary(cars)
+```
+
+### Checking Missing Values:
+ 
+```{r}
+table(is.na(cars))
+```
+### Compute the Model:
+
+```{r}
+cars.lm <- lm(dist ~ speed, data=cars)
+
+cars.lm
+```
+### Plots the Original Data along with the Fitted Line:
+
+```{r}
+plot(dist ~ speed, data=cars)
+abline(cars.lm)
+```
+
+### Evaluating the Quality of the Model:
+
+```{r}
+summary(cars.lm)
+```
+### Interpretation of the Results:
+
+Residual - are the differences between the actual measured values and the corresponding values on the fitted regression line.
+
+Max - the distance from the regression line of the point furthest above the line.
+
+Median - median value of all of the residuals.
+
+1Q and 3Q - the first and third quartiles of all the sorted residual values. 
+
+The line is a good fit with the data, we would expect residual values that are normally distributed around a mean of zero.
+
+Std. Error - the statistical standard error for each of the coefficients.
+
+```{r}
+ggplot(data = cars, aes(x = speed, y = dist)) + 
+geom_point(color='blue') +
+geom_smooth(method = "lm", se = FALSE)#+xlim(0,25000)
+```
+### Applying the Model:
+
+```{r}
+linear_model <- lm(dist~speed,cars)
+
+plot(linear_model)
+```
+
+### Residual Analysis:
+
+```{r}
+plot(fitted(cars.lm),resid(cars.lm))
+```
+
+
+```{r}
+qqnorm(resid(cars.lm))
+qqline(resid(cars.lm))
+```
+
+
+```{r}
+par(mfrow=c(2,2))
+plot(cars.lm)
+```
+
+
+### Conclusion:
+
+The relationship between stopping distance and speed is statistically significant because the faster a car is going the harder it is for the car to stop. 
+
+Based on the model for every additional mpg of speed the distance to stop but increase 3.932 units of distance. 
+
+The quantile quantile plot is pretty close to a straight line meaning that the residuals are indeed approximately distributed.
+
+The adjusted R-squared value is .64 which means that around 64% of the variance in stopping distance can be explained with just the speed of the car
+
+The lower the p-value, the greater the statistical significance of the observed difference. 
+
+A p-value of 0.05 or lower is generally considered statistically significant.

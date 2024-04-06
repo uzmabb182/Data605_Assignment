@@ -1,0 +1,11 @@
+---
+title: "Final Project Fall 2024 - MQari"
+author: "Mubashira Qari"
+date: "2024-03-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+

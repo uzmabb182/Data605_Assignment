@@ -1,0 +1,103 @@
+---
+title: "Discussion_Week10_MQari"
+author: "Mubashira Qari"
+date: "2024-03-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Page 474
+
+### Exercise 1:
+
+Consider the Markov chain with transition matrix
+
+\[ P = \left( \begin{bmatrix}
+    1/2 & 1/2 \\
+    1/4 & 3/4
+\end{bmatrix}\right)\]
+
+Find the fundamental matrix Z for this chain. Compute the mean first passage
+matrix using Z.
+
+### Solution:
+
+Solve the equation to calculate the fundamental matrix Z for the given Markov chain with transition matrix P,
+
+where P - the transition matrix
+and I - the identity matrx
+
+(P-I)Z = 0 
+
+\[ (P-I) = \left( \begin{bmatrix}
+    1/2-1 & 1/2 \\
+    1/4 & 3/4-1
+\end{bmatrix}\right)\]
+
+
+\[ (P-I) = \left( \begin{bmatrix}
+    -1/2 & 1/2 \\
+    1/4 & -1/4
+\end{bmatrix}\right)  \left( \begin{bmatrix}
+    z_{11} & z_{12} \\
+    z_{21} & z_{22}
+\end{bmatrix}\right) = \left( \begin{bmatrix}
+    0 & 0 \\
+    0 & 0
+\end{bmatrix}\right)\]
+
+\[-1/2z_{11} + 1/2z_{21} = 0\]
+\[1/4z_{11} - 1/4z_{12} = 0\]
+\[-1/2z_{12} + 1/2z_{22} = 0\]
+\[1/4z_{21} - 1/4z_{22} = 0\]
+
+
+After solving the equation 
+
+\[z_{11} = z_{21}\]
+\[z_{11} = z_{12}\]
+\[z_{12} = z_{22}\]
+\[z_{21} = z_{22}\]
+
+Sum of each row in the fundamental matrix Z should be equal to 1.
+
+Now normalize so the sum of rows=1
+
+Assume \[z_{11} = 1\]
+
+\[Z = \left( \begin{bmatrix}
+    1 & 1 \\
+    1 & 1
+\end{bmatrix}\right)\]
+
+To find first passage matrix N using Z, apply the formula:
+
+\[N= Z-I\]
+
+\[N= \left( \begin{bmatrix}
+    1 & 1 \\
+    1 & 1
+\end{bmatrix}\right)-\left( \begin{bmatrix}
+    1 & 0 \\
+    0 & 1
+\end{bmatrix}\right)= \left( \begin{bmatrix}
+    0 & 1 \\
+    1 & 0
+\end{bmatrix}\right)\]
+
+Mean First Passage Matrix N:
+
+\[N=  \left( \begin{bmatrix}
+    0 & 1 \\
+    1 & 0
+\end{bmatrix}\right)\]
+
+Fundamental Matrix Z for the given Markov Chain:
+
+\[Z = \left( \begin{bmatrix}
+    1 & 1 \\
+    1 & 1
+\end{bmatrix}\right)\]

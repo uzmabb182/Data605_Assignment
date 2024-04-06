@@ -20,7 +20,7 @@ Let \[ X_{i}...,X_{n} \] be exponentially distributed independent variable with 
 \[ \lambda = \lambda_{i}+ ... +\lambda_{n}  \]
 
 
-\[ Pr(k|X_{k} = min)X_{i}...,X_{n}) = \frac{\lambda_k}{\lambda_{i}...\lambda_{n}}  \]
+\[ Pr(k|X_{k} = min)X_{i}...,X_{n} = \frac{\lambda_k}{\lambda_{i}...\lambda_{n}}  \]
 
 
 \[\lambda_{i}= \frac{1}{1000}, \Sigma  \lambda_{i} = \frac{1}{10}\]

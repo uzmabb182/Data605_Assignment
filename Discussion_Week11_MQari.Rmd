@@ -1,0 +1,17 @@
+---
+title: "Discussion_Week11_MQari"
+author: "Mubashira Qari"
+date: "2024-04-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Using R, build a  regression model for data that interests you. Conduct residual analysis.  Was the linear model appropriate? Why or why not?
+
+```{r}
+
+```
+

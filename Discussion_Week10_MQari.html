@@ -11,9 +11,9 @@
 
 <meta name="author" content="Mubashira Qari" />
 
-<meta name="date" content="2024-03-16" />
+<meta name="date" content="2024-03-24" />
 
-<title>HW8_MQari</title>
+<title>Discussion_Week10_MQari</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,143 +350,79 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">HW8_MQari</h1>
+<h1 class="title toc-ignore">Discussion_Week10_MQari</h1>
 <h4 class="author">Mubashira Qari</h4>
-<h4 class="date">2024-03-16</h4>
+<h4 class="date">2024-03-24</h4>
 
 </div>
 
 
-<div id="question-11" class="section level3">
-<h3>Question 11:</h3>
-<p>A company buys 100 lightbulbs, each of which has an exponential
-lifetime of 1000 hours. What is the expected time for the first of these
-bulbs to burn out? (See Exercise 10.)</p>
+<div id="page-474" class="section level3">
+<h3>Page 474</h3>
+</div>
+<div id="exercise-1" class="section level3">
+<h3>Exercise 1:</h3>
+<p>Consider the Markov chain with transition matrix</p>
+<p><span class="math display">\[ P = \left( \begin{bmatrix}
+    1/2 &amp; 1/2 \\
+    1/4 &amp; 3/4
+\end{bmatrix}\right)\]</span></p>
+<p>Find the fundamental matrix Z for this chain. Compute the mean first
+passage matrix using Z.</p>
 </div>
 <div id="solution" class="section level3">
 <h3>Solution:</h3>
-<p>Let <span class="math display">\[ X_{i}...,X_{n} \]</span> be
-exponentially distributed independent variable with rate parameter <span class="math display">\[ \lambda_{i}...\lambda_{n}  \]</span></p>
-<p><span class="math display">\[ \lambda = \lambda_{i}+ ...
-+\lambda_{n}  \]</span></p>
-<p><span class="math display">\[ Pr(k|X_{k} = min)X_{i}...,X_{n} =
-\frac{\lambda_k}{\lambda_{i}...\lambda_{n}}  \]</span></p>
-<p><span class="math display">\[\lambda_{i}= \frac{1}{1000},
-\Sigma  \lambda_{i} = \frac{1}{10}\]</span></p>
-<pre class="r"><code>bulb &lt;- 100
-hr &lt;- 1000 </code></pre>
-<p>Expected time for the first of these bulbs to burn out</p>
-<pre class="r"><code>expected_burn_Time &lt;- hr/bulb
-
-expected_burn_Time</code></pre>
-<pre><code>## [1] 10</code></pre>
-</div>
-<div id="question-14" class="section level3">
-<h3>Question 14:</h3>
-<p>Assume that X1 and X2 are independent random variables, each having
-anexponential density with parameter λ. Show that Z = X1 − X2 has
-density</p>
-<p><span class="math display">\[f_{z}(z) = (\frac{1}{2}) \lambda e -
-\lambda |z|\]</span></p>
-</div>
-<div id="solution-1" class="section level3">
-<h3>Solution:</h3>
-<p>We will begin with PDFs as:</p>
-<p><span class="math display">\[f(x_{1}) = \lambda e^{-\lambda
-x_{1}}\]</span></p>
-<p><span class="math display">\[f(x_{2}) = \lambda e^{-\lambda
-x_{2}}\]</span></p>
-<p><span class="math display">\[f(x_{1}) * (x_{2}) = \lambda
-2e^{-\lambda (x_{1}+ x_{2})}\]</span></p>
-<p>As we know that:</p>
-<p><span class="math display">\[Z = x_{1} - x_{2}\]</span></p>
-<p><span class="math display">\[x_{1} = Z - x_{2}\]</span></p>
-<p>Replace the values:</p>
-<p><span class="math display">\[f(x_{1}) * (x_{2}) = \lambda
-2e^{-\lambda ((Z + x_{2})+ x_{2})}\]</span></p>
-<p><span class="math display">\[f(x_{1}) * (x_{2}) = \lambda
-2e^{-\lambda ((Z + 2x_{2}))}\]</span></p>
-<p>When Z is negative:</p>
-<p><span class="math display">\[ \int\lambda 2e^{\lambda ((Z +
-2x_{2}))}dx= \frac{\lambda}{2}e^{\lambda z }\]</span></p>
-<p>When Z is positive:</p>
-<p><span class="math display">\[ \int\lambda 2e^{-\lambda ((Z +
-2x_{2}))}dx= \frac{\lambda}{2}e^{\lambda |z| }\]</span></p>
-</div>
-<div id="page-320-321" class="section level3">
-<h3>Page 320-321</h3>
-<ol style="list-style-type: decimal">
-<li>Let X be a continuous random variable with mean μ= 10 and variance
-σ2 = 100/3. Using Chebyshev’s Inequality, find an upper bound for the
-following probabilities.</li>
-</ol>
-<ol style="list-style-type: lower-alpha">
-<li>P(|X - 10| ≥2)</li>
-<li>P(|X - 10| ≥5)</li>
-<li>P(|X - 10| ≥9)</li>
-<li>P(|X - 10| ≥20)</li>
-</ol>
-</div>
-<div id="solution-2" class="section level3">
-<h3>Solution:</h3>
-<p>According to Chebyshev’s Inequality:</p>
-<p><span class="math display">\[ \mu = E(X)\]</span> and <span class="math display">\[ \mu^{2} = V(X)\]</span>, then for any positive
-number &gt;0</p>
-<p><span class="math display">\[ P(|X-\mu|) &gt; = k \sigma &lt;=
-\frac{\sigma^2}{k^2\sigma^2} = \frac{1}{k^2}\]</span></p>
-</div>
-<div id="a.-px---10-2" class="section level3">
-<h3>a. P(|X - 10| ≥2)</h3>
-<p><span class="math display">\[ P(|X-10|) &gt;= 2 &lt;=
-\frac{1}{2^2}\]</span></p>
-<pre class="r"><code>mu = 10
-variance = 100/3
-
-sd = sqrt(variance)
-
-ksd = 2
-
-k = ksd/sqrt(variance)
-
-upper_bound = 1/(k^2)
-pmin(upper_bound, 1)</code></pre>
-<pre><code>## [1] 1</code></pre>
-</div>
-<div id="b.-px---10-5" class="section level3">
-<h3>b. P(|X - 10| ≥5)</h3>
-<p><span class="math display">\[ P(|X-10|) &gt;= 5 &lt;=
-\frac{1}{5^2}\]</span></p>
-<pre class="r"><code>k_st_dev = 5
-
-k = k_st_dev/sqrt(variance)
-
-upper_bnd = 1/(k^2)
-pmin(upper_bound, 1)</code></pre>
-<pre><code>## [1] 1</code></pre>
-</div>
-<div id="c.-px---10-9" class="section level3">
-<h3>c. P(|X - 10| ≥9)</h3>
-<p><span class="math display">\[ P(|X-10|) &gt;= 9 &lt;=
-\frac{1}{9^2}\]</span></p>
-<pre class="r"><code>k_st_dev = 9
-
-k = k_st_dev/sqrt(variance)
-
-upper_bound = 1/(k^2)
-pmin(upper_bound, 1)</code></pre>
-<pre><code>## [1] 0.4115226</code></pre>
-</div>
-<div id="d.-px---10-20" class="section level3">
-<h3>d. P(|X - 10| ≥20)</h3>
-<p><span class="math display">\[ P(|X-10|) &gt;= 20 &lt;=
-\frac{1}{20^2}\]</span></p>
-<pre class="r"><code>k_st_dev = 20
-
-k = k_st_dev/sqrt(variance)
-
-upper_bound = 1/(k^2)
-pmin(upper_bound, 1)</code></pre>
-<pre><code>## [1] 0.08333333</code></pre>
+<p>Solve the equation to calculate the fundamental matrix Z for the
+given Markov chain with transition matrix P,</p>
+<p>where P - the transition matrix and I - the identity matrx</p>
+<p>(P-I)Z = 0</p>
+<p><span class="math display">\[ (P-I) = \left( \begin{bmatrix}
+    1/2-1 &amp; 1/2 \\
+    1/4 &amp; 3/4-1
+\end{bmatrix}\right)\]</span></p>
+<p><span class="math display">\[ (P-I) = \left( \begin{bmatrix}
+    -1/2 &amp; 1/2 \\
+    1/4 &amp; -1/4
+\end{bmatrix}\right)  \left( \begin{bmatrix}
+    z_{11} &amp; z_{12} \\
+    z_{21} &amp; z_{22}
+\end{bmatrix}\right) = \left( \begin{bmatrix}
+    0 &amp; 0 \\
+    0 &amp; 0
+\end{bmatrix}\right)\]</span></p>
+<p><span class="math display">\[-1/2z_{11} + 1/2z_{21} = 0\]</span>
+<span class="math display">\[1/4z_{11} - 1/4z_{12} = 0\]</span> <span class="math display">\[-1/2z_{12} + 1/2z_{22} = 0\]</span> <span class="math display">\[1/4z_{21} - 1/4z_{22} = 0\]</span></p>
+<p>After solving the equation</p>
+<p><span class="math display">\[z_{11} = z_{21}\]</span> <span class="math display">\[z_{11} = z_{12}\]</span> <span class="math display">\[z_{12} = z_{22}\]</span> <span class="math display">\[z_{21} = z_{22}\]</span></p>
+<p>Sum of each row in the fundamental matrix Z should be equal to 1.</p>
+<p>Now normalize so the sum of rows=1</p>
+<p>Assume <span class="math display">\[z_{11} = 1\]</span></p>
+<p><span class="math display">\[Z = \left( \begin{bmatrix}
+    1 &amp; 1 \\
+    1 &amp; 1
+\end{bmatrix}\right)\]</span></p>
+<p>To find first passage matrix N using Z, apply the formula:</p>
+<p><span class="math display">\[N= Z-I\]</span></p>
+<p><span class="math display">\[N= \left( \begin{bmatrix}
+    1 &amp; 1 \\
+    1 &amp; 1
+\end{bmatrix}\right)-\left( \begin{bmatrix}
+    1 &amp; 0 \\
+    0 &amp; 1
+\end{bmatrix}\right)= \left( \begin{bmatrix}
+    0 &amp; 1 \\
+    1 &amp; 0
+\end{bmatrix}\right)\]</span></p>
+<p>Mean First Passage Matrix N:</p>
+<p><span class="math display">\[N=  \left( \begin{bmatrix}
+    0 &amp; 1 \\
+    1 &amp; 0
+\end{bmatrix}\right)\]</span></p>
+<p>Fundamental Matrix Z for the given Markov Chain:</p>
+<p><span class="math display">\[Z = \left( \begin{bmatrix}
+    1 &amp; 1 \\
+    1 &amp; 1
+\end{bmatrix}\right)\]</span></p>
 </div>
 
 
