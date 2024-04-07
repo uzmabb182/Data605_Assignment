@@ -12,6 +12,174 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Using R, build a  regression model for data that interests you. Conduct residual analysis.  Was the linear model appropriate? Why or why not?
 
 ```{r}
+library(ggplot2)
+library(tidyverse)
+library(readr)
 
 ```
 
+### Fetching CSV from Github:
+
+```{r}
+urlfile<- "https://raw.githubusercontent.com/uzmabb182/Data605_Assignment/main/sal_by_exp.csv"
+
+mydata<-read_csv(url(urlfile))
+head(mydata)
+```
+
+```{r}
+nrow(mydata)
+ncol(mydata)
+
+str(mydata)
+```
+```{r}
+#Fetching column names and renaming
+
+colnames(mydata)
+
+```
+
+```{r}
+# Creating a dataframe
+
+names(mydata)[names(mydata) == "...1"] <- "ID"
+mydata
+```
+
+```{r}
+# Convert Tibble to Data Frame
+df_data <- data.frame(mydata)
+df_data
+```
+
+
+### Visualize the Data
+
+```{r}
+plot(df_data[,"YearsExperience"],df_data[,"Salary"], main="Relationship Trend",
+xlab="Years Experience", ylab="Salary")
+```
+Dependent Variable - Salaries on y-axis
+
+Independent variable - YearsExperience on x_axis
+
+This chart shows the increase in salaries as the years of experience increase.
+
+### The Linear Model Function:
+
+The simplest regression model is a straight line. It has the mathematical form: 
+
+
+\[\hat{y} = a_{0} + a_{1}x_{1}\]
+
+where x is the independent Variable
+
+y is the dependent variable
+
+a1 is the slope
+
+a0 is the y-intercept of the line
+
+and yˆ is the output value the model predicts. The ^ indicates a
+predicted or estimated value, not the actual observed value.
+
+R provides the function lm() that generates a linear model from the data
+contained in a data frame.
+
+```{r}
+df_data.lm <- lm(YearsExperience ~ Salary, data=df_data)
+
+df_data.lm
+
+```
+In this case, the y-intercept is a0 = -2.2832618 and the slope is a1 = 0.0001013
+
+Thus, the final regression model is:
+
+Salary = -2.2832618 + 0.0001013* YearsExperience
+
+The following code plots the original data along with the fitted line:
+
+```{r}
+plot(YearsExperience ~ Salary, data=df_data)
+abline(df_data.lm)
+
+```
+
+### Evaluating the Quality of the Model
+
+```{r}
+summary(df_data.lm)
+```
+### Interpretation of the Results:
+
+Residuals: These are the differences between the observed values of the dependent variable and the values predicted by the model. The summary statistics (Min, 1Q, Median, 3Q, Max) explains the distribution of these residuals.
+
+Max - the distance from the regression line of the point furthest above the line.
+
+Median - median value of all of the residuals.
+
+1Q and 3Q - the first and third quartiles of all the sorted residual values. 
+
+The line is a good fit with the data, we would expect residual values that are normally distributed around a mean of zero.
+
+Std. Error - the statistical standard error for each of the coefficients.
+
+Intercept: The estimated intercept of the regression line which is approximately -2.283.
+
+Salary: The estimated coefficient for the "Salary" variable indicates the change in the dependent variable for a one-unit change in the independent variable which is approximately 0.0001013.
+
+Significance codes: These asterisks denote the level of significance of the coefficients.  
+
+'***' indicates very high significance, meaning the corresponding coefficient is highly likely to be different from zero.
+
+Multiple R-squared: This value (0.957) is the proportion of the variance in the dependent variable that is predictable from the independent variable(s) which means 95.7% of the variability in "YearsExperience" can be explained by "Salary" in this model.
+
+
+These results are from a linear regression analysis where the dependent variable is "YearsExperience" and the independent variable is "Salary". Here's an interpretation:
+
+Residuals: These are the differences between the observed values of the dependent variable and the values predicted by the model. The summary statistics (Min, 1Q, Median, 3Q, Max) give information about the distribution of these residuals.
+
+
+Intercept: The estimated intercept of the regression line. In this case, it's approximately -2.283.
+Salary: The estimated coefficient for the "Salary" variable. It indicates the change in the dependent variable for a one-unit change in the independent variable. In this case, it's approximately 0.0001013.
+Significance codes: These asterisks denote the level of significance of the coefficients. For instance, '***' indicates very high significance, meaning the corresponding coefficient is highly likely to be different from zero.
+
+Residual standard error: This is an estimate of the standard deviation of the error term in the regression model.
+
+Multiple R-squared: This value (0.957) indicates the proportion of the variance in the dependent variable that is predictable from the independent variable(s). In other words, about 95.7% of the variability in "YearsExperience" can be explained by "Salary" in this model.
+
+Adjusted R-squared: is number of predictors in the model. It's often considered a more reliable measure when there are multiple predictors.
+
+F-statistic and p-value: The F-statistic tests the overall significance of the regression model. The low p-value (< 2.2e-16) implies that the regression model is statistically significant, i.e., at least one independent variable has a non-zero coefficient in predicting the dependent variable.
+
+As indicated by the high R-squared value and the significance of the coefficients, the Overall model seems to fit the data well.
+
+### Residual Analysis:
+
+The following function calls produce the residuals plot for our model:
+
+```{r}
+plot(fitted(df_data.lm),resid(df_data.lm))
+```
+Another test of the residuals uses the quantile-versus-quantile, or Q-Q,
+plot.
+
+```{r}
+qqnorm(resid(df_data.lm))
+qqline(resid(df_data.lm))
+```
+If the residuals were normally distributed, we would expect the points
+plotted in this figure to follow a straight line.
+
+As we see that the two ends does not diverge considerably from that line. 
+
+This indicates that the residuals are normally distributed. 
+
+```{r}
+par(mfrow=c(2,2))
+plot(df_data.lm)
+```
+The “Scale-Location” plot is above is an alternate way of visualizing the residuals
+versus fitted values from the linear regression model.

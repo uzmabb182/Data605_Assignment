@@ -88,17 +88,41 @@ summary(cars.lm)
 ```
 ### Interpretation of the Results:
 
-Residual - are the differences between the actual measured values and the corresponding values on the fitted regression line.
+Residuals: are the differences between the actual measured values and the corresponding values on the fitted regression line.
 
 Max - the distance from the regression line of the point furthest above the line.
 
 Median - median value of all of the residuals.
 
+The minimum residual is -29.069, and the maximum residual is 43.201, indicates that the residuals vary from -29.069 to 43.201.
+
 1Q and 3Q - the first and third quartiles of all the sorted residual values. 
 
-The line is a good fit with the data, we would expect residual values that are normally distributed around a mean of zero.
+The interquartile range (IQR) is from -9.525 to 9.215, suggesting that 50% of the residuals lie within this range.
 
-Std. Error - the statistical standard error for each of the coefficients.
+The median residual is -2.272.
+
+Intercept: The estimated intercept of the regression line is approximately -17.5791. It represents the value of the dependent variable (dist) when the independent variable (speed) is zero.
+
+Speed: The estimated coefficient for the variable "speed" is approximately 3.9324. This indicates that for each unit increase in speed, the distance traveled is estimated to increase by approximately 3.9324 units.
+
+Significance codes:
+
+Both the intercept and the coefficient for "speed" are significant at the 0.05 level, denoted by '*' which means both variables have a statistically significant relationship with the dependent variable.
+
+Residual standard error: This is an estimate of the standard deviation of the error term in the regression model. In this case, it's approximately 15.38.
+
+Multiple R-squared and Adjusted R-squared:
+
+The multiple R-squared value (0.6511) shows that approximately 65.11% of the variance in the dependent variable "dist" can be explained by the independent variable "speed" in this model.
+
+
+The adjusted R-squared value (0.6438) adjusts the R-squared value for the number of predictors in the model. It's slightly lower than the multiple R-squared value because it takes into account the number of predictors and adjusts for it.
+
+F-statistic and p-value: The F-statistic tests the overall significance of the regression model. The extremely low p-value (1.49e-12) indicates that the regression model as a whole is statistically significant, which means that at least one independent variable has a non-zero coefficient in predicting the dependent variable.
+
+The line is a good fit with the data, we would expect residual values that are normally distributed around a mean of zero. The model appears to be statistically significant, with the speed variable having a significant positive effect on the distance traveled by a car.
+
 
 ```{r}
 ggplot(data = cars, aes(x = speed, y = dist)) + 
