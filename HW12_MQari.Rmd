@@ -44,4 +44,212 @@ LifeExp = b0+b1 x PropMd + b2 x TotExp +b3 x PropMD x TotExp
 or why not?
 
 
+### Answer 1:
 
+\[\hat{y} = a_{0} + a_{1}x_{1} + a_{2}x_{2} + ... + + a_{k}x_{k}\]
+
+### Loading the Libraries:
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(readr)
+```
+
+### Fetching CSV File from GitHub:
+
+```{r}
+urlfile<- "https://raw.githubusercontent.com/uzmabb182/Data605_Assignment/main/who.csv"
+
+who_data<-read_csv(url(urlfile))
+head(who_data)
+```
+
+
+
+```{r}
+nrow(who_data)
+ncol(who_data)
+
+str(who_data)
+```
+
+### Scatterplot:
+
+
+```{r}
+who_data.lm <- lm(LifeExp ~ TotExp, who_data)
+ggplot(data = who_data, aes(x = TotExp, y = LifeExp)) + 
+        geom_point(color='blue') +
+        geom_smooth(method = "lm", se = FALSE)
+```
+### Simple Linear Regression:
+
+```{r}
+summary(who_data.lm)
+```
+Interpretation of Coefficients:
+
+The intercept term indicates that when Total Expenditure (TotExp) is zero, the estimated Life Expectancy (LifeExp) is approximately 64.75 years.
+
+The coefficient for TotExp is 6.297e-05, shows that for each unit increase in Total Expenditure, Life Expectancy is estimated to increase by approximately 0.00006297 years (or about 0.023 seconds).
+
+Significance of Coefficients:
+
+Both the intercept and the coefficient for TotExp are statistically significant, as indicated by their low p-values (p < 0.001). This suggests that there is a significant linear relationship between Total Expenditure and Life Expectancy.
+
+Overall Fit of the Model:
+
+The multiple R-squared value is 0.2577, showing that approximately 25.77% of the variability in Life Expectancy can be explained by Total Expenditure.
+
+The adjusted R-squared value, which adjusts for the number of predictors in the model, is slightly lower at 0.2537.
+
+The F-statistic tests the overall significance of the model. 
+
+With a very low p-value (p < 0.001), it suggests that the model as a whole is statistically significant.
+
+Assumptions of Simple Linear Regression:
+
+Linearity: The coefficient estimates suggest a linear relationship between Total Expenditure and Life Expectancy, which is in line with the assumption of linearity.
+
+Independence of Residuals: The output does not provide diagnostic plots to assess this assumption. Further analysis, such as plotting residuals against predicted values, is necessary to evaluate independence.
+
+Homoscedasticity: Again, without residual plots, it's challenging to assess whether the spread of residuals is constant across different levels of Total Expenditure.
+
+Normality of Residuals: While the output does not provide direct information on the normality of residuals, we can use the residual standard error as an indicator of spread. However, formal tests or diagnostic plots are needed to confirm normality.
+
+### Summary:
+
+However the coefficient estimates and overall model fit suggest that the linear regression model is statistically significant and explains a portion of the variability in Life Expectancy, further analysis is needed to assess whether all the assumptions of simple linear regression are met, specifically regarding the independence, homoscedasticity, and normality of residuals.
+
+
+### Answer 2:
+
+### Re-run the Simple Regression Model using the Transformed Variables:
+
+```{r}
+who <- who_data[,c(2,10)]
+lifeExp_4.6 <- who$LifeExp^4.6
+totExp_0.06 <- who$TotExp^0.06
+
+who2_lm <- lm(lifeExp_4.6~totExp_0.06)
+
+summary(who2_lm)
+```
+
+### Plotting the Model:
+
+```{r}
+plot(lifeExp_4.6 ~  totExp_0.06)
+abline(who2_lm)
+```
+Interpretation of Coefficients:
+
+The intercept term suggests that when Total Expenditure (totexp_0.06) is zero, the estimated Life Expectancy (lifeexp_4.6) is approximately -736,527,910.
+
+The coefficient for totexp_0.06 is 620,060,216, is showing that for each unit increase in Total Expenditure, Life Expectancy is estimated to increase by approximately 620,060,216 years.
+
+Significance of Coefficients:
+
+Both the intercept and the coefficient for totexp_0.06 are highly statistically significant, as indicated by their very low p-values (p < 0.001).
+
+This suggests a significant linear relationship between Total Expenditure and Life Expectancy.
+
+Overall Fit of the Model:
+
+The multiple R-squared value is 0.7298, indicating that approximately 72.98% of the variability in Life Expectancy can be explained by Total Expenditure.
+
+The adjusted R-squared value, which adjusts for the number of predictors in the model, is slightly lower at 0.7283.
+
+The F-statistic tests the overall significance of the model. 
+
+With an extremely low p-value (p < 0.001), it suggests that the model as a whole is highly statistically significant.
+
+Residual Standard Error:
+
+The residual standard error is approximately 90,490,000, indicating the average amount that the observed values deviate from the predicted values.
+
+### Comparison of the two Models:
+
+For comparing the two models, we can consider following factors:
+
+R-squared: The second model (R-squared = 0.7298) explains a higher percentage of the variability in Life Expectancy compared to the first model (R-squared = 0.2577). 
+
+A higher R-squared value generally indicates a better fit of the model to the data.
+
+F-statistic: The F-statistic for the second model is substantially higher (507.7) compared to the first model (65.26), showing that the second model is a better fit for the data.
+
+Residual Standard Error: The residual standard error for the second model (90,490,000) is also lower than that of the first model (9.371), suggesting that the second model provides a better prediction of Life Expectancy.
+
+The second model appears to be better in terms of explaining the variability in Life Expectancy and providing a more accurate prediction.
+
+### Answer 3:
+
+### Forecast Life Expectancy:
+
+```{r}
+forcast <- data.frame(totExp_0.06=c(1.5, 2.5))
+predict(who2_lm, forcast) ^ (1/4.6)
+```
+### Answer 4:
+
+### Multiple Regression Model:
+
+```{r}
+urlfile<- "https://raw.githubusercontent.com/uzmabb182/Data605_Assignment/main/who.csv"
+
+who<-read_csv(url(urlfile))
+head(who)
+
+```
+
+```{r}
+multiple_regression <- lm(LifeExp ~ PropMD + TotExp + TotExp * PropMD, data=who)
+summary(multiple_regression)
+```
+Interpretation of Coefficients:
+
+The intercept term indicates that when both PropMD and TotExp are zero, the estimated Life Expectancy is approximately 62.77 years.
+
+The coefficient for PropMD (1.497e+03) indicates that for each unit increase in the Proportion of Medical Doctors, Life Expectancy is estimated to increase by approximately 1497 years.
+
+The coefficient for TotExp (7.233e-05) suggests that for each unit increase in Total Expenditure, Life Expectancy is estimated to increase by approximately 0.00007233 years.
+
+The coefficient for the interaction term (PropMD:TotExp) (-6.026e-03) indicates how the effect of Total Expenditure on Life Expectancy changes depending on the Proportion of Medical Doctors.
+
+It shows that as the Proportion of Medical Doctors increases, the effect of Total Expenditure on Life Expectancy decreases by approximately 0.006026 years.
+
+Significance of Coefficients:
+
+All coefficients are statistically significant as (p < 0.05), indicating that both the individual predictors and the interaction term are significantly associated with Life Expectancy.
+
+Overall Fit of the Model:
+
+The multiple R-squared value is 0.3574, is indicating that approximately 35.74% of the variability in Life Expectancy is explained by the predictors included in the model.
+
+The adjusted R-squared value, which adjusts for the number of predictors in the model, is slightly lower at 0.3471.
+
+The F-statistic tests the overall significance of the model. 
+
+Having an extremely low p-value (< 2.2e-16), it suggests that the model as a whole is highly statistically significant.
+
+Residual Standard Error:
+
+The residual standard error is approximately 8.765, and it is showing that the average amount that the observed values deviate from the predicted values.
+
+ Summary:
+ 
+ The model provides a statistically significant explanation of Life Expectancy based on the included predictors. 
+ 
+It's important to note that while the model explains a moderate proportion of the variability in Life Expectancy, there may be other factors not accounted for in the model that influence Life Expectancy.
+
+### Answer 5:
+
+### Forecast LifeExp when PropMD=.03 and TotExp = 14
+
+```{r}
+forcast <- data.frame(PropMD=0.03, TotExp=14)
+predict(multiple_regression, forcast)
+```
+
+This forecast does not seem realistic because 107.696 is an unrealistic age for a person.
