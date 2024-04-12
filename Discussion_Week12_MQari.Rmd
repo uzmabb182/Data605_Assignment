@@ -1,0 +1,185 @@
+---
+title: "Discussion_Week12_MQari"
+author: "Mubashira Qari"
+date: "2024-04-07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Question:
+
+Using R, build a multiple regression model for data that interests you.  Include in this model at least one quadratic term, one dichotomous term, and one dichotomous vs. quantitative interaction term.  Interpret all coefficients. Conduct residual analysis.  Was the linear model appropriate? Why or why not?
+
+
+### Load the Libraries:
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(readr)
+```
+
+### Fetching the California Housing Data CSV from GitHub:
+
+```{r}
+urlfile<- "https://raw.githubusercontent.com/uzmabb182/Data605_Assignment/main/housing.csv"
+
+housing_data<-read_csv(url(urlfile))
+head(housing_data)
+```
+
+### Data Specification:
+
+The data is publicly available on kaggle at https://www.kaggle.com/camnugent/california-housing-prices#housing.csv.
+It contains 20,640 rows and 10 columns.
+
+There are 9 explanatory variables (longitude, latitude, housing_median_age, total_rooms, total_bedrooms, population, households, median_income and ocean_proximity) and 1 response variable (median_house_value) in the data set.
+
+
+### Dichotomize the Variable:
+
+dichotomize lets you specify which categories are "selected", while undichotomize strips that selection information. 
+
+Dichotomize converts a Categorical Array to a Multiple Response, and undichotomize does the reverse. 
+
+is.dichotomized reports whether categories have any selected values.
+
+Becuase this dataset does not include a dichotomous feature, we will create one out of the ocean_proximity column. 
+
+A value of 1 will be assigned to any rows with the value NEAR OCEAN and a 0 otherwise.
+
+```{r}
+# Convert Tibble to Data Frame
+housing_df <- data.frame(housing_data)
+head(housing_df)
+```
+
+Dichotomize the OCEAN_PROXIMITY variable
+
+```{r}
+housing_df$ocean_proximity <- with(housing_df, ifelse(ocean_proximity=='NEAR OCEAN', 1,0))
+table(housing_df$ocean_proximity)
+```
+
+Visualizing and Analyzing the Data:
+
+```{r}
+pairs(housing_df, gap=0.5)
+```
+
+Total rooms, total bedrooms, population, and households are all directly related. i.e., as one increases, the others do as well.
+
+As the median income increases, so does the median house value.
+
+As the latitude increases (we go further north), the median house value decreases.
+
+### Defining the Predictors:
+
+we will also define the following predictors:
+
+using each explanatory variable as a predictor
+
+total_bedrooms2 (quadratic)
+
+ocean_proximity (converted to a dichotomous variable) 
+
+ocean_proximity∗households (dichotomous vs quantitative interaction term).
+
+```{r}
+housing_df$total_bedrooms_sq <- housing_df$total_bedrooms^2
+housing_df$interaxn_term <- housing_df$ocean_proximity*housing_df$households
+```
+
+
+
+### Building using each explanatory variable as a predictor:
+
+```{r}
+housing.lm <- lm(median_house_value ~ longitude + latitude + housing_median_age + total_rooms + total_bedrooms + population + households + median_income + ocean_proximity + total_bedrooms_sq + interaxn_term, data = housing_df)
+```
+
+### Evaluating the Model:
+
+```{r}
+summary(housing.lm)
+```
+
+### Interpreting the Results:
+
+Coefficients:
+Intercept ((Intercept)): The estimated intercept is approximately -3.51e+06. 
+
+This represents the predicted median house value when all other predictors are zero.
+
+Longitude (longitude): For every one unit increase in longitude, there is an estimated decrease in median house value of approximately $41,690.
+
+Latitude (latitude): For every one unit increase in latitude, there is an estimated decrease in median house value of approximately $41,400.
+
+Housing Median Age (housing_median_age): For every one unit increase in housing median age, there is an estimated increase in median house value of approximately $1,220.
+
+Total Rooms (total_rooms): For every one unit increase in total rooms, there is an estimated decrease in median house value of approximately $7.54.
+
+Total Bedrooms (total_bedrooms): For every one unit increase in total bedrooms, there is an estimated increase in median house value of approximately $131.
+
+Population (population): For every one unit increase in population, there is an estimated decrease in median house value of approximately $37.39.
+
+Households (households): For every one unit increase in households, there is an estimated increase in median house value of approximately $42.72.
+
+Median Income (median_income): For every one unit increase in median income, there is an estimated increase in median house value of approximately $40,370.
+
+Ocean Proximity (ocean_proximity): This coefficient indicates the effect of the categorical variable "ocean_proximity" on the median house value.
+
+It seems that being closer to the ocean increases the median house value by approximately $7,320.
+
+Total Bedrooms Squared (total_bedrooms_sq): This suggests a non-linear relationship between total bedrooms and median house value. 
+
+For every one unit increase in the square of total bedrooms, there is an estimated decrease in median house value of approximately 0.006965.
+
+Interaction Term (interaxn_term): This term doesn't appear to be statistically significant since its p-value is higher than the typical significance level of 0.05.
+
+Model Performance:
+
+Residuals: These are the differences between the observed and predicted values of the dependent variable. 
+
+They indicate how well the model fits the data.
+
+Multiple R-squared: This is a measure of how well the independent variables explain the variability of the dependent variable.
+
+In this case, approximately 63.85% of the variability in median house value is explained by the independent variables.
+
+Adjusted R-squared: This is the R-squared value adjusted for the number of predictors in the model. 
+
+It's slightly lower than the multiple R-squared because it accounts for the number of predictors in the model.
+
+Residual standard error: This is an estimate of the standard deviation of the residuals. 
+
+It shows the average amount that the model's predictions deviate from the actual values.
+
+Summary: the model seems to have decent predictive power, as indicated by the R-squared value, but there may be room for improvement, especially in capturing the non-linear relationships or unmodeled interactions.
+
+```{r}
+plot(fitted(housing.lm),resid(housing.lm))
+```
+
+### Graphing the data in a Q-Q plot
+
+In a good model we expect the residuals to be normally distributed. 
+
+```{r}
+qqnorm(resid(housing.lm))
+qqline(resid(housing.lm))
+```
+
+
+There is a deviation from the line in both ends of the plot, so this means that our model does not fit the data well.
+
+### Conclusions:
+
+From this analysis, we can see that our model does not produce a very good output for a few reasons:
+
+There is a clear pattern in the residual plot.
+The residuals are not normally distributed.
+The median residual value is far from the expected value of 0.
