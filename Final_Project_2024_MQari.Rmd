@@ -9,3 +9,141 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+### Problem 1:
+Using R, set a random seed equal to 1234 (i.e., set.seed(1234)).  Generate a random variable X that has 10,000 continuous random uniform values between 5 and 15.Then generate a random variable Y that has 10,000 random normal values with a mean of 10 and a standard deviation of 2.89.
+
+
+### Load the Libraries
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+library(knitr)
+library(kableExtra)
+```
+
+
+```{r}
+library(exact2x2)
+library(GGally)
+```
+```{r}
+library(Matrix)
+library(matrixcalc)
+library(car)
+```
+### Generating a random variable X with the given conditions.
+
+```{r}
+set.seed(1234)
+X = runif(n = 10000, min = 5, max = 15)
+Y = rnorm(10000, mean = 10, sd = 2.89)
+
+hist(X)
+```
+### Generating a Histogram
+
+```{r}
+
+hist(Y)
+
+```
+### Probability.   
+
+Calculate as a minimum the below probabilities a through c.  Assume the small letter "x" is estimated as the median of the X variable, and the small letter "y" is estimated as the median of the Y variable.  Interpret the meaning of all probabilities.
+
+### a.   P(X>x | X>y)
+
+Applying the generalized formula
+
+\[P(A|B) = \frac {P(A \cap B)}{P(B)}\]
+
+\[P(X>x|X>y) =  = \frac {P(X>x \cap X>y )}{P(X>y)}\]
+
+\[P(X>x|X>y) =  = \frac {P(X>x) P(X>y|X>x)}{P(X>y)}\]
+
+
+Now using the R function:
+Let's set the value of x and y
+
+```{r}
+x <- median(X)
+y <- median(Y)
+
+cat(
+  'Median of X: ',x,'\n',
+  'Median of Y: ',y,
+  sep = ''
+)
+```
+### Conclusion:
+
+These values, both close to 10, confirm to expectations. The median of both uniform and normal distributions are very close to the means, and we know the mean of both distributions will be ~10. For X, it’s the halfway point between the min and max (5 and 15), and for Y, it’s given.
+
+We are looking for the probability that our random variable is greater than x, and we already know that our random variable is greater than y. Since both of those values are ~10, our probability should be very close to 1.
+
+We can verify this by creating a subset of cases where X>y, then calculating the proportion of those cases where X is also less than x.
+
+```{r}
+B <- X[X>y]
+A <- B[B>x]
+
+proportion <- length(A) / length(B)
+
+cat('P(A|B):', proportion)
+```
+Within our random sample, 100% of the values of X within the subset X>y are greater than x. In other words, P(X>x|X>y)=1.
+
+### b.  P(X>x & Y>y)
+
+Here we are applying conditional probability, we’re now looking at a joint probability.
+
+In other words, we’re given nothing, and we have to find the probability that both of these conditions are met simultaneously.
+
+Individually, the probability that a random variable is greater than the median of its respective distribution is 50%, since the median is, by definition, the 50th percentile. To be a bit more explicit, with a sample of 10,000, the probability would be
+
+\[P(X>x) = \frac {P(10,000/2)}{10,000} = \frac {5000}{10,000} = 0.5\]
+
+And the same would apply to P(Y>y)
+
+we can estimate a joint probability (PA∩B) as the product of each individual probability: P(A)×P(B). So in this case, we would expect the probability to be
+
+\[P(X>x \cap Y > y) = P(X > x)* P(X > y) = 0.4999 * 0.4999 = 0.2499\]
+
+Let’s check this empirically. We can calculate the proportion of cases where X>x compared to the total length of X, and the same for Y>y, then multiply the two.
+
+```{r}
+P_A <- length(X[X>x]) / length(X)
+P_B <- length(Y[Y>y]) / length(Y)
+
+P_AandB <- P_A * P_B
+
+print(P_AandB)
+```
+### Conclusion:
+
+Our estimate of 0.2499 holds true!
+
+### c.  P(X<x | X>y)	
+
+We will use condition probability, so we can apply a similar approach as our first problem. Moreover, given what we know about the first problem (i.e. that it’s one), we can expect this probability to approach 0. 
+
+Specifically, we know that x and y are both very close to 10. So if X is greater than 10 (the given condition), then the chances of it also being less than 10 should be zero.
+
+Let’s check it from our distributions.
+
+```{r}
+B <- X[X>y]
+A <- B[B<x]
+
+proportion <- length(A) / length(B)
+
+cat('P(A|B):', proportion)
+```
+### Conclusion: 
+
+we find no cases where X is both greater than y and less than x, because both x and y are ~10.
+
