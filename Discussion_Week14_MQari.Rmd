@@ -1,0 +1,53 @@
+---
+title: "Discussion_Week14_MQari"
+author: "Mubashira Qari"
+date: "2024-04-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+###  Exercise 8.8:
+
+In Exercises 31 – 32, approximate the value of the given definite integral by using the first ϰ nonzero terms of the integrand’s Taylor series.
+
+
+31. \[ A = \int_{0}^{\sqrt{x}}sin(x^2)dx \]
+
+32. \[ A = \int_{0}^{\frac{x^2}{4}}cos(\sqrt{x})dx \]
+
+
+To approximate the value of the given definite integrals using the first κ nonzero terms of the integrand's Taylor series, 
+
+we will find the Taylor series expansions of the integrands and then integrate each term separately.
+
+### 31.Solution: 
+
+\[ A = \int_{0}^{\sqrt{x}}sin(x^2)dx \]
+
+The Taylor series expansion of sin(x^2) around x=0 is:
+
+\[sin(x^2) = x^2 - \frac{x^6}{3!} + \frac{x^{10}}{5!}\]
+⁡
+Now, integrate each term of the series separately:
+
+\[A \approx \int_{0}^{\sqrt{x}}(x^2 - \frac{x^6}{3!} + \frac{x^{10}}{5!}-...)dx\]
+
+Integrate term by term and sum them up to get the final approximation.
+
+### 32.Solution: 
+
+\[ A = \int_{0}^{\frac{x^2}{4}}cos(\sqrt{x})dx \]
+
+The Taylor series expansion of cos(sqrt(x)) around x=0 is:
+
+\[cos (\sqrt{x})= 1-\frac{x}{2} + \frac{x^2}{4!}-...\]
+⁡
+Next, we integrate each term of the series separately:
+
+\[A \approx \int_{0}^\frac{x^2}{4}(1-\frac{x}{2} + \frac{x^2}{4!}-...)dx\]
+
+Integrate term by term and sum them up to get the final approximation.
+

@@ -1,0 +1,267 @@
+---
+title: "HW14_MQari"
+author: "Mubashira Qari"
+date: "2024-04-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### This week, we’ll work out some Taylor Series expansions of popular functions.
+
+•	f (x) = (1−x)
+•	f (x) = ex
+•	f (x) = ln(1 + x)
+•	f(x)=x(1/2)
+
+For each function, only consider its valid ranges as indicated in the notes when you are computing the Taylor Series expansion. Please submit your assignment as an R- Markdown document.
+
+### Solution:
+
+### 1. f (x) = (1−x)
+
+\[f(x)=\frac {1}{1-x}\]
+
+Apply the Taylor Series Equality formula to calculate the expansions of the given functions.
+
+
+\[ f(x) = \sum_{n=0}^{\infty} \frac{f^n(c)}{n!}(n-c)^n\]
+
+Find the first derivatives for the given function f(x)
+
+\[f^0(c)=\frac{1}{1-c}\]
+
+\[f^1(c)=\frac{1}{(1-c)^2}\]
+
+\[f^2(c)=\frac{1}{(1-c)^3}\]
+
+\[f^3(c)=\frac{1}{(1-c)^4}\]
+
+\[f^4(c)=\frac{1}{(1-c)^5}\]
+
+Thus, the Taylor series expansion for f(x) converges over the interval (−1,1) and can be defined as:
+
+\[ f(x) \approx P(x) = \frac{1}{(1-c)^{0}!}(x-c)^0 + \frac{1}{(1-c)^{1}1!}(x-c)^1 + \frac{2}{(1-c)^{2}2!}(x-c)^2+ \frac{2}{(1-c)^{3}3!}(x-c)^3 +m\frac{2}{(1-c)^{4}4!}(x-c)^4+...\]
+
+The sum notation for the expansion can be denoted as:
+
+\[ f(x) \approx P(x) = \sum_{n=0}^{\infty} \frac{1}{(1-c)^{n+1}}(x-c)^n\]
+
+Setting c=0 gives the Maclaurin Series of f(x)
+ 
+\[ f(x) \approx P(x) = \sum_{n=0}^{\infty}x^n= 1+x+x^2+x^3+x^4\]
+
+### Now applying the R function for:
+
+```{r}
+# Function of f(x) = 1 / (1 - x)
+taylor_series_expansion <- function(x, terms) {
+  result <- 0
+  for (n in 0:(terms - 1)) {
+    term <- x^n
+    result <- result + term
+  }
+  
+  return(result)
+}
+
+# Number of terms in the series
+num_terms <- 4  
+
+# Calculate f(x) = 1 / (1 - x) at different x values
+x_values <- seq(-1, 1, by = 0.2)  # Range of x values for demonstration
+for (x in x_values) {
+  series_result <- taylor_series_expansion(x, num_terms)
+  cat("f(", x, ") ≈ P(", x, ") =", series_result, "\n")
+}
+```
+### 2. f (x) = e^x
+
+The Taylor Series expansion of the exponential function f(x)=e^x is valid for all real numbers x. It is given by
+
+\[ e^x = \sum_{n=0}^{\infty}\frac {x^n}{n!}\]
+
+This expansion represents an infinite sum of powers of x divided by their factorial. 
+
+Now finding several derivatives.
+
+\[f(x)^0(c) = e^c\]
+
+\[f(x)^1(c) = e^c\]
+
+\[f(x)^2(c) = e^c\]
+
+\[f(x)^3(c) = e^c\]
+
+\[f(x)^4(c) = e^c\]
+
+\[f(x)^4(c) = e^c\]
+
+\[f(x) = \frac {e^c}{0!}(x-c)^0 + \frac {e^c}{1!}(x-c)^1 + \frac {e^c}{2!}(x-c)^2 + \frac {e^c}{3!}(x-c)^3 +...\]
+
+\[  = \sum_{n=0}^{\infty}\frac {(x-c)^n}{n!}\]
+
+The Maclaurin Series, where c=0
+
+\[  = \sum_{n=0}^{\infty}\frac {x^n}{n!}= 1 + x + \frac{x^2}{2!}+ \frac{x^3}{3!}+ \frac{x^4}{4!}+...\]
+
+### Now applying the R function for:
+
+```{r}
+# Function of e^x
+taylor_exp <- function(x, terms = 4) {
+  result <- 0
+  for (n in 0:terms) {
+    result <- result + (x^n) / factorial(n)
+  }
+   return(result)
+}
+
+# Set specific value of x
+x_value <- 2
+result <- taylor_exp(x_value)
+# Print the result
+cat("e^", x_value, "approximated using Taylor series with 4 terms is:", result, "\n")
+```
+### 3. f(x)=ln(1+x)
+
+Find first derivatives for the given function f(x)
+
+\[f^0(c)=ln(1+c)\]
+
+\[f^1(c)=\frac{1}{c+1}\]
+
+\[f^2(c)=\frac{1}{(c+1)^2}\]
+
+\[f^3(c)=\frac{2}{(c+1)^3}\]
+
+\[f^4(c)=\frac{6}{(c+1)^4}\]
+
+At x=0, these derivatives simplify:
+
+\[f(0)=ln(1)=0\]
+
+\[f^1(0)=\frac{1}{1} =1\]
+
+\[f^2(0)=\frac{-1}{1^2} =-1\]
+
+\[f^3(0)=\frac{2}{1^3} =2\]
+
+\[f^4(0)=\frac{6}{1^4} =-6\]
+
+Taylor series expansion for f(x)=ln(1+x) converges |x|<1 and can be defined as:
+ 
+ \[ f(x) \approx P(x) = P(x)\]
+ 
+ \[ f(x) \approx P(x) = \frac{ln(1+c)}{0!}(x-c)^0 + \frac{1}{(c+1)1!}(x-c)^1 - \frac{1}{(c+1)^22!}(x-c)^2 + \frac{2}{(c+1)^33!}(x-c)^3\] - \frac{6}{(c+1)^44!}(x-c)^4 +... \]
+ 
+ The sum notation for the expansion can be written as:
+
+ \[ f(x) \approx P(x) = ln(1+c)+\sum_{n=1}^{\infty}(-1)^{n+1}\frac {(x-c)^n}{n(c+1)^n}\]
+ 
+ Setting c=0 gives the Maclaurin Series of f(x):
+ 
+  \[ f(x) \approx P(x) = ln(1+c)+\sum_{n=1}^{\infty}(-1)^{n+1}\frac {(x)^n}{n}= x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} +...\]
+
+### Now applying the R function for:
+
+```{r}
+# Function of ln(1 + x)
+maclaurin_ln <- function(x, terms = 4) {
+  result <- 0
+ 
+  for (n in 1:terms) {
+    result <- result + ((-1)^(n+1) * (x^n)) / n
+  }
+  
+  return(result)
+}
+
+# Value of x 
+x_value <- 0.5
+
+# Calculate the approximation using the Maclaurin series with 4 terms
+approximation <- maclaurin_ln(x_value, terms = 4)
+
+# Calculate the actual value of ln(1 + x) 
+actual_value <- log(1 + x_value)
+
+# Print the results
+cat("ln(1 +", x_value, ") approximated using Maclaurin series with 4 terms is:", approximation, "\n")
+```
+
+
+```{r}
+cat("Actual value of ln(1 +", x_value, ") is:", actual_value)
+```
+### 4. f(x)=x(1/2)
+
+Taylor series expansion around a specific point, typically around x=c (where c is the center).
+
+The Taylor series expansion of f(x)= sqrt(x) around x=c involves calculating the derivatives of the function at x=a to determine the coefficients of the series.
+
+Starting with f(x)=sqrt(x):
+
+\[ \sqrt[4]{4ac} = \sqrt{4ac}\sqrt{4ac} \]
+
+
+Now starting with 
+
+\[f(x)=\sqrt{x}\]
+
+\[f^1(x)=\frac{1}{2\sqrt{x}}= \frac{1}{2x^{1/2}}\]
+
+\[f^2(x)=\frac{1}{4x^{3/2}}\]
+
+\[f^3(x)=\frac{3}{8x^{5/2}}\]
+
+\[f^4(x)=\frac{15}{16x^{7/2}}\]
+
+Calculate these derivatives at a specific point, say x=1(which simplifies the calculations):
+
+\[f(1) = 1\]
+
+\[f^1(1) = \frac{1}{2}\]
+
+\[f^2(1) = \frac{1}{4}\]
+
+\[f^3(1) = \frac{3}{8}\]
+
+\[f^4(1) = \frac{15}{16}\]
+
+The Taylor series expansion for f(x)=sqrt(x) around x=1 (for instance) is:
+
+\[\sqrt{x}= 1 + \frac{1}{2}(x-1) - \frac{1}{8}(x-1)^2 - \frac{1}{16}(x-1)^3-...=\sum_{n=0}^{\infty}\frac{f^n(1)}{n!}(x-1)^n\]
+
+Taylor series expansion around x=1 for sqrt(x) would be valid for x close to 1 (within the convergence radius of the series).
+
+### Now applying the R function for:
+
+```{r}
+# Function of sqrt(x) around x = 1
+taylor_sqrt <- function(x, terms = 4) {
+  result <- 1  # The term for n = 0
+
+  for (n in 1:terms) {
+    result <- result + ((-1)^(n-1) * factorial(2*n-2) * (x-1)^n) / (2^n * factorial(n))
+  }
+  
+  return(result)
+}
+# Value of x 
+x_value <- 1.5
+# Calculate the approximation 
+approximation <- taylor_sqrt(x_value, terms = 4)
+# Calculate the actual value 
+actual_value <- sqrt(x_value)
+# Print the results
+cat("sqrt(", x_value, ") approximation around x = 1 with 4 terms is:", approximation, "\n")
+```
+
+
+```{r}
+cat("Actual value of sqrt(", x_value, ") is:", actual_value)
+```
+

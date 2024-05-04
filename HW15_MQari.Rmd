@@ -1,0 +1,194 @@
+---
+title: "HW15_MQari"
+author: "Mubashira Qari"
+date: "2024-04-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Question 1:
+
+Find the equation of the regression line for the given points. Round any final values to the nearest hundredth, if necessary.
+( 5.6, 8.8 ), ( 6.3, 12.4 ), ( 7, 14.8 ), ( 7.7, 18.2 ), ( 8.4, 20.8 )
+
+
+### Solution:
+
+### Apply the Linear Model:
+
+
+```{r}
+x <- c(5.6, 6.3, 7, 7.7, 8.4)
+y <- c(8.8, 12.4, 14.8, 18.2, 20.8)
+df <- data.frame(x, y)
+df
+```
+
+
+```{r}
+reg_model <- lm(y~x, data=df)
+
+reg_model
+```
+### Visualize the Plot:
+
+```{r}
+
+plot(x,y, xlab="", ylab="")
+abline(reg_model)
+lines(c(5,9), -14.8+4.257*c(5,9), col="green")
+
+```
+
+### Question 2:
+
+Find all local maxima, local minima, and saddle points for the function given below. Write your answer(s) in the form
+( x, y, z ). Separate multiple points with a comma.
+
+\[ f(x, y) = 24x - 6xy^2 -8y^3 \]
+
+### Solution:
+
+To all local maxima, local minima, and saddle points for the function, we have to first calculate the Determinant:
+
+Finding Partial Derivatives:
+
+\[ f(x, y) = 24x - 6xy^2 -8y^3 \]
+
+\[ fx = \frac{\partial f}{\partial x}=24 - 6y^2 \]
+
+\[ fy = \frac{\partial f}{\partial y}=12xy - 24y^2 \]
+
+Finding Critical Points:
+
+\[ fx = \frac{\partial f}{\partial x}=24 - 6y^2 = 0\]
+
+\[ 6y^2 = 24\]
+
+\[ y^2 = 4\]
+
+\[ y = \pm 2\]
+
+Substituting the values to solve for x
+
+\[ \frac{\partial f}{\partial y}=12xy - 24y^2=0 \]
+
+\[ xy + 2y^2=0 \]
+
+\[ y(x + 2y)=0 \]
+
+When \[ y=2; 2(x+2*2)=0 \]
+
+\[ 2x+8=0 \]
+
+\[ x=-4 \]
+
+When \[ y=-2; -2(x+2*(-2))=0 \]
+
+\[ -2x+8=0 \]
+
+\[ x=4\]
+
+
+There are two critical points at (−4,2) and (4,−2)
+
+
+At (−4,2)
+
+\[ z=24(-4)-6(-4)2^2-8(2)^3=-64\]
+
+and at  (4,−2)
+
+\[ z=24(4)-6(4)(-2)^2-8(-2)^3=-64\]
+
+two critical points are (−4,2,−64) and (4,−2,64), but to find out if they are minima, maxima or saddle points, we need to find the determinant, D.
+
+Finding the Determinant
+
+\[ fxx =0 \]
+
+\[ fyy =-12x-48y \]
+
+\[ fxy =-12y \]
+
+Now \[ fxxfyy-f^2xy=-(-12y)^2 =-144y^2 \]
+
+D(x,y)<0 for all (x,y), On the basis of the Second Derivative Test, any critical point is a saddle point.
+
+
+### Question 3:
+
+A grocery store sells two brands of a product, the “house” brand and a “name” brand. The manager estimates that if she sells the “house” brand for x dollars and the “name” brand for y dollars, she will be able to sell 81−21x+17y units of the “house” brand and 40+11x−23y units of the “name” brand.
+
+Step 1. Find the revenue function R(x,y). 
+
+Step 2. What is the revenue if she sells the “house” brand for $2.30 and the “name” brand for $4.10?
+
+### Solution:
+
+\[R(x,y)=(81-21x+17y)x+(40+11x+23y)y\]
+
+\[R(x,y)=81x-21x^2+17xy+40y+11xy-23y^2\]
+
+\[R(x,y)=81x+40y+28xy+-21x^2+23y^2\]
+
+\[R(2.3,4.1)=116.62\]
+
+
+### Question 4:
+
+A company has a plant in Los Angeles and a plant in Denver. The firm is committed to produce a total of 96 units of a product each week. The total weekly cost is given by \[C(x,y)=\frac{1}{6}x^2+ \frac{1}{6}y^2+7x+25y+700\] where x is the number of units produced in Los Angeles and y is the number of units produced in Denver. How many units should be produced in each plant to minimize the total weekly cost?
+
+### Solution:
+
+Consider x+y=96, then x=96−y
+
+\[C(x,y)= C(96-y,y) =\frac{1}{6}x^2+ \frac{1}{6}y^2+7x+25y+700\]
+
+\[C(x,y)= C(96-y,y) =\frac{1}{6}(96-y)^2+ \frac{1}{6}y^2+7(96-y)+25y+700\]
+
+\[C(x,y)= C(96-y,y) =\frac{1}{3}y^2-14y+2908\]
+
+\[=C_1(y)\]
+
+\[=C'_1(y)=\frac{2}{3}y-14\]
+
+
+To find minimal value by \[=C'_1(y)=\frac{2}{3}y-14=0\]
+
+\[y=21\]
+
+\[x=96−y=75\]
+
+The company needs to produce 75 units in LA and 21 units in Denver each week in order to meet their production commitment and minimize costs.
+
+
+### Question 5:
+
+Evaluate the double integral on the given region.
+
+\[\iint_R(e^{8x+3y}dA;R:2\le x\le 4 and 2\le y\le 4\]
+
+Write your answer in exact form without decimals.
+
+### Solution:
+
+\[\iint_R(e^{8x+3y}dydx=\int_{2}^{4}(\frac{1}{3}e^{8x+3y})|_{2}^{4}dx\]
+
+\[\iint_R(e^{8x+3y}dydx=\int_{2}^{4}(\frac{1}{3}e^{8x+3y})|_{2}^{4}dx\]
+
+\[=\int_{2}^{4}((\frac{1}{3}e^{8x+12})-(\frac{1}{3}e^{8x+6}))dx\]
+
+\[=\int_{2}^{4}\frac{1}{3}e^{8x+6}(e^6-1)dx\]
+
+\[=\frac{1}{24}e^{8x+6}(e^6-1)|_{2}^{4}\]
+
+\[=\frac{1}{24}e^{32+6}(e^6-1)-\frac{1}{24}e^{16+6}(e^6-1)\]
+
+\[=\frac{1}{24}(e^{6}-1)(e^{38}-e^{22})\]
+
+\[=\frac{1}{24}(e^{44}-e^{38}-e^{28}-e^{22})\]
+

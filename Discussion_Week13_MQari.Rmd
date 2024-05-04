@@ -9,3 +9,155 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+### Chapter 4 - Linear Regression:
+
+Using R, build a multiple regression model for data that interests you. Include in this model at least one quadratic term, one dichotomous term, and one dichotomous vs. quantitative interaction term. Interpret all coefficients. Conduct residual analysis. Was the linear model appropriate? Why or why not?
+
+### Solution: California Housing Prices Dataset
+
+### Data Specification:
+
+The data is publicly available on kaggle at https://www.kaggle.com/camnugent/california-housing-prices#housing.csv.
+
+It contains 20,640 rows and 10 columns.
+
+There are 9 explanatory variables (longitude, latitude, housing_median_age, total_rooms, total_bedrooms, population, households, median_income and ocean_proximity) and 1 response variable (median_house_value) in the data set.
+
+Since this dataset does not include a dichotomous feature, we will create one out of the ocean_proximity column. 
+
+A value of 1 will be assigned to any rows with the value NEAR OCEAN and a 0 otherwise.
+
+### Loading the Data from GitHub:
+
+```{r}
+library(readr)
+
+housing_df <- read_csv('https://raw.githubusercontent.com/uzmabb182/Data605_Assignment/main/housing.csv')
+
+head(housing_df)
+```
+
+### Dichotomize the OCEAN_PROXIMITY variable:
+
+```{r}
+housing_df$ocean_proximity <- with(housing_df, ifelse(ocean_proximity=='NEAR OCEAN', 1,0))
+table(housing_df$ocean_proximity)
+```
+### Visualizing the Data:
+
+```{r}
+pairs(housing_df, gap=0.5)
+```
+
+
+Total rooms, total bedrooms, population, and households are all directly related. In other words, as one incrases, the others do as well.
+As the median income increases, so does the median house value.
+As the latitude increases (we go further north), the median house value decreases.
+
+### Setting Predictors:
+
+Along with each explanatory variable as a predictor, we will also define the following predictors: total_bedrooms2 (quadratic), ocean_proximity (converted to a dichotomous variable) ocean_proximity∗households (dichotomous vs quantitative interaction term).
+
+```{r}
+
+housing_df$total_bedrooms_sq <- housing_df$total_bedrooms^2
+housing_df$interaxn_term <- housing_df$ocean_proximity*housing_df$households
+
+```
+
+### Building Multivariate Linear Model:
+
+```{r}
+housing.lm <- lm(median_house_value ~ longitude + latitude + housing_median_age + total_rooms + total_bedrooms + population + households + median_income + ocean_proximity + total_bedrooms_sq + interaxn_term, data = housing_df)
+
+```
+
+
+### Evaluating the Model:
+
+```{r}
+summary(housing.lm)
+```
+
+### Analysis:
+
+COEFFICIENTS: In a general sense, the coefficients show us the mathematical relationship between the explanatory variables and the response variable. 
+
+A positive value indicates that as the value of the explanatory variable increases, the mean of the response variable also increases. 
+
+A negative value indicates that as the value of the explanatory variable increases, the mean of the response variable decreases. The strength of the relationship is measured by the magnitude of the coefficient. 
+
+Given a one-unit increase/decrease in the explanatory variable (leaving all other variables constant), the response variable will shift the magnitude of the coefficient. 
+
+The p-values associated with each variable tells us whether the relationships are statistically significant.
+
+Intercept - value is very close to 0, so this just tells us that the minimum median value of housing is $0
+.
+Longitude and Latitude - both coefficients are largely negative. 
+
+This means that as the latitude/longitude increase, the value of the house decreases. (This aligns with our intuition)
+
+Housing Median Age, Total Bedrooms, Ocean Proximity, and Median Income - all of these coefficients are largely positive and have a very significant p-value. 
+
+This means that as the values of these variables increase, so does the value of the house.
+
+Total Rooms and Total Bedrooms Squared - these values are very close to 0, so this tells us that there isn’t much of a change in the value of the house.
+
+Households - this value is also pretty small, but positive. This means that there’s a slight increase in the value of the house with an increase in household size.
+
+Population - small but negative value, which means that there’s a slight decrease in the value of the house with an increase in the population.
+
+Interaction Term - This term is very close to 0 and has a p-value greater than 0.05, so it is not significant.
+
+RESIDUALS: Just from looking at the residual summary, we can tell that our model is not very good. The residuals should be balanced and close to the mean of 0
+
+The median should have a value near 0
+
+min/max values should be about the same magnitude, and the first and third quartile should also be about the same magnitude.
+
+This mean that the actual observations aren’t too far from the predicted values and there isn’t much variance in the predictive error.
+
+Our median is largely negative, our min and max values are not of the same magnitude, and the quartile values are not the same magnitude. 
+
+### Plotting residual plots:
+
+```{r}
+
+plot(fitted(housing.lm),resid(housing.lm))
+
+```
+
+### Analysis:
+
+For a good model have a residual plot:
+
+(1) there’s no clear pattern and 
+
+(2) the points hover both above and below 0. 
+
+The pattern in the plot of our residuals – as we move towards the right, we can see that the residuals decrease in value – indicates that we don’t have a great model.
+
+Also, for a good model, we expect the residuals to be normally distributed. 
+
+By graphing the data in a Q-Q plot, we can see how well the observations follow the line. 
+
+If they fit the line well, we know that the data is normally distributed.
+
+### Normal Q-Q Plot:
+
+```{r}
+qqnorm(resid(housing.lm))
+qqline(resid(housing.lm))
+```
+### Conclusion:
+
+It is evident that there is clear deviation from the line in both ends of the plot, 
+
+This further shows that our model does not fit the data well.
+
+There is a clear pattern in the residual plot.
+
+The residuals are not normally distributed.
+
+The median residual value is far from the expected value of 0.
+

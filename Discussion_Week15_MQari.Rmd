@@ -1,0 +1,119 @@
+---
+title: "Discussion_Week15_MQari"
+author: "Mubashira Qari"
+date: "2024-04-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Exercises 5-8:
+
+### Solution 5:
+
+\[f(x,y)=x^2y-x+2y+3\] at (1,2)
+
+Calculate differentiation of a function:
+
+```{r}
+f5 <- expression((x**2*y) - x + 2*y + 3)
+x <- 1
+y <- 2
+
+fx5 <- D(f5, "x")
+fx5
+```
+
+```{r}
+fy5 <- D(f5, "y")
+fy5
+```
+Now evaluate an expression:
+
+```{r}
+eval(fx5)
+```
+```{r}
+eval(fy5)
+```
+### Solution 6:
+
+\[f(x,y)=x^3-3x+y^2-6y\] at (-1,3)
+
+```{r}
+f6 <- expression(x**3 - 3*x + y**2 - 6*y) 
+x <- -1
+y <- 3
+
+fx6 <- D(f6, "x")
+fx6
+```
+
+
+```{r}
+fy6 <- D(f6, "y")
+fy6
+```
+
+
+```{r}
+eval(fx6)
+```
+
+```{r}
+eval(fy6)
+```
+### Solution 7:
+
+\[f(x,y)=sin(y)cos(x)\] at \[\frac{\pi}{3}, \frac{\pi}{3}\]
+
+
+take the partial derivative of f(x,y) with respect to x and y.
+
+\[f_x(x,y)=-sin(y)sin(x)\]
+
+\[f_y(x,y)=cos(y)cos(x)\]
+
+Now substitute with \[x=\frac{\pi}{3}, y=\frac{\pi}{3}\]
+
+\[f_x(\frac{\pi}{3},\frac{\pi}{3})=-sin(\frac{\pi}{3})sin(\frac{\pi}{3})=-\frac{\sqrt3}{2}*\frac{\sqrt3}{2}=-\frac{3}{4} \]
+
+
+\[f_y(\frac{\pi}{3},\frac{\pi}{3})=cos(\frac{\pi}{3})cos(\frac{\pi}{3})=\frac{1}{2}*\frac{1}{2}=\frac{1}{4} \]
+
+
+### Solution 8:
+
+\[f(x,y)=ln(xy)\]  at (-2, -3)
+
+```{r}
+f8 <- expression(log(x*y)) 
+x <- -2
+y <- -3
+
+fx8 <- D(f8, "x")
+fx8
+```
+
+
+```{r}
+fy8 <- D(f8, "y")
+fy8
+```
+
+
+```{r}
+eval(fx8)
+```
+
+
+```{r}
+eval(fy8)
+```
+
+What were the most valuable elements you took away from this course?
+
+Learned the computational mathematics concepts that are important for machine learning.
+
