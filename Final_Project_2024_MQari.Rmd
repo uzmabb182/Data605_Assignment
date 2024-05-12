@@ -5,145 +5,620 @@ date: "2024-03-24"
 output: html_document
 ---
 
+### Advanced Regression Techniques competition
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### Problem 1:
-Using R, set a random seed equal to 1234 (i.e., set.seed(1234)).  Generate a random variable X that has 10,000 continuous random uniform values between 5 and 15.Then generate a random variable Y that has 10,000 random normal values with a mean of 10 and a standard deviation of 2.89.
-
-
 ### Load the Libraries
 
 ```{r}
+
 library(tidyverse)
+library(readr)
+library(lmtest)
+library(ggpubr)
+library(broom)
+library(ggfortify)
+library(skimr)
+library(ggplot2)
+
+```
+
+### Import R Dataset from GitHub
+
+```{r}
+urlfile1<- "https://raw.githubusercontent.com/uzmabb182/Data605_Assignment/main/datasets/train.csv"
+
+urlfile2<- "https://raw.githubusercontent.com/tiwari91/Housing-Prices/master/test.csv"
+
+train_df<-read_csv(url(urlfile1))
+test_df<-read_csv(url(urlfile2))
+head(train_df)
+
+```
+### View and Check Dimensions.
+
+```{r}
+
+#view(train_df)
+
 ```
 
 
 ```{r}
-library(knitr)
-library(kableExtra)
+dim(train_df)
+```
+### Check Column Names.
+
+```{r}
+names(train_df)
+```
+### Check Internal Structure of the Data Frame
+
+```{r}
+glimpse(train_df)
+
+```
+
+### Getting Useful Summary Statistics
+
+```{r}
+skim(train_df)
+```
+
+### To Investigate the Datatypes of Coumns.
+
+```{r}
+str(train_df)
+```
+
+### Drop the Columns with NAs
+
+```{r}
+
+train_df <- subset(train_df, select = -c(Alley, PoolQC, Fence, MiscFeature, FireplaceQu))
+str(train_df)
+```
+
+```{r}
+sum(is.na(train_df))
+```
+
+### Pick an Independent Variable with Right-Skewness.
+
+Pick one of the quantitative independent variables from the training data set (train.csv) , and define that variable as  X. 
+
+Make sure this variable is skewed to the right!  Pick the dependent variable and define it as  Y.  
+
+
+```{r}
+x <- train_df$OverallQual
 ```
 
 
 ```{r}
-library(exact2x2)
-library(GGally)
+
+hist(x, main = "Overall Quality")
+
 ```
-```{r}
-library(Matrix)
-library(matrixcalc)
-library(car)
-```
-### Generating a random variable X with the given conditions.
+
 
 ```{r}
-set.seed(1234)
-X = runif(n = 10000, min = 5, max = 15)
-Y = rnorm(10000, mean = 10, sd = 2.89)
+x <- train_df$LotArea
 
-hist(X)
+hist(train_df$LotArea, main = "Lot Area")
+
 ```
-### Generating a Histogram
 
 ```{r}
+# LotArea is clearly right-skewed.
+X = train_df$LotArea
 
-hist(Y)
+# The target variable we are trying to predict is SalePrice, the
+# property's sale price in dollars.
 
+Y = train_df$SalePrice
+
+# Show histogram of SalePrice (target).
+# SalePrice
+hist(train_df$SalePrice, main = "Sale Price")
 ```
+
 ### Probability.   
 
-Calculate as a minimum the below probabilities a through c.  Assume the small letter "x" is estimated as the median of the X variable, and the small letter "y" is estimated as the median of the Y variable.  Interpret the meaning of all probabilities.
+Calculate as a minimum the below probabilities a through c.  Assume the small letter "x" is estimated as the 3d quartile of the X variable, and the small letter "y" is estimated as the 2d quartile of the Y variable.  Interpret the meaning of all probabilities.  In addition, make a table of counts as shown below.
 
-### a.   P(X>x | X>y)
-
-Applying the generalized formula
-
-\[P(A|B) = \frac {P(A \cap B)}{P(B)}\]
-
-\[P(X>x|X>y) =  = \frac {P(X>x \cap X>y )}{P(X>y)}\]
-
-\[P(X>x|X>y) =  = \frac {P(X>x) P(X>y|X>x)}{P(X>y)}\]
+a.	 P(X>x | Y>y)		b.  P(X>x, Y>y)		c.  P(X<x | Y>y)	
 
 
-Now using the R function:
-Let's set the value of x and y
+###  Summarize X (independent var.) and Y (target)
+
+Pipe the data frame into the select() function from the dplyr package in R
 
 ```{r}
-x <- median(X)
-y <- median(Y)
+df = train_df %>% dplyr::select(LotArea, SalePrice)
+summary(df)
 
-cat(
-  'Median of X: ',x,'\n',
-  'Median of Y: ',y,
-  sep = ''
-)
 ```
-### Conclusion:
+The meaning of all these probabilities: 
 
-These values, both close to 10, confirm to expectations. The median of both uniform and normal distributions are very close to the means, and we know the mean of both distributions will be ~10. For X, it’s the halfway point between the min and max (5 and 15), and for Y, it’s given.
+a. means the probability of the LotArea being bigger tham the first quartile, given the SalePrice is bigger than the first Quartile.
 
-We are looking for the probability that our random variable is greater than x, and we already know that our random variable is greater than y. Since both of those values are ~10, our probability should be very close to 1.
+b. means that the probability of both scenarios happening.
 
-We can verify this by creating a subset of cases where X>y, then calculating the proportion of those cases where X is also less than x.
+c. means the probability that the lotArea is smaller than the 1st quartile given that the SalePrice is bigger than the first quartile
 
 ```{r}
-B <- X[X>y]
-A <- B[B>x]
+#Assign quartile values to variables.
+XQ1<-quantile(train_df$LotArea, 0.25)
+YQ1<-quantile(train_df$SalePrice, 0.25)
 
-proportion <- length(A) / length(B)
-
-cat('P(A|B):', proportion)
+#Create subsets of data based on quartile operators.
+yY <- subset(train_df,SalePrice <= YQ1)
+Yy <- subset(train_df,SalePrice > YQ1)
+Xx_Yy<- subset(Yy, LotArea > XQ1)
+Xx_yY<- subset(yY, LotArea > XQ1)
+xX_Yy<- subset(Yy, LotArea <= XQ1)
+xX_yY<- subset(yY, LotArea <= XQ1)
 ```
-Within our random sample, 100% of the values of X within the subset X>y are greater than x. In other words, P(X>x|X>y)=1.
 
-### b.  P(X>x & Y>y)
 
-Here we are applying conditional probability, we’re now looking at a joint probability.
 
-In other words, we’re given nothing, and we have to find the probability that both of these conditions are met simultaneously.
+### calculate the required probabilities.
 
-Individually, the probability that a random variable is greater than the median of its respective distribution is 50%, since the median is, by definition, the 50th percentile. To be a bit more explicit, with a sample of 10,000, the probability would be
-
-\[P(X>x) = \frac {P(10,000/2)}{10,000} = \frac {5000}{10,000} = 0.5\]
-
-And the same would apply to P(Y>y)
-
-we can estimate a joint probability (PA∩B) as the product of each individual probability: P(A)×P(B). So in this case, we would expect the probability to be
-
-\[P(X>x \cap Y > y) = P(X > x)* P(X > y) = 0.4999 * 0.4999 = 0.2499\]
-
-Let’s check this empirically. We can calculate the proportion of cases where X>x compared to the total length of X, and the same for Y>y, then multiply the two.
+### a. P(X>x | Y>y)
 
 ```{r}
-P_A <- length(X[X>x]) / length(X)
-P_B <- length(Y[Y>y]) / length(Y)
+#for P(X>x|Y>y)
+a <- nrow(Xx_Yy)
+nrow(Xx_Yy)/nrow(train_df)
 
-P_AandB <- P_A * P_B
-
-print(P_AandB)
 ```
-### Conclusion:
-
-Our estimate of 0.2499 holds true!
-
-### c.  P(X<x | X>y)	
-
-We will use condition probability, so we can apply a similar approach as our first problem. Moreover, given what we know about the first problem (i.e. that it’s one), we can expect this probability to approach 0. 
-
-Specifically, we know that x and y are both very close to 10. So if X is greater than 10 (the given condition), then the chances of it also being less than 10 should be zero.
-
-Let’s check it from our distributions.
+### b. P(X>x, Y>y)
 
 ```{r}
-B <- X[X>y]
-A <- B[B<x]
-
-proportion <- length(A) / length(B)
-
-cat('P(A|B):', proportion)
+#for P(X>x|y<Y)
+b <- nrow(Xx_yY)
+nrow(Xx_yY)/nrow(train_df)
 ```
-### Conclusion: 
+### c. P(X<x | Y>y)
 
-we find no cases where X is both greater than y and less than x, because both x and y are ~10.
+```{r}
+c <- nrow(xX_Yy)
+nrow(xX_Yy)/nrow(train_df)
+
+```
+
+```{r}
+#for P(X<x|Y>y)
+c <- nrow(xX_Yy)
+nrow(xX_Yy)/nrow(train_df)
+```
+
+```{r}
+#P(X<x|y<Y)
+d <-nrow(xX_yY)
+nrow(xX_yY)/nrow(train_df)
+
+```
+### Creating a table of counts  
+
+```{r}
+table <- matrix(c(d,c,(d+c),b,a,(b+a),(b+d),(c+a),(a+b+c+d)),ncol=3, nrow=3,byrow=TRUE)
+colnames(table) <- c("<=1Q", ">1Q", "Total")
+rownames(table) <- c('<=1Q', '>1Q', 'Total')
+result_table <- as.table(table)
+result_table
+```
+### Does splitting the training data in this fashion make them independent?
+
+No, independence explains whether there is a relation between X & Y. 
+
+Splitting the data doesn’t change the relationship, it just changes the extent of problem domain.
+
+### Does P(A|B)=P(A)P(B)?
+
+Let A be the new variable counting those observations above the 3d quartile for X,
+
+let B be the new variable counting those observations for the 2d quartile for Y. 
+
+Does P(A|B)=P(A)P(B)? 
+
+Check mathematically, and then evaluate by running a Chi Square test for association.
+
+```{r}
+
+#Observations above the 1d quartile for X
+Xx_A <- subset(train_df, LotArea >= XQ1)
+
+#Observations for the 1d quartile for Y
+YQ1 <- quantile(train_df$SalePrice, 0.25)
+Yy_B_1 <- subset(train_df, SalePrice <= YQ1)
+YY_B_2 <- subset(train_df, SalePrice >= YQ1)
+
+```
+
+
+```{r}
+#P(A|B)
+YY_XX <- subset(YY_B_2, LotArea >= XQ1)
+res1 <- nrow(YY_XX)/nrow(train_df)
+#P(A)P(B)
+res2 <- (nrow(Xx_A)/nrow(train_df))*nrow(YY_B_2)/nrow(train_df)
+print(c("P(A|B)=P(A)P(B)?: ", res1==res2))
+
+```
+
+The variables are not independent.
+
+### Description:
+
+### Chi-Square test
+
+```{r}
+chi_table<- table(train_df$LotArea, train_df$SalePrice)
+suppressWarnings(chisq.test(chi_table))
+```
+
+A p value is < 2.2e-16. 
+
+Therefore, we reject the null hypothesis that X is Independent of Y.
+
+```{r}
+library(MASS)
+library(caret)
+```
+
+### Descriptive and Inferential Statistics
+
+### Variable Density Plots for LotArea
+
+```{r}
+#Collect summary statistics
+LotArea.mean <-mean(train_df$LotArea)
+LotArea.median <-median(train_df$LotArea)
+LotArea.mode <- as.numeric(names(sort(-table(train_df$LotArea))))[1]
+LotArea.sd <- sd(train_df$LotArea)
+SalePrice.mean <-mean(train_df$SalePrice)
+SalePrice.median <-median(train_df$SalePrice)
+SalePrice.mode <- as.numeric(names(sort(-table(train_df$SalePrice))))[1]
+SalePrice.sd <- sd(train_df$SalePrice)
+```
+
+```{r}
+#Create density plot for LotArea variable
+d_LotArea <- density(train_df$LotArea)
+plot(d_LotArea, main="LotArea Probabilities", ylab="Probability", xlab="LotArea")
+polygon(d_LotArea, col="light blue")
+abline(v = LotArea.median, col = "green", lwd = 2)
+abline(v = LotArea.mean, col = "blue", lwd = 2)
+abline(v = LotArea.mode, col = "purple", lwd = 2)
+legend("topright", legend=c("median", "mean","mode"),col=c("green", "blue", "purple"), lty=1, cex=0.8)
+```
+
+### Variable Density Plots for SalePrice
+
+```{r}
+#Create density plot for SalePrice variable.
+SalePrice_for_graph <- density(train_df$SalePrice, na.rm=TRUE)
+plot(SalePrice_for_graph, main="SalePrice Probabilities", ylab="Probability", xlab="SalePrice")
+polygon(SalePrice_for_graph, col="light blue")
+abline(v = SalePrice.median, col = "green", lwd = 2)
+abline(v = SalePrice.mean, col = "blue", lwd = 2)
+abline(v = SalePrice.mode, col = "purple", lwd = 2)
+legend("topright", legend=c("median", "mean","mode"),col=c("green", "blue", "purple"), lty=1, cex=0.8 )
+```
+### Plotting A Graph
+
+```{r}
+plot(train_df$LotArea,train_df$SalePrice, main="LotArea vs SalePrice Scatterplot", 
+     xlab="LotArea", ylab="SalePrice", pch=3)
+```
+### 95% confidence Interval
+
+Provide a 95% Confidence Interval for the difference in the mean of the variables.
+
+```{r}
+t.test(train_df$LotArea,train_df$SalePrice)
+
+```
+Since the p value is too low, we reject the hypothesis that the difference in means is equal to 0.
+
+### Correlation matrix
+
+Derive a correlation matrix for THREE of the quantitative variables you selected.
+
+```{r}
+corMatrix<-cor(train_df[, which(names(train_df) %in% c("LotArea", "SalePrice", 'GrLivArea'))])
+corMatrix
+```
+Results show a very low but possible positive correlation between the data of 0.2638.
+
+The correlation between GrLivArea and SalePrice seems to be high at 0.7086245
+
+### Test the hypothesis using t-test
+
+Test the hypothesis that the correlation between these variables is 0 and provide a 92% confidence interval.
+
+```{r}
+
+t.test(train_df$LotArea,train_df$SalePrice, conf.level=0.92)
+
+```
+
+```{r}
+t.test(train_df$LotArea,train_df$GrLivArea, conf.level=0.92)
+```
+
+```{r}
+t.test(train_df$GrLivArea,train_df$SalePrice, conf.level=0.92)
+```
+In all three cases the difference for the 3 variables’ means is not 0
+
+### Would you be worried about familywise error? Why or why not?
+
+The correlation values are not too high so we don’t have to worry about misidentifying the outcomes.
+
+The meaning of this result is that the variables do not say much about the final sale price.
+
+
+### Linear Algebra and Correlation
+
+Invert your correlation matrix (Precision matrix).
+
+```{r}
+corMatrixInverse <- ginv(corMatrix)
+corMatrixInverse
+```
+
+The diagonal elements represent variance inflation factors, which measures the relationship between combinations between variables.
+
+
+### Multiplying the correlation matrix by the precision matrix.
+
+This is the identity Matrix
+
+```{r}
+matrix1<- corMatrixInverse %*% corMatrix
+matrix1
+```
+### Multiply the precision matrix by the correlation matrix.
+
+This represents how matrix products differ depending on the order or direction by which they are multiplied.
+
+```{r}
+matrix2<- corMatrix %*% corMatrixInverse
+matrix2
+```
+
+### Performing Principle Components Analysis
+
+```{r}
+#Perform a log transform on each variable to normalize
+dataCopy<-train_df
+dataCopy$LotArea<-log(dataCopy$LotArea)
+dataCopy$SalePrice<-log(dataCopy$SalePrice)
+dataCopy$GrLivArea<-log(dataCopy$GrLivArea)
+
+#apply PCA and ADD additional parameters for a more interesting interpretation
+
+data.pca<-prcomp(dataCopy[, which(names(dataCopy) %in% c("LotArea", "SalePrice", "GrLivArea"))],center = TRUE,scale = TRUE)
+data.pca
+```
+### Summary
+
+```{r}
+summary(data.pca)
+```
+### Plotting PCA
+
+```{r}
+biplot(data.pca)
+```
+### Analysis
+
+Vectors that point in the same direction correspond to variables that have similar response profiles, 
+
+This can be interpreted as having similar meaning in the context set by the data,
+
+Here SalePrice and GrLivArea have very similar vectors pointing to the same direction. where we will apply the regression technique.
+
+```{r}
+screeplot(data.pca, type="lines")
+```
+### Calculus-Based Probability & Statistics
+
+We take the LotArea data and fit it to an exponential function.
+
+```{r}
+lambda<-fitdistr(train_df$LotArea,"exponential")
+lambda$estimate
+```
+### #Transpose the rate into 1000 selected variables as an exponential distribution
+
+```{r}
+pdf_distr<-rexp(1000, lambda$estimate)
+
+#Plot the results of the exponential distribution
+hist(pdf_distr, freq = FALSE, breaks = 100, main ="Fitted Exponential PDF with LotArea", xlim = c(1, quantile(pdf_distr, 0.99)))
+curve(dexp(x, rate = lambda$estimate), col = "green", add = TRUE)
+
+```
+### Plotting the results as compared to the original data
+
+```{r}
+
+hist(train_df$LotArea, freq = FALSE, breaks = 100, main ="Exponential VS original LotArea data",xlim = c(1, quantile(train_df$LotArea, 0.99)))
+curve(dexp(x, rate = lambda$estimate), col = "green", add = TRUE)
+
+```
+### With the exponential PDF:
+
+5th and 95th percentiles using the cumulative distribution function (CDF)
+
+```{r}
+qexp(0.05, rate = lambda$estimate, lower.tail = TRUE, log.p = FALSE)
+```
+
+```{r}
+qexp(0.95, rate = lambda$estimate, lower.tail = TRUE, log.p = FALSE)
+```
+### 95% confidence interval from the empirical data, assuming normality
+
+```{r}
+qnorm(0.95,LotArea.mean, LotArea.sd)
+```
+
+### Empirical 5th percentile and 95th percentile of the data
+
+```{r}
+quantile(train_df$LotArea, c(.05, .95))
+```
+### What does these values mean?
+
+Analyzing the above result we recognize the differences between a exponential equation and the selected right-skewed data.
+
+The approximation can work to fit different models and help explain the data.
+
+
+### Model Selection / Regression
+
+```{r}
+check_model <- function(m) {
+    print(summary(m))
+    res = residuals(m)
+    print(summary(res))
+    hist(res)
+    plot(fitted(m), resid(m))
+}
+par(mfrow = c(1, 1))
+
+# Full training data set
+train_df.train = train_df
+
+# Reduce to Dataframe with selected feature sets
+train_df.train = train_df.train %>% dplyr::select(SalePrice,
+                                      BldgType,
+                                      BsmtCond,
+                                      BsmtExposure,
+                                      BsmtQual,
+                                      CentralAir,
+                                      GarageArea,
+                                      GarageCars,
+                                      # Exterior1st,
+                                      ExterQual,
+                                      # Fence,
+                                      Fireplaces,
+                                      #FireplaceQu,
+                                      Foundation,
+                                      HouseStyle,
+                                      KitchenQual,
+                                      LandContour,
+                                      LandSlope,
+                                      LotArea,
+                                      MasVnrArea,
+                                      MiscVal,
+                                      Neighborhood,
+                                      OverallCond,
+                                      OverallQual,
+                                      PoolArea,
+                                      # # PoolQC,
+                                      RoofStyle,
+                                      # # Street,
+                                      YearBuilt,
+                                      YearRemodAdd)
+regr_model = lm(train_df.train)
+check_model(regr_model)
+```
+
+
+```{r}
+qqnorm(residuals(regr_model))
+```
+
+
+
+```{r}
+summary(train_df.train)
+```
+
+### Analysis:
+
+Residual standard error: This is an estimate of the standard deviation of the residuals. In this case, it's 32710, indicating the average difference between the observed values and the values predicted by the model is around 32710 units.
+
+Multiple R-squared: This is the proportion of the variance in the dependent variable that is predictable from the independent variables. Here, it's 0.8389, meaning approximately 83.89% of the variability in the dependent variable can be explained by the independent variables.
+
+Adjusted R-squared: This is the R-squared value adjusted for the number of predictors in the model. It's slightly lower at 0.8297 but still suggests a good fit.
+
+F-statistic: This tests the overall significance of the regression model. A larger F-statistic with a small p-value suggests that the overall model is significant. Here, the F-statistic is 91.6 with a p-value less than 2.2e-16, indicating that the overall model is highly significant.
+
+
+```{r}
+test_df <- subset(test_df, select = -c(Alley, PoolQC, Fence, MiscFeature, FireplaceQu))
+str(test_df)
+```
+
+
+### Second Model Selection / Regression Using Random Forest Model
+
+```{r}
+#select only numeric values 
+normalize <- function(train_df){
+  subset <- select_if(train_df, is.numeric)
+  subset[is.na(subset)] <- 0
+  subset <- subset[complete.cases(subset),]
+  return(subset)
+}
+
+
+trainMod <- normalize(train_df)
+testMod <- normalize(test_df)
+null <- lm(SalePrice~1, trainMod)
+all <- glm(as.factor(SalePrice) ~ LotArea+GrLivArea, data=trainMod, family=binomial)
+```
+```{r}
+stepResults <- step(null, scope = list(lower = null, upper = all), direction = "both",trace = 0)
+
+rfFit <-train(SalePrice ~.,
+              data=trainMod,
+              method="rf",
+              trControl=trainControl(method="oob",number=5),
+              prox=TRUE, importance = TRUE,
+              allowParallel=TRUE)
+
+# show the model summary          
+rfFit
+```
+
+
+```{r}
+# display the variables determined to be the most relevant
+dotPlot(varImp(rfFit), main = "Random Forest Model - Most Relevant Variables")
+```
+
+### Predition
+
+```{r}
+
+#append scored data
+
+result <- data.frame('Id' = testMod$Id,'SalePrice' = predict(rfFit, testMod))
+result$SalePrice[result$SalePrice<0] <- 0
+
+plot(density(trainMod$SalePrice))
+
+```
+
+
+```{r}
+plot(density(na.omit(result$SalePrice)))
+```
+
+### Save the results to send to Kaggle
+
+```{r}
+write.csv(result, file = "results_for_kaggle.csv",row.names=FALSE)
+```
 
